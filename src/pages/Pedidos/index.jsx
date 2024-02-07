@@ -53,12 +53,12 @@ const Pedidos = () => {
     }, []);
 
     useEffect(() => {     
-        setPedidosFinalizados(pedidos.filter(pedido => pedido.estadoPedido.nombreEstado === 'Finalizados' || pedido.estadoPedido.nombreEstado === 'Cancelado'));
+        setPedidosFinalizados(pedidos.filter(pedido => pedido.estado_pedido.nombre_estado === 'Finalizados' || pedido.estado_pedido.nombre_estado === 'Cancelado'));
         // Filtra los pedidos según el estado seleccionado
         if (selectedEstado) {
-            setPedidosNoFinalizados(pedidos.filter(pedido => pedido.estadoPedido.nombreEstado === selectedEstado));
+            setPedidosNoFinalizados(pedidos.filter(pedido => pedido.estado_pedido.nombre_estado === selectedEstado));
         } else {
-            setPedidosNoFinalizados(pedidos.filter(pedido => pedido.estadoPedido.nombreEstado !== 'Finalizados' && pedido.estadoPedido.nombreEstado !== 'Cancelado'));
+            setPedidosNoFinalizados(pedidos.filter(pedido => pedido.estado_pedido.nombre_estado !== 'Finalizados' && pedido.estado_pedido.nombre_estado !== 'Cancelado'));
         }
     }, [selectedEstado, pedidos]);
 
@@ -100,9 +100,9 @@ const Pedidos = () => {
                         </label>
                     </div>
                     {estadosPedidos.map((estadoPedidos) => {
-                        const estadoCorrespondiente = estados.find(estado => estado.label === estadoPedidos.nombreEstado);
+                        const estadoCorrespondiente = estados.find(estado => estado.label === estadoPedidos.nombre_estado);
 
-                        if (estadoCorrespondiente && estadoPedidos.nombreEstado !== "Finalizados" && estadoPedidos.nombreEstado !== "Cancelado") {
+                        if (estadoCorrespondiente && estadoPedidos.nombre_estado !== "Finalizados" && estadoPedidos.nombre_estado !== "Cancelado") {
                             const { label, value } = estadoCorrespondiente;
 
                             return (
@@ -112,7 +112,7 @@ const Pedidos = () => {
                                         name="rd_Estado"
                                         id={`rd_btn-${value}`}
                                         className={`btn-${value}`}
-                                        onClick={() => handleEstadoClick(estadoPedidos.nombreEstado)}
+                                        onClick={() => handleEstadoClick(estadoPedidos.nombre_estado)}
                                     />
                                     <label htmlFor={`rd_btn-${value}`} className={`lbl_Estado btn-${value}`}>
                                         {label}

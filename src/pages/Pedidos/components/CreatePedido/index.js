@@ -184,20 +184,20 @@ const handleAgregarProducto = (e, productoId, nombre, precio) => {
         <div className="catalogo">
           {/* Renderizar la lista de productos disponibles */}
           {productos.map((producto) => (
-            <div className="card" style={{ width: "18rem" }} key={producto.idProducto}>
+            <div className="card" style={{ width: "18rem" }} key={producto.id_producto}>
               <div className="card-body">
-                <h5 className="card-title nombre_Producto">{producto.nombreProducto}</h5>
-                <p className="card-title precio_Producto">{formatNumberToCop(producto.precioProducto)}</p>
+                <h5 className="card-title nombre_Producto">{producto.nombre_producto}</h5>
+                <p className="card-title precio_Producto">{formatNumberToCop(producto.precio_producto)}</p>
                 <a
                   href="#"
                   className="btn agregar-producto"
-                  data-producto-id={producto.idProducto}
+                  data-producto-id={producto.id_producto}
                   onClick={(e) =>
                     handleAgregarProducto(
                       e,
-                      producto.idProducto,
-                      producto.nombreProducto,
-                      producto.precioProducto
+                      producto.id_producto,
+                      producto.nombre_producto,
+                      producto.precio_producto
                     )
                   }
                 >

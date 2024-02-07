@@ -27,11 +27,11 @@ const UpdatePedido = ({pedidoById}) => {
                 <span className="fw-light mb-2">(<CiCircleInfo /> Si desea cambiar estos datos dirijase a su perfil)</span>
                 <div className="input-group mb-3">
                     <span className="input-group-text"><CiUser/></span>
-                    <input type="text" className="form-control" placeholder="Nombre" aria-label="Username" value={`${pedido.usuario.nombreUsuario} ${pedido.usuario.apellidoUsuario}`} disabled/>
+                    <input type="text" className="form-control" placeholder="Nombre" aria-label="Username" value={`${pedido.usuario.nombre_usuario} ${pedido.usuario.apellido_usuario}`} disabled/>
                     <span className="input-group-text"><CiMail/></span>
                     <input type="text" className="form-control" placeholder="Correo" aria-label="Server" value={pedido.usuario.email} disabled/>
                     <span className="input-group-text"><CiPhone/></span>
-                    <input type="text" className="form-control" placeholder="Teléfono" aria-label="Server" value={pedido.usuario.celularUsuario} disabled/>
+                    <input type="text" className="form-control" placeholder="Teléfono" aria-label="Server" value={pedido.usuario.celular_usuario} disabled/>
                 </div>
 
                 <h4 className="color-oscuro fw-bold m-0 me-2">Datos de Pedido:</h4>
@@ -39,13 +39,13 @@ const UpdatePedido = ({pedidoById}) => {
 
                 <div className="input-group mb-3">
                     <span className="input-group-text"><CiCalendar/></span>
-                    <input type="date" className="form-control" placeholder="Fecha" aria-label="Username" value={formatearFechaParaInputDate(pedido.fechaPedido)}/>
+                    <input type="date" className="form-control" placeholder="Fecha" aria-label="Username" value={formatearFechaParaInputDate(pedido.fecha_pedido)}/>
                     <span className="input-group-text"><CiCircleInfo/></span>
-                    <input type="text" className="form-control" placeholder="Estado" aria-label="Server" value={pedido.estadoPedido.nombreEstado}/>
+                    <input type="text" className="form-control" placeholder="Estado" aria-label="Server" value={pedido.estado_pedido.nombre_estado}/>
                 </div>
 
                 <div className="form-floating">
-                    <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={pedido.descripcionPedido}></textarea>
+                    <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={pedido.descripcion_pedido}></textarea>
                     <label htmlFor="floatingTextarea">Descripción</label>
                 </div>
                 
