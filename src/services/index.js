@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = 'http://localhost:8080/api/';
+const url = 'http://localhost:8000/api/';
 
 const apiService = {
     // _________ Pedidos ___________________________________________________________
@@ -46,7 +46,7 @@ const apiService = {
     // _________ Estados de Pedidos ___________________________________________________________
     getEstados : async () => {
         try {
-            const url_estados = url + "estadopedidos";
+            const url_estados = url + "estados_pedido";
             const response = await axios.get(url_estados);
             const data = response.data;
             // console.log(data)
@@ -60,7 +60,7 @@ const apiService = {
     // _________ Detalles de pedidos ___________________________________________________________
     getDetallesPedidos : async () => {
         try {
-            const url_pedidos = url + "detallePedidos";
+            const url_pedidos = url + "detalles_pedido";
             const response = await axios.get(url_pedidos);
             const data = response.data;
             // console.log(data)
@@ -74,7 +74,7 @@ const apiService = {
     createDetallePedido : async (detallePedido) => {
         try {
             detallePedido.estado = 0;
-            const url_detallesPedidos = url + "detallePedidos";
+            const url_detallesPedidos = url + "detalles_pedido";
             const response = await axios.post(url_detallesPedidos, detallePedido);
             const data = response.data;
             return data;
