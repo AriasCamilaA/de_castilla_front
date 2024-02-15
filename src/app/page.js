@@ -1,113 +1,146 @@
-import Image from "next/image";
+import NavBar from "./ui/Landing/NavBar/NavBar";
+import Footer from "./ui/Landing/Footer/Footer";
+import "./css/Landing.css";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    // className="flex min-h-screen flex-col items-center justify-between p-24"
+    <main>
+      <NavBar/>
+      <div>
+            <section id="banner">
+                <div id="carouselExampleIndicators" className="carousel slide">
+                <div className="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={0} className="active" aria-current="true" aria-label="Slide 1" />
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={1} aria-label="Slide 2" />
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={2} aria-label="Slide 3" />
+                </div>
+                <div className="carousel-inner">
+                    <div className="carousel-item active">
+                    <div className="carrusel">
+                        <div>
+                        <h1>producto 1</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus laudantium
+                            optio, odit porro aliquid quasi inventore quia quo neque officiis, quisquam incidunt
+                            consequuntur impedit distinctio libero. Debitis aut quasi rerum.</p>
+                        </div>
+                        <img src='assets/img/p2.jpeg' className="d-block w-100" />
+                    </div>
+                    </div>
+                    <div className="carousel-item">
+                    <div className="carrusel">
+                        <div>
+                        <h1>producto 2</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus laudantium
+                            optio, odit porro aliquid quasi inventore quia quo neque officiis, quisquam incidunt
+                            consequuntur impedit distinctio libero. Debitis aut quasi rerum.</p>
+                        </div>
+                        <img src='assets/img/p3.jpeg' className="d-block w-100" />
+                    </div>
+                    </div>
+                    <div className="carousel-item">
+                    <div className="carrusel">
+                        <div>
+                        <h1>producto 3</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus laudantium
+                            optio, odit porro aliquid quasi inventore quia quo neque officiis, quisquam incidunt
+                            consequuntur impedit distinctio libero. Debitis aut quasi rerum.</p>
+                        </div>
+                        <img src='assets/img/p4.jpeg' className="d-block w-100" />
+                    </div>
+                    </div>
+                </div>
+                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span className="carousel-control-prev-icon" aria-hidden="true" />
+                    <span className="visually-hidden">Previous</span>
+                </button>
+                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span className="carousel-control-next-icon" aria-hidden="true" />
+                    <span className="visually-hidden">Next</span>
+                </button>
+                </div>
+            </section>
+            <img src='assets/img/separador.png' alt className="separador" />
+            <section id="quienes_somos" className="quienes_somos container ">
+                <h1>Quíenes somos</h1>
+                <div className="row contenido">
+                <div className="col">
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium, officiis, assumenda eos sequi
+                    error ipsam recusandae delectus et commodi amet culpa voluptatem a. Id aliquam aperiam aspernatur
+                    excepturi omnis impedit?</p>
+                </div>
+                <div className="accordion accordion-flush col" id="accordionFlushExample">
+                    <div className="accordion-item">
+                    <h2 className="accordion-header" id="flush-headingOne">
+                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Misión
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div className="accordion-body">Placeholder content for this accordion, which is intended to
+                        demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion
+                        body.</div>
+                    </div>
+                    </div>
+                    <div className="accordion-item">
+                    <h2 className="accordion-header" id="flush-headingTwo">
+                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        Visión
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" className="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div className="accordion-body">Placeholder content for this accordion, which is intended to
+                        demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion
+                        body. Let's imagine this being filled with some actual content.</div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </section>
+            <section id="especialidades" className="especialidades container">
+                <div className="separador" />
+                <h1>Nuestras Especialidades</h1>
+                <div>
+                <div>
+                    <img src='assets/icons/cheesecake.png' alt="cheese_cake" />
+                    <p>CHEESECAKE</p>
+                </div>
+                <div>
+                    <img src='assets/icons/mantecada.png' alt="mantecada" />
+                    <p>MANTECADA</p>
+                </div>
+                <div>
+                    <img src='assets/icons/helado.png' alt="helado" />
+                    <p>HELADO</p>
+                </div>
+                <div>
+                    <img src='assets/icons/oblea.png' alt="oblea" />
+                    <p>OBLEA</p>
+                </div>
+                <div>
+                    <img src='assets/icons/waffle.png' alt="waffle" />
+                    <p>WAFFLE</p>
+                </div>
+                </div>
+            </section>
+            <img src='assets/img/separador.png' alt className="separador" />
+            <section id="galeria" className="galeria">
+                <div className="separador" />
+                <div className="container">
+                <h1>Galería</h1>
+                <div className="imgs_galeria">
+                    <img src='assets/img/galeria 1.png' alt="galeria_1" />
+                    <img src='assets/img/galeria 2.png' alt="galeria_2" />
+                    <img src='assets/img/galeria 1.png' alt="galeria_1" />
+                    <img src='assets/img/galeria 2.png' alt="galeria_2" />
+                    <img src='assets/img/galeria 1.png' alt="galeria_1" />
+                    <img src='assets/img/galeria 2.png' alt="galeria_2" />
+                </div>
+                </div>
+            </section>
+            <div className="separador" />
+            </div>
+      <Footer/>
     </main>
   );
 }
