@@ -126,9 +126,9 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
         (producto) =>
           pedidosService.createDetallePedido({
             cantidad_producto: producto.cantidad,
-            subtotal_detalle_pedido: producto.cantidad * producto.precio,
-            producto: { id_producto: producto.id },
-            pedido: { id_pedido: createdPedido.id_pedido },
+            subtotal_detalle_pedido: producto.cantidad * parseFloat(producto.precio), // Calcular subtotal aquí
+            id_producto_fk: producto.id, // Cambiar a id_producto_fk
+            id_pedido_fk: createdPedido.id_pedido, // Cambiar a id_pedido_fk
             estado: true,
           })
       );

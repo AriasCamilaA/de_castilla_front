@@ -43,6 +43,19 @@ const pedidosService = {
         }
         
     },
+    updatePedido : async (pedido) => {
+        try {
+            pedido.estado = 0;
+            const url_pedidos = url + "pedidos/"+pedido.id_pedido+"/";
+            const response = await axios.put(url_pedidos, pedido);
+            const data = response.data;
+            return data;
+        } catch (error) {
+            console.error("API ERROR: REGISTRAR PEDIDO: "+error);
+            throw error;
+        }
+        
+    },
     // _________ Estados de Pedidos ___________________________________________________________
     getEstados : async () => {
         try {
