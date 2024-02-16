@@ -60,7 +60,7 @@ export default function Home() {
                 </button>
                 </div>
             </section>
-            <img src='assets/img/separador.png' alt className="separador" />
+            <img src='assets/img/separador.png' alt='imagen'className="separador" />
             <section id="quienes_somos" className="quienes_somos container ">
                 <h1>Quíenes somos</h1>
                 <div className="row contenido">
@@ -123,7 +123,7 @@ export default function Home() {
                 </div>
                 </div>
             </section>
-            <img src='assets/img/separador.png' alt className="separador" />
+            <img src='assets/img/separador.png' alt='imagen'className="separador" />
             <section id="galeria" className="galeria">
                 <div className="separador" />
                 <div className="container">

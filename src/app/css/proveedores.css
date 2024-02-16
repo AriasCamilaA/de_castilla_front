@@ -1,0 +1,15 @@
+.contenido_proveedores{
+   display: flex; 
+   width: 90%;
+}
+
+.contenido_proveedores>div{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.calendario{
+    width: 90%;
+}

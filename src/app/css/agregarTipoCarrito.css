@@ -1,0 +1,80 @@
+.contenido {
+    flex-direction: row;
+    overflow: hidden;
+}
+
+/* ------------Catalogo de productos---------------- */
+
+.catalogo {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: auto;
+    height: calc(100vh - 68px - 32px);
+    justify-content: center;
+    overflow: auto;
+}
+
+.catalogo__producto {
+    text-align: center;
+    margin: 16px;
+    height: 384px;
+}
+
+.catalogo__producto * {
+    width: 16rem;
+    padding: 4px 0;
+    margin: 0;
+}
+
+
+/* ----------carrito------------------ */
+.carrito {
+    background: var(--fondo2);
+    height: calc((100vh - 68px) - 32px);
+    border-radius: 16px;
+    text-align: center;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carrito img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.carrito__productos-especial {
+    height: 40vh;
+    overflow: auto;
+}
+
+.carrito__producto {
+    background: var(--blanco);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 16px;
+    border-radius: 4px;
+    width: 280px;
+}
+
+.carrito__producto input {
+    width: 40px;
+}
+
+.carrito__total {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.carrito__opciones textarea{
+    resize: none;
+    border: 1px solid transparent;
+}
+
+.carrito__opciones textarea::selection{
+    border: 1px solid var(--fondo3);
+}

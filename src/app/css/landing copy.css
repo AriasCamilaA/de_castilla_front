@@ -1,0 +1,268 @@
+.landingMenu {
+    background-color: var(--oscuro);
+    color: var(--blanco);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+}
+
+.logo {
+    margin-left: 24px;
+    height: 84px;
+}
+
+.landingMenu__links {
+    display: flex;
+    align-items: center;
+    margin-right: 26px;
+}
+
+.landingMenu__links ul {
+    list-style: none;
+    display: flex;
+    margin-right: 24px;
+    margin-bottom: 0px;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.landingMenu__links a {
+    text-decoration: none;
+    color: var(--blanco);
+    padding: 12px;
+    text-align: center;
+    display: flex;
+    width: auto;
+    border-radius: 8px;
+}
+
+.landingMenu__links a:hover {
+    background-color: var(--fondo1);
+    color: var(--oscuro);
+}
+
+.landingMenu__btns {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.landingMenu__btns a {
+    border-radius: 16px;
+    border: 1px solid var(--fondo2);
+    color: var(--blanco);
+}
+
+.landingMenu__btns a:hover {
+    background-color: var(--fondo1);
+}
+
+.landingMenu ul {
+    list-style: none;
+    display: flex;
+    margin-right: 24px;
+    margin-bottom: 0px;
+    align-items: center;
+}
+
+.landingMenu a {
+    text-decoration: none;
+    color: var(--blanco);
+    padding: 12px;
+    text-align: center;
+    display: flex;
+    width: auto;
+}
+
+.landingMenu .btn {
+    border-radius: 24px;
+    border: 1px solid var(--fondo2);
+    margin: 0 8px;
+}
+
+.landingMenu li:hover,.landingMenu a:hover{
+    background-color: var(--fondo1);
+    color: var(--oscuro);
+}
+
+/* -----------------  Carrusel --------------------------------- */
+
+.carousel {
+    height: 70vh;
+    overflow: hidden;
+    align-items: center;
+    display: flex;
+}
+
+.carrusel{
+    display: flex;
+    background-color: var(--fondo2);
+    align-items: center;
+    text-align: center;
+    margin-top: 160px;
+}
+
+.carrusel > div{
+    padding: 20px;
+}
+
+.separador{
+    height: 88px;
+    margin: auto;
+    display: flex;
+}
+
+.quienes_somos{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 354px;
+}
+
+.quienes_somos .contenido{
+    flex-direction: row;
+}
+
+.especialidades{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.especialidades>div{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 800px;
+
+}
+.especialidades>div>div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px;
+
+}
+
+.especialidades img{
+    height: 100px;
+}
+
+.especialidades p{
+    letter-spacing: 5px;
+}
+
+.galeria>div{
+    display: flex ;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.imgs_galeria{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.galeria{
+    background-color: var(--fondo2);
+}
+
+.galeria img{
+    width: 300px;
+    margin: 16px;
+}
+
+footer .container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer .datos{
+    display: flex;
+    align-items: center;
+}
+
+footer .map{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mapCatilla{
+    border-radius: 16px;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+footer h2{
+    color: var(--blanco);
+}
+
+
+@media(max-width:768px) {
+    .landingMenu__links ul{
+        display: none;
+    }
+
+    .landingMenu__btns{
+        margin: 0;
+    }
+
+    .separador {
+        width: 100%;
+        height: auto;
+    }
+    .carousel{
+        height: auto;
+    }
+
+    .carrusel{
+        flex-direction: column-reverse;
+        margin-top: 84px;
+    }
+
+    .carrusel p {
+        display: none;
+    }
+
+    .quienes_somos{
+        height: auto;
+    }
+
+    .quienes_somos .contenido{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .galeria img{
+        width: 180px;
+    }
+
+    .especialidades img{
+        height: 80px;
+    }
+
+    .especialidades>div{
+        width: auto;
+    }
+
+    .especialidades>div>div{
+        margin: 20px;
+    }
+
+    footer .container{
+        flex-direction: column-reverse;
+    }
+}

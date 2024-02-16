@@ -92,6 +92,10 @@
     color: var(--oscuro);
 }
 
+.imgNav{
+    height: 6em;
+}
+
 @media(max-width:768px) {
     .landingMenu__links ul{
         display: none;

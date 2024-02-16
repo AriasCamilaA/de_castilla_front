@@ -2,10 +2,10 @@ import "./NavBar.css";
 
 const NavBar = () => {
     return (
-        <nav className="landingMenu__Superior flex bg-oscuro">
-            <div className="menu-logo nav-landing">
+        <nav className="landingMenu__Superior flex bg-oscuro justify-content-around align-items-center fixed-top">
+            <div className="menu-logo nav-landing flex">
                 <a href="/landing">
-                <img src="assets/img/logoClaro.png" alt />
+                <img src="assets/img/logoClaro.png" className="imgNav" />
                 </a>
                 <div className="landingMenu__links">
                 <ul>
