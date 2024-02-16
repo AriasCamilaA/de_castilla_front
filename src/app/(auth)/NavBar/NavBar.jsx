@@ -13,28 +13,28 @@ const NavBar = () => {
                 <div className="menuLateral">
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoVentas.png' alt="icono" />
-                        <Link href="../ventas/visualizarVenta">Ventas</Link>
+                        <Link href="/ventas">Ventas</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoInventario.png' alt="icono" />
-                        <Link href="../inventario/visualizarInventario">Inventario</Link>
+                        <Link href="/inventarios">Inventario</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoProveedores.png' alt="icono" />
-                        <Link href="../ordenes/visualizar">Proveedores</Link>
+                        <Link href="/proveedores">Proveedores</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoPedidos.png' alt="icono" />
-                        <Link href="../pedidos/visualizar">Pedidos</Link>
+                        <Link href="/pedidos">Pedidos</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoUsuarios.png' alt="icono" />
-                        <Link href="../usuarios/login">Usuarios</Link>
+                        <Link href="/usuarios">Usuarios</Link>
                     </div>
-                    <div className="menuLateral__Opcion">
+                    {/* <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoEstadisticas.png' alt="icono" />
                         <Link href="#">Estadísticas</Link>
-                    </div>
+                    </div> */}
                 </div>
                 </div>
                 {
