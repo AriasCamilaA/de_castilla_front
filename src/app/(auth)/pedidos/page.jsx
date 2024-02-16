@@ -32,6 +32,16 @@ const PedidosPage = () => {
         { label: 'Finalizados', value: 'finalizados' },
     ];
 
+    const generarPDF = () => {
+        pedidosService.getPDF()
+        .then((response) => {
+            showAlert("accept", 'PDF', "Pedidos exportados correctamente");
+        })
+        .catch(() => {
+            showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente los pedidos");
+        });
+    }
+
     useEffect(() => {
         // Obtenemos los pedidos
         pedidosService.getPedidos()
@@ -138,8 +148,8 @@ const PedidosPage = () => {
                         <p className='btn btn-oscuro mb-0 py-1 px-2' onClick={()=>limpiarFiltros()}>x</p>
                     </div>
                     <div className='flitros__opciones d-flex'>
-                        <p className='btn btn-excel'>Excel</p>
-                        <p className='btn btn-pdf'>PDF</p>
+                        <p className='btn btn-excel' >Excel</p>
+                        <p className='btn btn-pdf' onClick={generarPDF}>PDF</p>
                         <p className='btn btn-oscuro' data-bs-toggle="modal" data-bs-target="#create">
                             <strong className='me-1'>+</strong>
                             Agregar Pedido

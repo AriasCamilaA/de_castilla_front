@@ -111,6 +111,22 @@ const pedidosService = {
         }
         
     },
+    // _________ PDF ___________________________________________________________
+    getPDF : async () => {
+        try {
+            const url_productos = url + "pedidos/generate-pdf/";
+            // const response = await axios.get(url_productos);
+            // const data = response.data;
+            window.open(url_productos);
+            return null;
+            // console.log(data)
+            return data;
+        } catch (error) {
+            console.error("API ERROR: ESTADOS PEDIDO: "+error);
+            throw error;
+        }
+        
+    },
 }
 
 export default pedidosService;
