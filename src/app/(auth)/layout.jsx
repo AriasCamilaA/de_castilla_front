@@ -1,9 +1,9 @@
+import NavBar from "./NavBar/NAvBar";
+
 export default function authlayout({ children }) {
     return (
       <div >
-        <div>
-            Aqui va estar mi menu
-        </div>
+        <NavBar />
         <div>{children}</div>
       </div>
     );
