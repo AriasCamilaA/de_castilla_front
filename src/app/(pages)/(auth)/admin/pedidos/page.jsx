@@ -147,7 +147,7 @@ const PedidosPage = () => {
                     <div className='filtros__div1'>
                         <div className='inputSearch'>
                             <img src="/assets/icons/lupa.png" />
-                            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} id="searchTerm" placeholder='Nombre o #Documento' />
+                            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} id="searchTerm" placeholder='Nombre o #Documento' />
                         </div>
                         <div className="filtros__fecha">
                             <input type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} id="fechaInicio"/>
