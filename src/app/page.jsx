@@ -1,6 +1,6 @@
-import NavBar from "./ui/Landing/NavBar/NavBar";
-import Footer from "./ui/Landing/Footer/Footer";
-import "./css/Landing.css";
+import NavBar from "./components/Landing/NavBar/NavBar";
+import Footer from "./components/Landing/Footer/Footer";
+import "app/app/css/generales/Landing.css";
 
 export default function Home() {
   return (

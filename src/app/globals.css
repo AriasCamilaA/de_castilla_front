@@ -61,9 +61,9 @@ body {
 }
 
 h1,h2,h3 {
-    font-family: 'Sofia', cursive;
-    color: var(--oscuro);
-    margin-bottom: 0;
+    font-family: 'Sofia', cursive !important;
+    color: var(--oscuro) !important;
+    margin-bottom: 0 !important;
     /* margin-bottom: revert; */
     /* margin: 20px 4px; */
 }
