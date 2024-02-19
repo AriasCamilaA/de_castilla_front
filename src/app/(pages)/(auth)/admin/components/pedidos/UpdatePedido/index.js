@@ -13,7 +13,7 @@ const estados = [
     { label: 'Finalizados', value: 7 },
 ];
 
-const UpdatePedido = ({ pedidoById }) => {
+const UpdatePedido = ({ pedidoById, actualizarListaPedidos, handleCerrarModalDetallePedido  }) => {
     const [pedido, setPedido] = useState(null);
     const [nuevaDescripcion, setNuevaDescripcion] = useState('');
     const [nuevoEstado, setNuevoEstado] = useState('');
@@ -30,7 +30,9 @@ const UpdatePedido = ({ pedidoById }) => {
             });
     }, [pedidoById]);
 
-    const handleActualizarPedido = () => {
+    const handleActualizarPedido = (e) => {
+        e.preventDefault(); // Evitar la recarga de la página al enviar el formulario
+
         if (!nuevaDescripcion.trim()) {
             showAlert("error", "Descripción Vacía", "Ingrese una descripción para actualizar el pedido.");
             return;
@@ -45,10 +47,9 @@ const UpdatePedido = ({ pedidoById }) => {
         pedidosService.updatePedido(pedidoActualizado)
             .then(() => {
                 showAlert("success", "Pedido Actualizado", "El pedido ha sido actualizado correctamente.");
-                setTimeout(() => {
-                    window.location.href = "/admin/pedidos"; // Redirigir a la página de pedidos después de 1 segundo
-                }, 1000);
                 setPedido(pedidoActualizado);
+                handleCerrarModalDetallePedido();
+                actualizarListaPedidos();
             })
             .catch(() => {
                 showAlert("error", "Error de Actualización", "No se pudo actualizar el pedido.");
@@ -90,7 +91,7 @@ const UpdatePedido = ({ pedidoById }) => {
                         <label htmlFor="floatingTextarea">Descripción</label>
                     </div>
 
-                    <button className="btn btn-oscuro mt-3" onClick={handleActualizarPedido}>Actualizar Pedido</button>
+                    <button type="button" className="btn btn-oscuro mt-3" onClick={handleActualizarPedido}>Actualizar Pedido</button>
 
                 </div>
             )}

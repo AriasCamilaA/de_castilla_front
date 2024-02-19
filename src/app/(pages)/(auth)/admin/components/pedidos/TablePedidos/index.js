@@ -29,6 +29,7 @@ const TablePedidos = ({pedidosNoFinalizados, pedidosFinalizados, searchTerm, est
             clickedTablink.classList.add("bg-oscuro");
         }
     }
+    
 
     return (
         <div className="tablaConTab">

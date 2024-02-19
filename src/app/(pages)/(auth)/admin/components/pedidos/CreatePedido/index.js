@@ -5,7 +5,7 @@ import { formatNumberToCop, showAlert } from "app/app/utilities";
 import "app/app/css/pedidos/createPedidoVenta.css";
 import "app/app/css/pedidos/botones.css";
 
-const CreatePedido = ({ actualizarListaPedidos }) => {
+const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) => {
   const [productos, setProductos] = useState([]);
   const [productosAgregados, setProductosAgregados] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
@@ -136,7 +136,7 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
       await Promise.all(detallesPedidosPromises);
   
       actualizarListaPedidos();
-  
+      handleCerrarModalCrearPedido();
       showAlert(
         "success",
         "Pedido Creado",

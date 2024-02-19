@@ -77,6 +77,14 @@ const PedidosPage = () => {
         setSelectedEstado(estado);
     };
 
+    const handleCerrarModalDetallePedido = () => {
+        document.getElementById('modalDetallePedido').click();
+    };
+
+    const handleCerrarModalCrearPedido = () => {
+        document.getElementById('modalCrearPedido').click();
+    };
+
     const limpiarFiltros = () => {
         setSearchTerm("");
         setFechaInicio("");
@@ -166,36 +174,37 @@ const PedidosPage = () => {
                     setPedidoById={setPedidoById}
                 />
             </div>
-            
+            {/*--------------------------- MODAL DE NUEVO PEDIDO ------------------------------------*/}
             <div className="modal fade" id="create" tabIndex={-1} role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                 <div className="modal-dialog modal-xl" role="document">
                     <div className="modal-content">
                         <div className="modal-header d-flex align-items-start">
                             <h5 className="modal-title" id="modalTitleId">Nuevo Pedido</h5>
-                            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id='modalCrearPedido'>
                                 <p style={{fontFamily: "arial"}}>x</p>
                             </button>
                         </div>
                         <div className="modal-body">
                             <div className="container-fluid">
-                            <CreatePedido actualizarListaPedidos={actualizarListaPedidos}/>
+                            <CreatePedido actualizarListaPedidos={actualizarListaPedidos} handleCerrarModalCrearPedido={handleCerrarModalCrearPedido}/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {/*--------------------------- MODAL DE ACTUALIZAR PEDIDO PEDIDO ------------------------------------*/}
             <div className="modal fade" id="update" tabIndex={-1} role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                 <div className="modal-dialog modal-xl" role="document">
                     <div className="modal-content">
                         <div className="modal-header d-flex align-items-start">
                             <h5 className="modal-title" id="modalTitleId">Actualizar Pedido # {pedidoById}</h5>
-                            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id="modalDetallePedido">
                                 <p style={{fontFamily: "arial"}}>x</p>
                             </button>
                         </div>
                         <div className="modal-body">
                             <div className="container-fluid">
-                                {pedidoById && <UpdatePedido pedidoById={pedidoById}/>}
+                                {pedidoById && <UpdatePedido pedidoById={pedidoById} actualizarListaPedidos={actualizarListaPedidos} handleCerrarModalDetallePedido={handleCerrarModalDetallePedido}/>}
                             </div>
                         </div>
                     </div>
