@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { formatearFecha } from "app/app/utilities";
+import { formatearFecha, showAlert } from "app/app/utilities";
+import pedidosService from "app/app/services/pedidos_service";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
-const TablePedidos = ({pedidosNoFinalizados, pedidosFinalizados, searchTerm, estados, fechaInicio, fechaFin, setPedidoById}) => {
+const TablePedidos = ({ pedidosNoFinalizados, pedidosFinalizados, searchTerm, estados, fechaInicio, fechaFin, setPedidoById, actualizarListaPedidos }) => {
     const [tabActual, setTabActual] = useState('Pendientes');
 
     const cambiarTab = (tab) => {
@@ -29,7 +32,43 @@ const TablePedidos = ({pedidosNoFinalizados, pedidosFinalizados, searchTerm, est
             clickedTablink.classList.add("bg-oscuro");
         }
     }
+
+    const cancelarPedido = (pedido) => {
+        const MySwal = withReactContent(Swal);
+        MySwal.fire({
+            title: '¿Está seguro de cancelar el pedido?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#732f48',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleCancelarPedido(pedido);
+            }
+        });
+    }
     
+    const handleCancelarPedido = (pedido) => {
+        pedido.id_estado_pedido_fk = 5;
+        pedidosService.updatePedido(pedido)
+        .then(() => {
+            showAlert(
+                "success",
+                "Pedido Cancelado",
+                "El pedido ha sido cancelado correctamente"
+                );
+                actualizarListaPedidos();
+            })
+            .catch(() => {
+                showAlert(
+                    "error",
+                "No se pudo cancelar el pedido",
+                "Vuelva a intentarlo más tarde"
+            );
+        });
+    }
+
 
     return (
         <div className="tablaConTab">
@@ -95,8 +134,15 @@ const TablePedidos = ({pedidosNoFinalizados, pedidosFinalizados, searchTerm, est
                                             </label>
                                         </td>
                                         <td className="tabla__opcion">
-                                            <div data-bs-toggle="modal" data-bs-target="#update" onClick={()=>setPedidoById(pedido.id_pedido)}>
-                                                <img src="/assets/icons/visualizar.png" alt="Visualizar" />
+                                            <div className="opciones_tabla">
+                                                <div data-bs-toggle="modal" data-bs-target="#update" onClick={() => setPedidoById(pedido.id_pedido)}>
+                                                    <img src="/assets/icons/visualizar.png" alt="Visualizar" />
+                                                </div>
+                                                {['Aprobado', 'Por Aprobar'].includes(pedido.estado_pedido.nombre_estado) && (
+                                                    <div>
+                                                        <img src="/assets/icons/borrar.png" alt="Cancelar" onClick={() => cancelarPedido(pedido)}/>
+                                                    </div>
+                                                )}
                                             </div>
                                         </td>
                                     </tr>
@@ -151,7 +197,7 @@ const TablePedidos = ({pedidosNoFinalizados, pedidosFinalizados, searchTerm, est
                                             </label>
                                         </td>
                                         <td className="tabla__opcion">
-                                            <div data-bs-toggle="modal" data-bs-target="#update" onClick={()=>setPedidoById(pedido.id_pedido)}>
+                                            <div data-bs-toggle="modal" data-bs-target="#update" onClick={() => setPedidoById(pedido.id_pedido)}>
                                                 <img src="/assets/icons/visualizar.png" alt="Visualizar" />
                                             </div>
                                         </td>

@@ -35,7 +35,7 @@ const PedidosPage = () => {
     const generarPDF = () => {
         pedidosService.getPDF()
         .then((response) => {
-            showAlert("accept", 'PDF', "Pedidos exportados correctamente");
+            showAlert("success", 'PDF', "Pedidos exportados correctamente");
         })
         .catch(() => {
             showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente los pedidos");
@@ -172,6 +172,7 @@ const PedidosPage = () => {
                     fechaInicio={fechaInicio}
                     fechaFin={fechaFin}
                     setPedidoById={setPedidoById}
+                    actualizarListaPedidos={actualizarListaPedidos}
                 />
             </div>
             {/*--------------------------- MODAL DE NUEVO PEDIDO ------------------------------------*/}

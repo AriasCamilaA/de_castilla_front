@@ -80,7 +80,7 @@ const UpdatePedido = ({ pedidoById, actualizarListaPedidos, handleCerrarModalDet
                         <input type="date" className="form-control" placeholder="Fecha" aria-label="Username" value={formatearFechaParaInputDate(pedido.fecha_pedido)} disabled />
                         <span className="input-group-text"><AiOutlineInfoCircle /></span>
                         <select className="form-select" value={nuevoEstado} onChange={(e) => setNuevoEstado(parseInt(e.target.value))}>
-                            {estados.map((estado) => (
+                            {estados.filter(estado => estado.value !== 5).map((estado) => (
                                 <option key={estado.value} value={estado.value}>{estado.label}</option>
                             ))}
                         </select>
