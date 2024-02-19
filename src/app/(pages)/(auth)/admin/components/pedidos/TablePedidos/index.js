@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formatearFecha } from "../../../../utilities";
+import { formatearFecha } from "app/app/utilities";
 
 const TablePedidos = ({pedidosNoFinalizados, pedidosFinalizados, searchTerm, estados, fechaInicio, fechaFin, setPedidoById}) => {
     const [tabActual, setTabActual] = useState('Pendientes');

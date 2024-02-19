@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AiOutlineCalendar, AiOutlineInfoCircle, AiOutlineMail, AiOutlinePhone, AiOutlineUser } from "react-icons/ai";
-import pedidosService from "../../_pedidos_service";
+import pedidosService from "app/app/services/pedidos_service";
 import { formatearFechaParaInputDate, showAlert } from "app/app/utilities";
 
 const estados = [
@@ -46,7 +46,7 @@ const UpdatePedido = ({ pedidoById }) => {
             .then(() => {
                 showAlert("success", "Pedido Actualizado", "El pedido ha sido actualizado correctamente.");
                 setTimeout(() => {
-                    window.location.href = "/pedidos"; // Redirigir a la página de pedidos después de 1 segundo
+                    window.location.href = "/admin/pedidos"; // Redirigir a la página de pedidos después de 1 segundo
                 }, 1000);
                 setPedido(pedidoActualizado);
             })

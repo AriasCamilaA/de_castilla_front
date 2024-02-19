@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { IoTrash } from "react-icons/io5";
-import pedidosService from "../../_pedidos_service";
+import pedidosService from "app/app/services/pedidos_service";
 import { formatNumberToCop, showAlert } from "app/app/utilities";
-import "../../css/createPedidoVenta.css";
-import "../../css/botones.css";
+import "app/app/css/pedidos/createPedidoVenta.css";
+import "app/app/css/pedidos/botones.css";
 
 const CreatePedido = ({ actualizarListaPedidos }) => {
   const [productos, setProductos] = useState([]);
@@ -163,8 +163,7 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
               <div className="card-body">
                 <h5 className="card-title nombre_Producto">{producto.nombre_producto}</h5>
                 <p className="card-title precio_Producto">{formatNumberToCop(producto.precio_producto)}</p>
-                <a
-                  href="#"
+                <div
                   className="btn agregar-producto"
                   data-producto-id={producto.id_producto}
                   onClick={(e) =>
@@ -177,7 +176,7 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
                   }
                 >
                   Agregar
-                </a>
+                </div>
               </div>
             </div>
           ))}

@@ -1,4 +1,4 @@
-import NavBar from "./NavBar/NAvBar";
+import NavBar from "./NavBar/NavBar";
 
 export default function authlayout({ children }) {
     return (
