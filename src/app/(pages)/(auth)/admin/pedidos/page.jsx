@@ -7,7 +7,7 @@ import TablePedidos from '../components/pedidos/TablePedidos';
 import "app/app/css/pedidos/tab_tabla.css";
 import "app/app/css/pedidos/tablas.css";
 import "app/app/css/pedidos/filtros.css";
-import "./Pedidos.css"
+import "app/app/css/pedidos/Pedidos.css"
 import "app/app/css/pedidos/botones.css";
 import UpdatePedido from '../components/pedidos/UpdatePedido';
 
