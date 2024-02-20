@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineCalendar, AiOutlineInfoCircle, AiOutlineMail, AiOutlinePhone, AiOutlineUser } from "react-icons/ai";
 import pedidosService from "app/app/services/pedidos_service";
 import { formatearFechaParaInputDate, showAlert } from "app/app/utilities";
+import DetallesPedido from "../DetallesPedido/DetallesPedido";
 
 const estados = [
     { label: 'Por Aprobar', value: 1 },
@@ -77,7 +78,7 @@ const UpdatePedido = ({ pedidoById, actualizarListaPedidos, handleCerrarModalDet
 
                     <div className="input-group mb-3">
                         <span className="input-group-text"><AiOutlineCalendar /></span>
-                        <input type="date" className="form-control" placeholder="Fecha" aria-label="Username" value={formatearFechaParaInputDate(pedido.fecha_pedido)} disabled />
+                        <input type="date" className="form-control" placeholder="Fecha" aria-label="Username" value={(pedido.fecha_pedido)} disabled />
                         <span className="input-group-text"><AiOutlineInfoCircle /></span>
                         <select className="form-select" value={nuevoEstado} onChange={(e) => setNuevoEstado(parseInt(e.target.value))}>
                             {estados.filter(estado => estado.value !== 5).map((estado) => (
@@ -90,7 +91,7 @@ const UpdatePedido = ({ pedidoById, actualizarListaPedidos, handleCerrarModalDet
                         <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={nuevaDescripcion} onChange={(e) => setNuevaDescripcion(e.target.value)}></textarea>
                         <label htmlFor="floatingTextarea">Descripción</label>
                     </div>
-
+                    <DetallesPedido id_pedido={pedido.id_pedido} />
                     <button type="button" className="btn btn-oscuro mt-3" onClick={handleActualizarPedido}>Actualizar Pedido</button>
 
                 </div>

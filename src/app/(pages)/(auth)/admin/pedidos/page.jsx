@@ -10,6 +10,7 @@ import "app/app/css/pedidos/filtros.css";
 import "app/app/css/pedidos/Pedidos.css"
 import "app/app/css/pedidos/botones.css";
 import UpdatePedido from '../components/pedidos/UpdatePedido';
+import estadosPedidosService from 'app/app/services/estados_pedidos_servise';
 
 const PedidosPage = () => {
     const [pedidos, setPedidos] = useState([]);
@@ -53,7 +54,7 @@ const PedidosPage = () => {
             });
 
         // Obtenemos los estados de los pedidos
-        pedidosService.getEstados()
+        estadosPedidosService.getEstados()
             .then((response) => {
                 setEstadosPedidos(response);
             })
@@ -195,7 +196,7 @@ const PedidosPage = () => {
             </div>
             {/*--------------------------- MODAL DE ACTUALIZAR PEDIDO PEDIDO ------------------------------------*/}
             <div className="modal fade" id="update" tabIndex={-1} role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                <div className="modal-dialog modal-xl" role="document">
+                <div className="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                     <div className="modal-content">
                         <div className="modal-header d-flex align-items-start">
                             <h5 className="modal-title" id="modalTitleId">Actualizar Pedido # {pedidoById}</h5>

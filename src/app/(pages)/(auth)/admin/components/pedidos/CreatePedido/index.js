@@ -4,6 +4,7 @@ import pedidosService from "app/app/services/pedidos_service";
 import { formatNumberToCop, showAlert } from "app/app/utilities";
 import "app/app/css/pedidos/createPedidoVenta.css";
 import "app/app/css/pedidos/botones.css";
+import productosService from "app/app/services/productos_service";
 
 const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) => {
   const [productos, setProductos] = useState([]);
@@ -12,7 +13,7 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
   const [descripcionPedido, setDescripcionPedido] = useState('Sin descripción'); // Inicializar con "Sin descripción"
 
   useEffect(() => {
-    pedidosService
+    productosService
       .getProductos()
       .then((response) => {
         setProductos(response);
