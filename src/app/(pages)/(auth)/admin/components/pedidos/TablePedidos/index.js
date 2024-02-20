@@ -261,16 +261,16 @@ const TablePedidos = ({ pedidosNoFinalizados, pedidosFinalizados, searchTerm, es
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="calificacionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Calificación</h1>
+            <div className="modal fade" id="calificacionModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h1 className="modal-title fs-5 text-light" id="exampleModalLabel">Calificación</h1>
                         <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id='modalCrearPedido'>
                                 <p style={{fontFamily: "arial"}}>x</p>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div className="modal-body">
                         <CalificacionPedido pedidoCalificable={pedidoCalificable}/>
                     </div>
                     </div>
