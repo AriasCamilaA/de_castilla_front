@@ -9,7 +9,6 @@ import "app/app/css/pedidos/tablas.css";
 import "app/app/css/pedidos/filtros.css";
 import "app/app/css/pedidos/Pedidos.css"
 import "app/app/css/pedidos/botones.css";
-import UpdatePedido from '../components/pedidos/UpdatePedido';
 import estadosPedidosService from 'app/app/services/estados_pedidos_servise';
 
 const PedidosPage = () => {
@@ -21,7 +20,6 @@ const PedidosPage = () => {
     const [selectedEstado, setSelectedEstado] = useState(null);
     const [fechaInicio, setFechaInicio] = useState("");
     const [fechaFin, setFechaFin] = useState("");
-    const [pedidoById, setPedidoById] = useState();
 
     const estados = [
         { label: 'Por Aprobar', value: 'porAprobar' },
@@ -76,10 +74,6 @@ const PedidosPage = () => {
 
     const handleEstadoClick = (estado) => {
         setSelectedEstado(estado);
-    };
-
-    const handleCerrarModalDetallePedido = () => {
-        document.getElementById('modalDetallePedido').click();
     };
 
     const handleCerrarModalCrearPedido = () => {
@@ -172,7 +166,6 @@ const PedidosPage = () => {
                     estados={estados}
                     fechaInicio={fechaInicio}
                     fechaFin={fechaFin}
-                    setPedidoById={setPedidoById}
                     actualizarListaPedidos={actualizarListaPedidos}
                 />
             </div>
@@ -193,25 +186,7 @@ const PedidosPage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            {/*--------------------------- MODAL DE ACTUALIZAR PEDIDO PEDIDO ------------------------------------*/}
-            <div className="modal fade" id="update" tabIndex={-1} role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                <div className="modal-dialog modal-xl modal-dialog-scrollable" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header d-flex align-items-start">
-                            <h5 className="modal-title" id="modalTitleId">Actualizar Pedido # {pedidoById}</h5>
-                            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id="modalDetallePedido">
-                                <p style={{fontFamily: "arial"}}>x</p>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <div className="container-fluid">
-                                {pedidoById && <UpdatePedido pedidoById={pedidoById} actualizarListaPedidos={actualizarListaPedidos} handleCerrarModalDetallePedido={handleCerrarModalDetallePedido}/>}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div>              
         </>
     );
 };

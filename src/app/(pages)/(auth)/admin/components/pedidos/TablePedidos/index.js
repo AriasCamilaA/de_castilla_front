@@ -4,10 +4,12 @@ import pedidosService from "app/app/services/pedidos_service";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import CalificacionPedido from "../CalificacionPedido";
+import UpdatePedido from "../UpdatePedido";
 
-const TablePedidos = ({ pedidosNoFinalizados, pedidosFinalizados, searchTerm, estados, fechaInicio, fechaFin, setPedidoById, actualizarListaPedidos }) => {
+const TablePedidos = ({ pedidosNoFinalizados, pedidosFinalizados, searchTerm, estados, fechaInicio, fechaFin, actualizarListaPedidos }) => {
     const [tabActual, setTabActual] = useState('Pendientes');
     const [pedidoCalificable, setPedidoCalificable] = useState('');
+    const [pedidoById, setPedidoById] = useState('');
     const cambiarTab = (tab) => {
         setTabActual(tab);
     };
@@ -88,6 +90,9 @@ const TablePedidos = ({ pedidosNoFinalizados, pedidosFinalizados, searchTerm, es
             );
         });
     }
+    const handleCerrarModalDetallePedido = () => {
+        document.getElementById('modalDetallePedido').click();
+    };
 
     const handleAceptarCambios = (pedido) => {
         pedido.id_estado_pedido_fk = 2;
@@ -276,6 +281,8 @@ const TablePedidos = ({ pedidosNoFinalizados, pedidosFinalizados, searchTerm, es
                     </div>
                 </div>
             </div>
+            {/*--------------------------- MODAL DE ACTUALIZAR PEDIDO PEDIDO ------------------------------------*/}
+            <UpdatePedido pedidoById={pedidoById} actualizarListaPedidos={actualizarListaPedidos} handleCerrarModalDetallePedido={handleCerrarModalDetallePedido}/>
         </>
     )
 }
