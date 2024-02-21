@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AiOutlineCalendar, AiOutlineInfoCircle, AiOutlineMail, AiOutlinePhone, AiOutlineUser } from "react-icons/ai";
-import pedidosService from "app/app/services/pedidos_service";
-import { formatearFechaParaInputDate, showAlert } from "app/app/utilities";
+import pedidosService from "app/services/pedidos_service";
+import { formatearFechaParaInputDate, showAlert } from "app/utilities";
 import DetallesPedido from "../DetallesPedido/DetallesPedido";
 
 const estados = [

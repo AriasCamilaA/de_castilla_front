@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { formatearFecha, showAlert } from "app/app/utilities";
-import pedidosService from "app/app/services/pedidos_service";
+import { formatearFecha, showAlert } from "app/utilities";
+import pedidosService from "app/services/pedidos_service";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import CalificacionPedido from "../CalificacionPedido";

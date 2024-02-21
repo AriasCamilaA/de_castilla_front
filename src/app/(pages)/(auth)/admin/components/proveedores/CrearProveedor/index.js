@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import proveedoresService from 'app/app/services/proveedores_service'; // Asegúrate de proporcionar la ruta correcta
-import { showAlert } from 'app/app/utilities';
+import proveedoresService from 'app/services/proveedores_service'; // Asegúrate de proporcionar la ruta correcta
+import { showAlert } from 'app/utilities';
 
 const CrearProveedor = ({ actualizarListaProveedores }) => {
   const [nuevoProveedor, setNuevoProveedor] = useState({

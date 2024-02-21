@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { showAlert } from 'app/app/utilities';
-import pedidosService from 'app/app/services/pedidos_service';
+import { showAlert } from 'app/utilities';
+import pedidosService from 'app/services/pedidos_service';
 
 const CalificacionPedido = ({pedidoCalificable}) => {
 

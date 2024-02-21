@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import detallesPedidosService from 'app/app/services/detalles_pedidos_service';
-import { showAlert, formatNumberToCop } from 'app/app/utilities';
+import detallesPedidosService from 'app/services/detalles_pedidos_service';
+import { showAlert, formatNumberToCop } from 'app/utilities';
 
 const DetallesPedido = ({ id_pedido }) => {
     const [detallesPedido, setDetallesPedido] = useState([]);

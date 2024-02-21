@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import proveedoresService from 'app/app/services/proveedores_service';
-import { showAlert } from 'app/app/utilities';
-import "app/app/css/pedidos/tab_tabla.css";
-import "app/app/css/pedidos/tablas.css";
-import "app/app/css/pedidos/filtros.css";
-import "app/app/css/pedidos/Pedidos.css"
-import "app/app/css/pedidos/botones.css";
+import proveedoresService from 'app/services/proveedores_service';
+import { showAlert } from 'app/utilities';
+import "app/css/pedidos/tab_tabla.css";
+import "app/css/pedidos/tablas.css";
+import "app/css/pedidos/filtros.css";
+import "app/css/pedidos/Pedidos.css"
+import "app/css/pedidos/botones.css";
 import TablaProveedores from '../components/proveedores/TablaProveedores';
 import CrearProveedor from '../components/proveedores/CrearProveedor';
 

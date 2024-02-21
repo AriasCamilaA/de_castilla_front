@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { IoTrash } from "react-icons/io5";
-import pedidosService from "app/app/services/pedidos_service";
-import { formatNumberToCop, showAlert } from "app/app/utilities";
-import "app/app/css/pedidos/createPedidoVenta.css";
-import "app/app/css/pedidos/botones.css";
-import productosService from "app/app/services/productos_service";
-import detallesPedidosService from "app/app/services/detalles_pedidos_service";
+import pedidosService from "app/services/pedidos_service";
+import { formatNumberToCop, showAlert } from "app/utilities";
+import "app/css/pedidos/createPedidoVenta.css";
+import "app/css/pedidos/botones.css";
+import productosService from "app/services/productos_service";
+import detallesPedidosService from "app/services/detalles_pedidos_service";
 
 const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) => {
   const [productos, setProductos] = useState([]);

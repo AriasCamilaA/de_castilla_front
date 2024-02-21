@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 const MenuPrincipalPage = () => {
+
     return (
         <div className="contenido">
             <h1>Menú Administrador</h1>

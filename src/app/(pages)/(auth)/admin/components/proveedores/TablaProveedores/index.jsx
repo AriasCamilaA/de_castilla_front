@@ -1,9 +1,9 @@
 import React from 'react';
 import ActualizarProveedor from '../ActualizarProveedor';
-import proveedoresService from 'app/app/services/proveedores_service';
+import proveedoresService from 'app/services/proveedores_service';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
-import { showAlert } from 'app/app/utilities';
+import { showAlert } from 'app/utilities';
 
 const TablaProveedores = ({ proveedores, filtroNombre, actualizarListaProveedores }) => {
     const proveedoresFiltrados = proveedores.filter((proveedor) =>
