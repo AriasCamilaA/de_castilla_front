@@ -47,15 +47,15 @@ const ActualizarProveedor = ({actualizarListaProveedores, proveedor }) => {
                     <div className="container-fluid">
                       <div className="d-flex flex-column">
                         <p className='color-oscuro mb-0'><strong>Nombre:</strong></p>
-                        <input type="text" className='mb-2' name="nombre_proveedor" placeholder="Nombre" value={prveedorActualizado.nombre_proveedor} onChange={handleChange} />
+                        <input type="text" className='inputForm mb-2' name="nombre_proveedor" placeholder="Nombre" value={prveedorActualizado.nombre_proveedor} onChange={handleChange} />
                         <p className='color-oscuro mb-0'><strong>Empresa:</strong></p>
-                        <input type="text" className='mb-2' name="empresa_proveedor" placeholder="Empresa" value={prveedorActualizado.empresa_proveedor} onChange={handleChange} />
+                        <input type="text" className='inputForm mb-2' name="empresa_proveedor" placeholder="Empresa" value={prveedorActualizado.empresa_proveedor} onChange={handleChange} />
                         <p className='color-oscuro mb-0'><strong>NIT:</strong></p>
-                        <input type="text" className='mb-2' name="nit_proveedor" placeholder="NIT" value={prveedorActualizado.nit_proveedor} onChange={handleChange} />
+                        <input type="text" className='inputForm mb-2' name="nit_proveedor" placeholder="NIT" value={prveedorActualizado.nit_proveedor} onChange={handleChange} />
                         <p className='color-oscuro mb-0'><strong>Celular:</strong></p>
-                        <input type="text" className='mb-2' name="celular_proveedor" placeholder="Celular" value={prveedorActualizado.celular_proveedor} onChange={handleChange} />
+                        <input type="text" className='inputForm mb-2' name="celular_proveedor" placeholder="Celular" value={prveedorActualizado.celular_proveedor} onChange={handleChange} />
                         <p className='color-oscuro mb-0'><strong>Correo electrónico:</strong></p>
-                        <input type="email" className='mb-2' name="correo_proveedor" placeholder="Correo electrónico" value={prveedorActualizado.correo_proveedor} onChange={handleChange} />
+                        <input type="email" className='inputForm mb-2' name="correo_proveedor" placeholder="Correo electrónico" value={prveedorActualizado.correo_proveedor} onChange={handleChange} />
                         <button type="button" className="btn btn-oscuro mt-3" onClick={crearPedido}>Actualizar Proveedor</button>
                       </div>
                     </div>
