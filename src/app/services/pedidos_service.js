@@ -32,7 +32,7 @@ const pedidosService = {
     },
     createPedido : async (pedido) => {
         try {
-            pedido.estado = 0;
+            pedido.estado = 1;
             const url_pedidos = url + "pedidos/";
             const response = await axios.post(url_pedidos, pedido);
             const data = response.data;
