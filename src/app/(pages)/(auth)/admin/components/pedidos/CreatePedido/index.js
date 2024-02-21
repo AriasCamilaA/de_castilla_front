@@ -6,6 +6,7 @@ import "app/css/pedidos/createPedidoVenta.css";
 import "app/css/pedidos/botones.css";
 import productosService from "app/services/productos_service";
 import detallesPedidosService from "app/services/detalles_pedidos_service";
+import Image from "next/image";
 
 const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) => {
   const [productos, setProductos] = useState([]);
@@ -163,6 +164,12 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
           {productos.map((producto) => (
             <div className="card" style={{ width: "18rem" }} key={producto.id_producto}>
               <div className="card-body">
+                <Image
+                  src={producto.imagen_producto}
+                  alt="producto"
+                  width={200}
+                  height={50}
+                />
                 <h5 className="card-title nombre_Producto">{producto.nombre_producto}</h5>
                 <p className="card-title precio_Producto">{formatNumberToCop(producto.precio_producto)}</p>
                 <div
@@ -202,6 +209,7 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
                     >
                       -
                     </button>
+                    {console.log(producto)}
                     <div className="descripcion">
                       <h5 className="card-title">{producto.nombre}</h5>
                       <p className="card-title">$ {producto.precio}</p>
