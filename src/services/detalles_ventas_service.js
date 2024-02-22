@@ -32,7 +32,7 @@ const detallesVentas = {
     createDetalleVenta : async (detalleVenta) => {
         try {
           detalleVenta.estado = 0;
-            const url_detallesVentas = url + "detalleventa/";
+            const url_detallesVentas = url + "detalleventas/";
             const response = await axios.post(url_detallesVentas, detalleVenta);
             const data = response.data;
             return data;

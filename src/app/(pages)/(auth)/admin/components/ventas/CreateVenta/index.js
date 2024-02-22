@@ -113,27 +113,30 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
       const dia = ('0' + fechaActual.getDate()).slice(-2);
   
       const fechaVenta = `${año}-${mes}-${dia}`;
-      const no_documento_usuario = 1234567893;
+      const no_documento_usuario = 3456789014;
       const total_venta = calcularTotal();
       const hora_venta = obtenerHoraActual();
 
       const createdVenta = await ventasService.createVenta({
         fecha_venta: fechaVenta,
-        no_Documento_Usuario_fk: no_documento_usuario, // Pasar solo el ID del usuario
+        no_documento_usuario_fk: no_documento_usuario, // Pasar solo el ID del usuario
         total_venta: total_venta,
         hora_venta: hora_venta,
       });
 
-      console.log(createdVenta)
 
       const detallesVentasPromises = Object.values(productosAgregados).map(
-        (producto) =>
-        detallesVentas.createDetallePedido({
+        (producto) =>{
+          const detalle = {
+            estado: 1,
             cantidad_producto: producto.cantidad,
-            subtotal_detalle_pedido: producto.cantidad * parseFloat(producto.precio), // Calcular subtotal aquí
+            subtotal_detalle_venta: producto.cantidad * parseFloat(producto.precio), // Calcular subtotal aquí
             id_producto_fk: producto.id, // Cambiar a id_producto_fk
             id_venta_fk: createdVenta.id_venta, // Cambiar a id_pedido_fk
-          })
+          }
+          console.log(detalle);
+          detallesVentas.createDetalleVenta(detalle)
+        }
       );
   
       await Promise.all(detallesVentasPromises);
