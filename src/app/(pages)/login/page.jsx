@@ -1,4 +1,5 @@
 "use client"
+import createAccessToken from "app/utilities/auth/createAccessToke";
 import React, { useState } from "react";
 const { signIn } = require("next-auth/react");
 
@@ -8,12 +9,7 @@ const loginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    createAccessToken(email, password);
   };
 
   return (
