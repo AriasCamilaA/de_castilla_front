@@ -13,11 +13,16 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-        await createAccessToken(email, password);
-    } catch (error) {
-        showAlert("error", "Credenciales incorrectas", "Vuelva a intentarlo")
-    }
+    createAccessToken(email, password)
+      .then((response) => {
+        showAlert("success", "Credenciales correctas", "Bienvenido a De Castilla");
+        window.location.href = "/admin";
+      })
+      .catch((error) => {
+        console.log(error);
+        showAlert("error", "Credenciales incorrectas", "Vuelva a intentarlo");
+      });
+
   };
 
   return (

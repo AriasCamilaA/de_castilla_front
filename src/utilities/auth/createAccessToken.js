@@ -1,6 +1,5 @@
 "use server"
 import loginService from "app/services/login_service";
-import { redirect } from "next/dist/server/api-utils";
 import { cookies } from "next/headers";
 
 const createAccessToken = async (email, password) => {
@@ -26,11 +25,11 @@ const createAccessToken = async (email, password) => {
                 sameSite: 'lax', 
                 expires: twoHoursLater // Establecer la expiración en 2 horas
             });
-            redirect("/admin");
+            
             return data;
         }
     } catch (error) {
-        throw new Error("Credenciales incorrectas");
+        console.log(error);
     }
 };
 
