@@ -18,25 +18,33 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
 
 
   async function sendEmail(pedido) {
+    // Convertimos el componente DetallesPedido en una cadena HTML
+    const contenidoHTML = <DetallesPedido id_pedido={pedido.id_pedido} />;
+  
+    // Creamos el cuerpo del correo electrónico
     const contenido = `
-    <h1>¡Hola!</h1>
-    Gracias por crear su pedido con nosotros
-
-    ${<DetallesPedido id_pedido={pedido.id_pedido} />}
-    `
+      <h1>¡Hola!</h1>
+      Gracias por crear su pedido con nosotros
+  
+      ${contenidoHTML}
+    `;
+  
+    // Enviamos el correo electrónico
     try {
-      const rest = await fetch("/api/send", {
+      const respuesta = await fetch("/api/send", {
         method: "POST",
-        body: JSON.stringify({ 
-          contenido: contenido 
-        }), // Cambié contenido a body y stringify para enviar correctamente el contenido
+        body: JSON.stringify({
+          contenido: contenido,
+        }),
       });
-      const data = await rest.json();
+  
+      const data = await respuesta.json();
       console.log(data);
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error("Error al enviar el correo electrónico:", error);
     }
   }
+  
 
   useEffect(() => {
     productosService
