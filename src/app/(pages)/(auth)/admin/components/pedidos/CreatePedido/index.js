@@ -14,6 +14,16 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
   const [modalVisible, setModalVisible] = useState(false);
   const [descripcionPedido, setDescripcionPedido] = useState('Sin descripción'); // Inicializar con "Sin descripción"
 
+
+  const sendEmail = async () => {
+    const rest = await fetch("/api/send", {
+      method: "POST",
+      // body: {'contenido': 'adskaskdljaskldjklsadjklads'}
+    })
+    const data = await rest.json()
+    console.log(data);
+  }
+
   useEffect(() => {
     productosService
       .getProductos()
@@ -235,6 +245,7 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
               + Preferencias
             </button>
             <button className="btn btn-excel" id="crear-pedido" onClick={handleCrearPedido} disabled={isCarritoVacio}>
+            {/* <button className="btn btn-excel" id="crear-pedido" onClick={sendEmail} disabled={isCarritoVacio}> */}
               Crear Pedido
             </button>
           </div>

@@ -27,7 +27,7 @@ const loginService = {
     },
     UserData : async (token) => {
         try {
-            const url_user = url + "auth/me/";
+            const url_user = url + "auth/me";
             const response = await axios.get(url_user, {
                 headers: { Authorization: `Bearer ${token}` }  
                 });
