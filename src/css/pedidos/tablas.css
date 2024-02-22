@@ -37,6 +37,13 @@
     height: 24px;
     cursor: pointer;
 }
+
+.opciones_tabla{
+    display: flex;
+    justify-content: space-around !important;
+    align-items: flex-end;
+    height: 100%;
+}
 /* Tabla con accordion de pedidos */
 .accordion{
     margin: 16px;

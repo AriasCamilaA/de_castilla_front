@@ -1,6 +1,6 @@
-import 'app/app/css/style.css';
-import 'app/app/css/botones.css';
-import 'app/app/css/login.css';
+import 'app/css/style.css';
+import 'app/css/botones.css';
+import 'app/css/login.css';
 
 
 const registerPage = () => {

@@ -13,23 +13,23 @@ const NavBar = () => {
                 <div className="menuLateral">
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoVentas.png' alt="icono" />
-                        <Link href="admin/ventas">Ventas</Link>
+                        <Link href="/admin/ventas">Ventas</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoInventario.png' alt="icono" />
-                        <Link href="admin/inventarios">Inventario</Link>
+                        <Link href="/admin/inventarios">Inventario</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoProveedores.png' alt="icono" />
-                        <Link href="admin/proveedores">Proveedores</Link>
+                        <Link href="/admin/proveedores">Proveedores</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoPedidos.png' alt="icono" />
-                        <Link href="admin/pedidos">Pedidos</Link>
+                        <Link href="/admin/pedidos">Pedidos</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoUsuarios.png' alt="icono" />
-                        <Link href="admin/usuarios">Usuarios</Link>
+                        <Link href="/admin/usuarios">Usuarios</Link>
                     </div>
                     {/* <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoEstadisticas.png' alt="icono" />
@@ -39,7 +39,7 @@ const NavBar = () => {
                 </div>
                 {
                     // Aca debo saber en que ruta estoy para mostrar el logo
-                    <Link href="admin/menu_principal">
+                    <Link href="/admin/">
                         <img className="icon" src='/assets/icons/LogoCasa.png'/>
                     </Link>
                 }

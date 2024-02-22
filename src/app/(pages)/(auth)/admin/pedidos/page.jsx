@@ -1,15 +1,15 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import pedidosService from 'app/app/services/pedidos_service';
-import { showAlert } from 'app/app/utilities';
+import pedidosService from 'app/services/pedidos_service';
+import { showAlert } from 'app/utilities';
 import CreatePedido from '../components/pedidos/CreatePedido';
 import TablePedidos from '../components/pedidos/TablePedidos';
-import "app/app/css/pedidos/tab_tabla.css";
-import "app/app/css/pedidos/tablas.css";
-import "app/app/css/pedidos/filtros.css";
-import "app/app/css/pedidos/Pedidos.css"
-import "app/app/css/pedidos/botones.css";
-import UpdatePedido from '../components/pedidos/UpdatePedido';
+import "app/css/pedidos/tab_tabla.css";
+import "app/css/pedidos/tablas.css";
+import "app/css/pedidos/filtros.css";
+import "app/css/pedidos/Pedidos.css"
+import "app/css/pedidos/botones.css";
+import estadosPedidosService from 'app/services/estados_pedidos_servise';
 
 const PedidosPage = () => {
     const [pedidos, setPedidos] = useState([]);
@@ -20,7 +20,6 @@ const PedidosPage = () => {
     const [selectedEstado, setSelectedEstado] = useState(null);
     const [fechaInicio, setFechaInicio] = useState("");
     const [fechaFin, setFechaFin] = useState("");
-    const [pedidoById, setPedidoById] = useState();
 
     const estados = [
         { label: 'Por Aprobar', value: 'porAprobar' },
@@ -35,7 +34,7 @@ const PedidosPage = () => {
     const generarPDF = () => {
         pedidosService.getPDF()
         .then((response) => {
-            showAlert("accept", 'PDF', "Pedidos exportados correctamente");
+            showAlert("success", 'PDF', "Pedidos exportados correctamente");
         })
         .catch(() => {
             showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente los pedidos");
@@ -53,7 +52,7 @@ const PedidosPage = () => {
             });
 
         // Obtenemos los estados de los pedidos
-        pedidosService.getEstados()
+        estadosPedidosService.getEstados()
             .then((response) => {
                 setEstadosPedidos(response);
             })
@@ -75,6 +74,10 @@ const PedidosPage = () => {
 
     const handleEstadoClick = (estado) => {
         setSelectedEstado(estado);
+    };
+
+    const handleCerrarModalCrearPedido = () => {
+        document.getElementById('modalCrearPedido').click();
     };
 
     const limpiarFiltros = () => {
@@ -139,7 +142,7 @@ const PedidosPage = () => {
                     <div className='filtros__div1'>
                         <div className='inputSearch'>
                             <img src="/assets/icons/lupa.png" />
-                            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} id="searchTerm" placeholder='Nombre o #Documento' />
+                            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} id="searchTerm" placeholder='Nombre o #Documento' />
                         </div>
                         <div className="filtros__fecha">
                             <input type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} id="fechaInicio"/>
@@ -163,44 +166,27 @@ const PedidosPage = () => {
                     estados={estados}
                     fechaInicio={fechaInicio}
                     fechaFin={fechaFin}
-                    setPedidoById={setPedidoById}
+                    actualizarListaPedidos={actualizarListaPedidos}
                 />
             </div>
-            
+            {/*--------------------------- MODAL DE NUEVO PEDIDO ------------------------------------*/}
             <div className="modal fade" id="create" tabIndex={-1} role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                 <div className="modal-dialog modal-xl" role="document">
                     <div className="modal-content">
                         <div className="modal-header d-flex align-items-start">
                             <h5 className="modal-title" id="modalTitleId">Nuevo Pedido</h5>
-                            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id='modalCrearPedido'>
                                 <p style={{fontFamily: "arial"}}>x</p>
                             </button>
                         </div>
                         <div className="modal-body">
                             <div className="container-fluid">
-                            <CreatePedido actualizarListaPedidos={actualizarListaPedidos}/>
+                            <CreatePedido actualizarListaPedidos={actualizarListaPedidos} handleCerrarModalCrearPedido={handleCerrarModalCrearPedido}/>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="modal fade" id="update" tabIndex={-1} role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                <div className="modal-dialog modal-xl" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header d-flex align-items-start">
-                            <h5 className="modal-title" id="modalTitleId">Actualizar Pedido # {pedidoById}</h5>
-                            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close">
-                                <p style={{fontFamily: "arial"}}>x</p>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <div className="container-fluid">
-                                {pedidoById && <UpdatePedido pedidoById={pedidoById}/>}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div>              
         </>
     );
 };

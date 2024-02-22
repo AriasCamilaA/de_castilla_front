@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { IoTrash } from "react-icons/io5";
-import pedidosService from "app/app/services/pedidos_service";
-import { formatNumberToCop, showAlert } from "app/app/utilities";
-import "app/app/css/pedidos/createPedidoVenta.css";
-import "app/app/css/pedidos/botones.css";
+import pedidosService from "app/services/pedidos_service";
+import { formatNumberToCop, showAlert } from "app/utilities";
+import "app/css/pedidos/createPedidoVenta.css";
+import "app/css/pedidos/botones.css";
+import productosService from "app/services/productos_service";
+import detallesPedidosService from "app/services/detalles_pedidos_service";
+import Image from "next/image";
 
-const CreatePedido = ({ actualizarListaPedidos }) => {
+const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) => {
   const [productos, setProductos] = useState([]);
   const [productosAgregados, setProductosAgregados] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [descripcionPedido, setDescripcionPedido] = useState('Sin descripción'); // Inicializar con "Sin descripción"
 
   useEffect(() => {
-    pedidosService
+    productosService
       .getProductos()
       .then((response) => {
         setProductos(response);
@@ -124,7 +127,7 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
   
       const detallesPedidosPromises = Object.values(productosAgregados).map(
         (producto) =>
-          pedidosService.createDetallePedido({
+        detallesPedidosService.createDetallePedido({
             cantidad_producto: producto.cantidad,
             subtotal_detalle_pedido: producto.cantidad * parseFloat(producto.precio), // Calcular subtotal aquí
             id_producto_fk: producto.id, // Cambiar a id_producto_fk
@@ -136,7 +139,7 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
       await Promise.all(detallesPedidosPromises);
   
       actualizarListaPedidos();
-  
+      handleCerrarModalCrearPedido();
       showAlert(
         "success",
         "Pedido Creado",
@@ -161,6 +164,12 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
           {productos.map((producto) => (
             <div className="card" style={{ width: "18rem" }} key={producto.id_producto}>
               <div className="card-body">
+                <Image
+                  src={producto.imagen_producto}
+                  alt="producto"
+                  width={200}
+                  height={50}
+                />
                 <h5 className="card-title nombre_Producto">{producto.nombre_producto}</h5>
                 <p className="card-title precio_Producto">{formatNumberToCop(producto.precio_producto)}</p>
                 <div
@@ -200,6 +209,7 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
                     >
                       -
                     </button>
+                    {console.log(producto)}
                     <div className="descripcion">
                       <h5 className="card-title">{producto.nombre}</h5>
                       <p className="card-title">$ {producto.precio}</p>

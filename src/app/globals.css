@@ -78,6 +78,13 @@ input {
     outline: none;
 }
 
+.inputForm{
+    height: 32px;
+    border: 1px solid var(--oscuro);
+    border-radius: 16px;
+    padding: 0 12px;
+}
+
 input:focus {
     border: 1px solid var(--claro);
 }
