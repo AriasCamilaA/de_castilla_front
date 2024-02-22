@@ -1,5 +1,6 @@
 "use server"
 import loginService from "app/services/login_service";
+import { redirect } from "next/dist/server/api-utils";
 import { cookies } from "next/headers";
 
 const createAccessToken = async (email, password) => {
@@ -10,6 +11,7 @@ const createAccessToken = async (email, password) => {
         if (token && refresh) {
             cookiesStore.set('token', token, { path: '/', httpOnly: true, sameSite: 'strict' });
             cookiesStore.set('refresh', refresh, { path: '/', httpOnly: true, sameSite: 'strict' });
+            redirect("/admin");
             return data;
         }
     } catch (error) {
