@@ -28,7 +28,7 @@ const InsumosPage = () => {
     }, []);
 
     const actualizarListaInsumos = () => {
-        insumosService.getInsumos().then((data) => {
+        insumosService.getInsumo().then((data) => {
             setInsumos(data);
         }); 
     };
