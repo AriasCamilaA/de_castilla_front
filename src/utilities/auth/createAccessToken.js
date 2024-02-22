@@ -9,8 +9,23 @@ const createAccessToken = async (email, password) => {
         const data = await loginService.Create({ email, password });
         const { token, refresh } = data;
         if (token && refresh) {
-            cookiesStore.set('token', token, { path: '/', httpOnly: true, sameSite: 'strict' });
-            cookiesStore.set('refresh', refresh, { path: '/', httpOnly: true, sameSite: 'strict' });
+            // Obtener la hora actual
+            const now = new Date();
+            // Calcular la hora después de 2 horas
+            const twoHoursLater = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+
+            cookiesStore.set('token', token, { 
+                path: '/', 
+                httpOnly: true, 
+                sameSite: 'strict', 
+                expires: twoHoursLater // Establecer la expiración en 2 horas
+            });
+            cookiesStore.set('refresh', refresh, { 
+                path: '/', 
+                httpOnly: true, 
+                sameSite: 'strict', 
+                expires: twoHoursLater // Establecer la expiración en 2 horas
+            });
             redirect("/admin");
             return data;
         }
