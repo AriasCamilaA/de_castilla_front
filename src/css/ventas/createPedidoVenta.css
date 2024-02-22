@@ -2,6 +2,11 @@ h5{
     font-weight: bold;
 }
 
+.tabla__opcion>div{
+    display: flex;
+    justify-content: center;
+}
+
 .modal{
     overflow: hidden;
 }

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { IoTrash } from "react-icons/io5";
-import pedidosService from "../../_ventas_service";
-import { formatNumberToCop, showAlert } from "app/app/utilities";
-import "../../css/createPedidoVenta.css";
-import "../../css/botones.css";
+import ventasService from "app/services/ventas_service";
+import { formatNumberToCop, showAlert } from "app/utilities";
+import "app/css/ventas/createPedidoVenta.css";
+import productosService from "app/services/productos_service";
+import detallesVentas from "app/services/detalles_ventas_service";
+import Image from "next/image";
 
-const CreatePedido = ({ actualizarListaPedidos }) => {
+const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => {
   const [productos, setProductos] = useState([]);
   const [productosAgregados, setProductosAgregados] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
-  const [descripcionPedido, setDescripcionPedido] = useState('Sin descripción'); // Inicializar con "Sin descripción"
 
   useEffect(() => {
-    pedidosService
+    productosService
       .getProductos()
       .then((response) => {
         setProductos(response);
@@ -95,60 +96,61 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
     setModalVisible(true);
   };
 
-  const guardarPreferencias = () => {
-    setModalVisible(false); // Cerrar modal
-  };
+  function obtenerHoraActual() {
+    const ahora = new Date();
+    const horas = ahora.getHours().toString().padStart(2, '0'); // Obtener las horas y asegurarse de que tenga dos dígitos
+    const minutos = ahora.getMinutes().toString().padStart(2, '0'); // Obtener los minutos y asegurarse de que tenga dos dígitos
+    const segundos = ahora.getSeconds().toString().padStart(2, '0'); // Obtener los segundos y asegurarse de que tenga dos dígitos
+    return `${horas}:${minutos}:${segundos}`;
+  }
 
-  const handleCrearPedido = async () => {
+  const handleCrearVenta = async () => {
     try {
-      if (descripcionPedido.trim() === '') {
-        showAlert("error", "Descripción Requerida", "Por favor ingrese una descripción del pedido.");
-        return;
-      }
   
       const fechaActual = new Date();
       const año = fechaActual.getFullYear();
       const mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2);
       const dia = ('0' + fechaActual.getDate()).slice(-2);
   
-      const fechaPedido = `${año}-${mes}-${dia}`;
-      const estadoPedidoId = 1;
+      const fechaVenta = `${año}-${mes}-${dia}`;
       const no_documento_usuario = 1234567893;
-  
-      const createdPedido = await pedidosService.createPedido({
-        descripcion_pedido: descripcionPedido,
-        fecha_pedido: fechaPedido,
-        id_estado_pedido_fk: estadoPedidoId, // Pasar solo el ID del estado del pedido
+      const total_venta = calcularTotal();
+      const hora_venta = obtenerHoraActual();
+
+      const createdVenta = await ventasService.createVenta({
+        fecha_venta: fechaVenta,
         no_Documento_Usuario_fk: no_documento_usuario, // Pasar solo el ID del usuario
+        total_venta: total_venta,
+        hora_venta: hora_venta,
       });
-  
-      const detallesPedidosPromises = Object.values(productosAgregados).map(
+
+      console.log(createdVenta)
+
+      const detallesVentasPromises = Object.values(productosAgregados).map(
         (producto) =>
-          pedidosService.createDetallePedido({
+        detallesVentas.createDetallePedido({
             cantidad_producto: producto.cantidad,
-            subtotal_detalle_pedido: producto.cantidad * producto.precio,
-            producto: { id_producto: producto.id },
-            pedido: { id_pedido: createdPedido.id_pedido },
-            estado: true,
+            subtotal_detalle_pedido: producto.cantidad * parseFloat(producto.precio), // Calcular subtotal aquí
+            id_producto_fk: producto.id, // Cambiar a id_producto_fk
+            id_venta_fk: createdVenta.id_venta, // Cambiar a id_pedido_fk
           })
       );
   
-      await Promise.all(detallesPedidosPromises);
+      await Promise.all(detallesVentasPromises);
   
-      actualizarListaPedidos();
-  
+      actualizarListaVentas();
+      handleCerrarModalCrearVenta();
       showAlert(
         "success",
         "Pedido Creado",
-        "Gracias por crear su pedido con nosotros"
+        "Gracias por crear su venta con nosotros"
       );
   
       setProductosAgregados({});
-      setDescripcionPedido("Sin descripción"); // Restaurar descripción a "Sin descripción"
       setModalVisible(false); // Cerrar modal
   
     } catch (error) {
-      console.error("Error al crear el pedido:", error);
+      console.error("Error al crear el venta:", error);
     }
   };
   
@@ -161,10 +163,15 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
           {productos.map((producto) => (
             <div className="card" style={{ width: "18rem" }} key={producto.id_producto}>
               <div className="card-body">
+                <Image
+                  src={producto.imagen_producto}
+                  alt="producto"
+                  width={200}
+                  height={50}
+                />
                 <h5 className="card-title nombre_Producto">{producto.nombre_producto}</h5>
                 <p className="card-title precio_Producto">{formatNumberToCop(producto.precio_producto)}</p>
-                <a
-                  href="#"
+                <div
                   className="btn agregar-producto"
                   data-producto-id={producto.id_producto}
                   onClick={(e) =>
@@ -177,7 +184,7 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
                   }
                 >
                   Agregar
-                </a>
+                </div>
               </div>
             </div>
           ))}
@@ -201,6 +208,7 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
                     >
                       -
                     </button>
+                    {console.log(producto)}
                     <div className="descripcion">
                       <h5 className="card-title">{producto.nombre}</h5>
                       <p className="card-title">$ {producto.precio}</p>
@@ -221,12 +229,9 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
             <h2>Total</h2>
             <p id="total-precio">${calcularTotal().toLocaleString()}</p>
           </div>
-          <div className="d-flex flex-wrap w-100 justify-content-between gap-1">
-            <button className="btn" onClick={abrirModal}>
-              + Preferencias
-            </button>
-            <button className="btn btn-excel" id="crear-pedido" onClick={handleCrearPedido} disabled={isCarritoVacio}>
-              Crear Pedido
+          <div className="d-flex flex-wrap w-100 justify-content-center gap-1">
+            <button className="btn btn-excel w-100" id="crear-pedido" onClick={handleCrearVenta} disabled={isCarritoVacio}>
+              Crear Venta
             </button>
           </div>
         </div>
@@ -234,25 +239,8 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
       <div className="modal" tabIndex="-1" style={{ display: modalVisible ? 'block' : 'none' }}>
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
-            <div className="modal-header d-flex align-items-start">
-              <h5 className="modal-title">Preferencias del Pedido</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => setModalVisible(false)}>
-                <p style={{ fontFamily: "arial" }}>x</p>
-              </button>
-            </div>
-            <div className="modal-body">
-              <textarea
-                placeholder="Escriba si desea algo en específico- Ej: Utilizar poca azucar."
-                className="form-control"
-                id="descripcionPedido"
-                rows="3"
-                value={descripcionPedido}
-                onChange={(e) => setDescripcionPedido(e.target.value)}
-              ></textarea>
-            </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-all" data-bs-dismiss="modal" onClick={() => setModalVisible(false)}>x Cancelar</button>
-              <button type="button" className="btn btn-oscuro" data-bs-dismiss="modal" onClick={guardarPreferencias}>+ Guardar</button>
             </div>
           </div>
         </div>
@@ -262,4 +250,4 @@ const CreatePedido = ({ actualizarListaPedidos }) => {
   );
 };
 
-export default CreatePedido;
+export default CreateVenta;
