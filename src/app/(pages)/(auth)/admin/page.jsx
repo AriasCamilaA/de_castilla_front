@@ -1,8 +1,9 @@
+import validateAccessToken from "app/utilities/auth/validateAccessToken"
 import Image from "next/image"
 import Link from "next/link"
 
-const MenuPrincipalPage = () => {
-
+const MenuPrincipalPage = async () => {
+    const user = await validateAccessToken()
     return (
         <div className="contenido">
             <h1>Menú Administrador</h1>

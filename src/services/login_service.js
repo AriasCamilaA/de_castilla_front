@@ -25,6 +25,18 @@ const loginService = {
         }
         
     },
+    UserData : async (token) => {
+        try {
+            const url_user = url + "auth/me/";
+            const response = await axios.get(url_user, {
+                headers: { Authorization: `Bearer ${token}` }  
+                });
+            const data = response.data;
+            return data;
+        } catch (error) {   
+            console.error("API ERROR: USER DATA: "+error);
+        }
+    },
 }
 
 export default loginService;
