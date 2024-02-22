@@ -1,7 +1,22 @@
+"use client"
 import Link from "next/link";
 import "./NavBar.css";
+import validateAccessToken from "app/utilities/auth/validateAccessToken";
+import { useState, useEffect } from "react";
+import cerrarSession from "app/utilities/auth/cerrarSession";
 
 const NavBar = () => {
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        validateAccessToken()
+        .then((user) => {
+            setUser(user)
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }, []);
+    
     return (
         <nav className="menuSuperior">
             <div className="logosMenu">
@@ -51,7 +66,7 @@ const NavBar = () => {
             <div className="dropdown">
                 <button className="dropdown-toggle menu-user" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img className="icon" src='/assets/icons/Logo Usuario.png'/>
-                {'{'}{'{'} Nombre Usuario {'}'}{'}'}
+                {user && user.nombre_usuario}
                 </button>
                 <ul className="dropdown-menu user-dropdown">
                 <li>
@@ -63,12 +78,12 @@ const NavBar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link className="dropdown-item dropdownNavBar" href="{{ route('logout') }}">
+                    <a className="dropdown-item dropdownNavBar" href="">
                         <img src='/assets/icons/LogoOffWhite.png' className="px-2"/>
-                        <p>
+                        <p onClick={()=>cerrarSession}>
                             Cerrar Sesión
                         </p>
-                    </Link>
+                    </a>
                     <form id="logout-form" action="" method="POST" className="d-none">
                     </form>
                 </li>

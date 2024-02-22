@@ -17,13 +17,13 @@ const createAccessToken = async (email, password) => {
             cookiesStore.set('token', token, { 
                 path: '/', 
                 httpOnly: true, 
-                sameSite: 'strict', 
+                sameSite: 'lax', 
                 expires: twoHoursLater // Establecer la expiración en 2 horas
             });
             cookiesStore.set('refresh', refresh, { 
                 path: '/', 
                 httpOnly: true, 
-                sameSite: 'strict', 
+                sameSite: 'lax', 
                 expires: twoHoursLater // Establecer la expiración en 2 horas
             });
             redirect("/admin");

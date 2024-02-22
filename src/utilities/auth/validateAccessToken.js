@@ -7,7 +7,7 @@ const validateAccessToken = async () => {
         const cookiesStore = cookies();
         const token = cookiesStore.get("token")?.value;
         const response = await loginService.UserData(token); // Espera a que se resuelva loginService.UserData
-        console.log(response);
+        // console.log(response);
         return response;
     } catch (error) {
         console.error(error);
