@@ -8,6 +8,7 @@ import productosService from "app/services/productos_service";
 import detallesPedidosService from "app/services/detalles_pedidos_service";
 import Image from "next/image";
 import validateAccessToken from "app/utilities/auth/validateAccessToken";
+import DetallesPedido from "../DetallesPedido/DetallesPedido";
 
 const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) => {
   const [productos, setProductos] = useState([]);
@@ -16,11 +17,19 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
   const [descripcionPedido, setDescripcionPedido] = useState('Sin descripción'); // Inicializar con "Sin descripción"
 
 
-  async function sendEmail() {
+  async function sendEmail(pedido) {
+    const contenido = `
+    <h1>¡Hola!</h1>
+    Gracias por crear su pedido con nosotros
+
+    ${<DetallesPedido id_pedido={pedido.id_pedido} />}
+    `
     try {
       const rest = await fetch("/api/send", {
         method: "POST",
-        body: JSON.stringify({ contenido: "AY CREO QUE LO LOGRE" }), // Cambié contenido a body y stringify para enviar correctamente el contenido
+        body: JSON.stringify({ 
+          contenido: contenido 
+        }), // Cambié contenido a body y stringify para enviar correctamente el contenido
       });
       const data = await rest.json();
       console.log(data);
@@ -160,6 +169,7 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
         "Pedido Creado",
         "Gracias por crear su pedido con nosotros"
       );
+      sendEmail(createdPedido);
   
       setProductosAgregados({});
       setDescripcionPedido("Sin descripción"); // Restaurar descripción a "Sin descripción"
@@ -249,8 +259,8 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
             <button className="btn" onClick={abrirModal}>
               + Preferencias
             </button>
-            {/* <button className="btn btn-excel" id="crear-pedido" onClick={handleCrearPedido} disabled={isCarritoVacio}> */}
-            <button className="btn btn-excel" id="crear-pedido" onClick={sendEmail} disabled={isCarritoVacio}>
+            <button className="btn btn-excel" id="crear-pedido" onClick={handleCrearPedido} disabled={isCarritoVacio}>
+            {/* <button className="btn btn-excel" id="crear-pedido" onClick={sendEmail} disabled={isCarritoVacio}> */}
               Crear Pedido
             </button>
           </div>
