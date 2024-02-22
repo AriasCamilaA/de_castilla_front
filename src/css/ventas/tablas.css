@@ -1,0 +1,80 @@
+/* -------------------------- Tabla -------------------------------------- */
+.tabla {
+    margin: 0;
+    padding: 4px;
+    min-width: auto;
+    width: 100%;
+    max-height: 332px;
+    border: 1px solid var(--oscuro);
+    border-radius: 0;
+    overflow: auto;
+}
+
+.table {
+    margin: 0;
+    text-align: center;
+}
+
+.tabla thead{
+    border-bottom: 1px solid var(--oscuro);
+}
+
+.tabla__opcion, .tabla__estado{
+    border-left: 1px solid var(--oscuro) ;
+}
+
+.tabla span {
+    padding: 4px;
+    border-radius: 8px;
+    font-family: sofia;
+}
+
+.tabla__total{
+    font-family: 'Taviraj' !important;
+}
+
+.tabla__opcion img {
+    height: 24px;
+    cursor: pointer;
+}
+
+.opciones_tabla{
+    display: flex;
+    justify-content: space-around !important;
+    align-items: flex-end;
+    height: 100%;
+}
+/* Tabla con accordion de pedidos */
+.accordion{
+    margin: 16px;
+    padding: 4px;
+    min-width: auto;
+    width: 90%;
+    max-height: 332px;
+    border: 1px solid var(--oscuro);
+    border-radius: 16px;
+    overflow: auto;
+}
+
+.accordion .tabla{
+    width: 100%;
+    margin: 0;
+}
+
+/* -------------Modal agregar-------------------- */
+.modal-header{
+    background: var(--oscuro);
+    color: var(--blanco);
+    font-family: sofia;
+}
+
+.modal-header *{
+    color: var(--blanco);
+}
+
+.modal-header button {
+    background: none;
+    border: none;
+    color: var(--blanco);
+    font-size: 28px;
+}
