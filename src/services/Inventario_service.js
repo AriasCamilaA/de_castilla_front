@@ -2,54 +2,55 @@ import axios from "axios";
 
 const url = 'http://localhost:8000/castilla/api/';
 
-const productosService = {
-    getProductos : async () => {
+const inventarioService = {
+    // _________ Inventario ___________________________________________________________
+    getInventario : async () => {
         try {
-            const url_productos = url + "productos/";
-            const response = await axios.get(url_productos);
+            const url_inventario = url + "inventario/";
+            const response = await axios.get(url_inventario);
             const data = response.data;
             // console.log(data)
             return data;
         } catch (error) {
-            console.error("API ERROR: ESTADOS PEDIDO: "+error);
+            console.error("API ERROR: INVENTARIO: "+error);
             throw error;
         }
         
     },
-    getProductoById : async (id) => {
+    getInventarioById : async (id) => {
         try {
-            const url_productos = url + "productos/"+id;
-            const response = await axios.get(url_productos);
+            const url_inventario = url + "inventario/"+id;
+            const response = await axios.get(url_inventario);
             const data = response.data;
             // console.log(data)
             return data;
         } catch (error) {
-            console.error("API ERROR: PRODUCTO POR ID: "+error);
+            console.error("API ERROR: INVENTARIO POR ID: "+error);
             throw error;
         }
         
     },
-    createProducto : async (producto) => {
+    createInventario : async (inventario) => {
         try {
-            producto.estado = true;
-            const url_productos = url + "productos/";
-            const response = await axios.post(url_productos, producto);
+            inventario.estado = true;
+            const url_inventario = url + "inventario/";
+            const response = await axios.post(url_inventario, inventario);
             const data = response.data;
             return data;
         } catch (error) {
-            console.error("API ERROR: REGISTRAR PRODUCTO: "+error);
+            console.error("API ERROR: REGISTRAR INVENTARIO: "+error);
             throw error;
         }
         
     },
-    updateProducto : async (producto) => {
+    updateInventario : async (inventario) => {
         try {
-            const url_productos = url + "productos/"+producto.id_producto+"/";
-            const response = await axios.put(url_productos, producto);
+            const url_inventario = url + "inventario/"+inventario.id_inventario+"/";
+            const response = await axios.put(url_inventario, inventario);
             const data = response.data;
             return data;
         } catch (error) {
-            console.error("API ERROR: AL ACTUALIZAR PRODUCTO: "+error);
+            console.error("API ERROR: AL ACTUALIZAR INVENTARIO: "+error);
             throw error;
         }
         
@@ -58,7 +59,7 @@ const productosService = {
     // _________ PDF ___________________________________________________________
     // getPDF : async () => {
     //     try {
-    //         const url_productos = url + "insumos/generate-pdf/";
+    //         const url_productos = url + "proveedores/generate-pdf/";
     //         // const response = await axios.get(url_productos);
     //         // const data = response.data;
     //         window.open(url_productos);
@@ -73,4 +74,4 @@ const productosService = {
     // },
 }
 
-export default productosService;
+export default inventarioService;

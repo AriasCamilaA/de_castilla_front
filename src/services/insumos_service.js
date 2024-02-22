@@ -2,54 +2,55 @@ import axios from "axios";
 
 const url = 'http://localhost:8000/castilla/api/';
 
-const productosService = {
-    getProductos : async () => {
+const insumosService = {
+    // _________ Insumo ___________________________________________________________
+    getInsumo : async () => {
         try {
-            const url_productos = url + "productos/";
-            const response = await axios.get(url_productos);
+            const url_insumos = url + "insumos/";
+            const response = await axios.get(url_insumos);
             const data = response.data;
             // console.log(data)
             return data;
         } catch (error) {
-            console.error("API ERROR: ESTADOS PEDIDO: "+error);
+            console.error("API ERROR: INSUMOS: "+error);
             throw error;
         }
         
     },
-    getProductoById : async (id) => {
+    getInsumoById : async (id) => {
         try {
-            const url_productos = url + "productos/"+id;
-            const response = await axios.get(url_productos);
+            const url_insumos = url + "insumos/"+id;
+            const response = await axios.get(url_insumos);
             const data = response.data;
             // console.log(data)
             return data;
         } catch (error) {
-            console.error("API ERROR: PRODUCTO POR ID: "+error);
+            console.error("API ERROR: INSUMO POR ID: "+error);
             throw error;
         }
         
     },
-    createProducto : async (producto) => {
+    createInsumo : async (insumo) => {
         try {
-            producto.estado = true;
-            const url_productos = url + "productos/";
-            const response = await axios.post(url_productos, producto);
+            insumo.estado = true;
+            const url_insumos = url + "insumos/";
+            const response = await axios.post(url_insumos, insumo);
             const data = response.data;
             return data;
         } catch (error) {
-            console.error("API ERROR: REGISTRAR PRODUCTO: "+error);
+            console.error("API ERROR: REGISTRAR INSUMO: "+error);
             throw error;
         }
         
     },
-    updateProducto : async (producto) => {
+    updateInsumo : async (insumo) => {
         try {
-            const url_productos = url + "productos/"+producto.id_producto+"/";
-            const response = await axios.put(url_productos, producto);
+            const url_insumos = url + "insumos/"+insumo.id_insumo+"/";
+            const response = await axios.put(url_insumos, insumo);
             const data = response.data;
             return data;
         } catch (error) {
-            console.error("API ERROR: AL ACTUALIZAR PRODUCTO: "+error);
+            console.error("API ERROR: AL ACTUALIZAR INSUMO: "+error);
             throw error;
         }
         
@@ -73,4 +74,4 @@ const productosService = {
     // },
 }
 
-export default productosService;
+export default insumosService;
