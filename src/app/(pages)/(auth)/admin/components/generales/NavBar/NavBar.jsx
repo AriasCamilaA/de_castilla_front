@@ -6,16 +6,32 @@ import { useState, useEffect } from "react";
 import cerrarSession from "app/utilities/auth/cerrarSession";
 
 const NavBar = () => {
-    const [user, setUser] = useState(null);
-    useEffect(() => {
-        validateAccessToken()
-        .then((user) => {
-            setUser(user)
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-    }, []);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    validateAccessToken()
+      .then((user) => {
+        setUser(user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await cerrarSession(); // Call the cerrarSession function
+
+      // Handle successful logout
+      window.location.href = "/login"; // Redirect to the login page
+      // Or:
+      // setUser(null); // Update the user state for UI changes
+      // Show a logout success message
+    } catch (error) {
+      console.error("Error logging out:", error);
+      // Display an error message to the user
+    }
+  };
     
     return (
         <nav className="menuSuperior">
@@ -80,7 +96,7 @@ const NavBar = () => {
                 <li>
                     <a className="dropdown-item dropdownNavBar" href="">
                         <img src='/assets/icons/LogoOffWhite.png' className="px-2"/>
-                        <p onClick={()=>cerrarSession}>
+                        <p onClick={handleLogout}>
                             Cerrar Sesión
                         </p>
                     </a>
