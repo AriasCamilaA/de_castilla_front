@@ -15,18 +15,18 @@ const VentasPage = () => {
     const [fechaInicio, setFechaInicio] = useState("");
     const [fechaFin, setFechaFin] = useState("");
 
-    // const generarPDF = () => {
-    //     pedidosService.getPDF()
-    //     .then((response) => {
-    //         showAlert("success", 'PDF', "Ventas exportados correctamente");
-    //     })
-    //     .catch(() => {
-    //         showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente las ventas");
-    //     });
-    // }
+    const generarPDF = () => {
+        ventasService.getPDF()
+        .then((response) => {
+            showAlert("success", 'PDF', "Ventas exportados correctamente");
+        })
+        .catch(() => {
+            showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente las ventas");
+        });
+    }
 
     useEffect(() => {
-        // Obtenemos los pedidos
+        // Obtenemos los ventas
         ventasService.getVentas()
             .then((response) => {
                 setVentas(response);
@@ -73,7 +73,7 @@ const VentasPage = () => {
                     </div>
                     <div className='flitros__opciones d-flex'>
                         <p className='btn btn-excel' >Excel</p>
-                        {/* <p className='btn btn-pdf' onClick={generarPDF}>PDF</p> */}
+                        <p className='btn btn-pdf' onClick={generarPDF}>PDF</p>
                         <p className='btn btn-oscuro' data-bs-toggle="modal" data-bs-target="#create">
                             <strong className='me-1'>+</strong>
                             Agregar Venta
