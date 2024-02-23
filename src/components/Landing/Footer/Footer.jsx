@@ -7,10 +7,10 @@ const Footer = () => {
                 <div className="datos">
                 <img src='assets/img/logoClaro.png' alt="logo" />
                 <ul>
-                    <li>Contacto : 3158779538</li>
-                    <li>Dirección: Cra. 141b # 144-63</li>
+                    <li>Contacto: 3158779538</li>
+                    <li>Dirección: Cra. 141b #144-63, Suba, Bogotá, Cundinamarca</li>
                     <li>E-mail: isabelcastilla@gmail.com</li>
-                    <li>Creado  por PigeonSoft | 2023</li>
+                    <li>Creado por PigeonSoft | 2023</li>
                 </ul>
                 </div>
                 <div className="map">
