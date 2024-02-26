@@ -3,6 +3,7 @@ import Link from "next/link";
 import "./NavBar.css";
 import validateAccessToken from "app/utilities/auth/validateAccessToken";
 import { useState, useEffect } from "react";
+import cerrarSession from "app/utilities/auth/cerrarSession";
 
 const NavBar = () => {
     const [user, setUser] = useState(null);
