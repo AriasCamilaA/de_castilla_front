@@ -7,6 +7,8 @@ const createAccessToken = async (email, password) => {
     try {
         const data = await loginService.Create({ email, password });
         const { token, refresh } = data;
+        const user = await loginService.UserData(token)
+        const rol = user.id_rol_fk
         if (token && refresh) {
             // Obtener la hora actual
             const now = new Date();
@@ -20,6 +22,12 @@ const createAccessToken = async (email, password) => {
                 expires: twoHoursLater // Establecer la expiración en 2 horas
             });
             cookiesStore.set('refresh', refresh, { 
+                path: '/', 
+                httpOnly: true, 
+                sameSite: 'lax', 
+                expires: twoHoursLater // Establecer la expiración en 2 horas
+            });
+            cookiesStore.set('rol', rol, { 
                 path: '/', 
                 httpOnly: true, 
                 sameSite: 'lax', 

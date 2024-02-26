@@ -6,6 +6,7 @@ const cerrarSession = async() => {
   try {
     cookiesStore.delete("token");
     cookiesStore.delete("refresh");
+    cookiesStore.delete("rol");
     return {
       redirect: {
         destination: "/login",
