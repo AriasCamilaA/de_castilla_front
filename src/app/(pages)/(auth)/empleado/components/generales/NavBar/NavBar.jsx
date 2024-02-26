@@ -1,7 +1,30 @@
+"use client"
 import Link from "next/link";
 import "./NavBar.css";
+import validateAccessToken from "app/utilities/auth/validateAccessToken";
+import { useState, useEffect } from "react";
 
 const NavBar = () => {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        validateAccessToken()
+            .then((user) => {
+            setUser(user);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+        }, []);
+
+    const handleLogout = async () => {
+        try {
+            await cerrarSession(); // Call the cerrarSession function
+            window.location.href = "/login"; // Redirect to the login page
+        } catch (error) {
+            console.error("Error logging out:", error);
+        }
+    };
     return (
         <nav className="menuSuperior">
             <div className="logosMenu">
@@ -14,6 +37,18 @@ const NavBar = () => {
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoPedidos.png' alt="icono" />
                         <Link href="cliente/pedidos">Pedidos</Link>
+                    </div>
+                    <div className="menuLateral__Opcion">
+                        <img src='/assets/icons/menuLateral/LogoVentas.png' alt="icono" />
+                        <Link href="/empleado/ventas">Ventas</Link>
+                    </div>
+                    <div className="menuLateral__Opcion">
+                        <img src='/assets/icons/menuLateral/LogoInventario.png' alt="icono" />
+                        <Link href="/empleado/inventarios">Inventario</Link>
+                    </div>
+                    <div className="menuLateral__Opcion">
+                        <img src='/assets/icons/menuLateral/LogoProveedores.png' alt="icono" />
+                        <Link href="/empleado/proveedores">Proveedores</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoUsuarios.png' alt="icono" />
@@ -35,7 +70,7 @@ const NavBar = () => {
             <div className="dropdown">
                 <button className="dropdown-toggle menu-user" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img className="icon" src='/assets/icons/Logo Usuario.png'/>
-                {'{'}{'{'} Nombre Usuario {'}'}{'}'}
+                {user && user.nombre_usuario}
                 </button>
                 <ul className="dropdown-menu user-dropdown">
                 <li>
@@ -47,9 +82,9 @@ const NavBar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link className="dropdown-item dropdownNavBar" href="{{ route('logout') }}">
+                    <Link className="dropdown-item dropdownNavBar" href="#">
                         <img src='/assets/icons/LogoOffWhite.png' className="px-2"/>
-                        <p>
+                        <p onClick={handleLogout}>
                             Cerrar Sesión
                         </p>
                     </Link>

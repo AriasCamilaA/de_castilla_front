@@ -3,36 +3,28 @@ import Link from "next/link";
 import "./NavBar.css";
 import validateAccessToken from "app/utilities/auth/validateAccessToken";
 import { useState, useEffect } from "react";
-import cerrarSession from "app/utilities/auth/cerrarSession";
 
 const NavBar = () => {
-  const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    validateAccessToken()
-      .then((user) => {
-        setUser(user);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+    useEffect(() => {
+        validateAccessToken()
+            .then((user) => {
+            setUser(user);
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+        }, []);
 
-  const handleLogout = async () => {
-    try {
-      await cerrarSession(); // Call the cerrarSession function
-
-      // Handle successful logout
-      window.location.href = "/login"; // Redirect to the login page
-      // Or:
-      // setUser(null); // Update the user state for UI changes
-      // Show a logout success message
-    } catch (error) {
-      console.error("Error logging out:", error);
-      // Display an error message to the user
-    }
-  };
-    
+    const handleLogout = async () => {
+        try {
+            await cerrarSession(); // Call the cerrarSession function
+            window.location.href = "/login"; // Redirect to the login page
+        } catch (error) {
+            console.error("Error logging out:", error);
+        }
+    };
     return (
         <nav className="menuSuperior">
             <div className="logosMenu">
@@ -43,34 +35,18 @@ const NavBar = () => {
                 <input type="checkbox" id="menuHam" />
                 <div className="menuLateral">
                     <div className="menuLateral__Opcion">
-                        <img src='/assets/icons/menuLateral/LogoVentas.png' alt="icono" />
-                        <Link href="/admin/ventas">Ventas</Link>
-                    </div>
-                    <div className="menuLateral__Opcion">
-                        <img src='/assets/icons/menuLateral/LogoInventario.png' alt="icono" />
-                        <Link href="/admin/inventarios">Inventario</Link>
-                    </div>
-                    <div className="menuLateral__Opcion">
-                        <img src='/assets/icons/menuLateral/LogoProveedores.png' alt="icono" />
-                        <Link href="/admin/proveedores">Proveedores</Link>
-                    </div>
-                    <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoPedidos.png' alt="icono" />
-                        <Link href="/admin/pedidos">Pedidos</Link>
+                        <Link href="cliente/pedidos">Pedidos</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoUsuarios.png' alt="icono" />
-                        <Link href="/admin/usuarios">Usuarios</Link>
+                        <Link href="cliente/usuarios">Usuario</Link>
                     </div>
-                    {/* <div className="menuLateral__Opcion">
-                        <img src='/assets/icons/menuLateral/LogoEstadisticas.png' alt="icono" />
-                        <Link href="#">Estadísticas</Link>
-                    </div> */}
                 </div>
                 </div>
                 {
                     // Aca debo saber en que ruta estoy para mostrar el logo
-                    <Link href="/admin/">
+                    <Link href="/menu_principal">
                         <img className="icon" src='/assets/icons/LogoCasa.png'/>
                     </Link>
                 }
@@ -94,12 +70,12 @@ const NavBar = () => {
                     </Link>
                 </li>
                 <li>
-                    <a className="dropdown-item dropdownNavBar" href="#">
+                    <Link className="dropdown-item dropdownNavBar" href="#">
                         <img src='/assets/icons/LogoOffWhite.png' className="px-2"/>
                         <p onClick={handleLogout}>
                             Cerrar Sesión
                         </p>
-                    </a>
+                    </Link>
                     <form id="logout-form" action="" method="POST" className="d-none">
                     </form>
                 </li>
