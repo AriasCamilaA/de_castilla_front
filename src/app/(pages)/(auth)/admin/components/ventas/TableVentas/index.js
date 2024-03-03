@@ -1,15 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formatearFecha, formatNumberToCopWithDecimal, showAlert } from "app/utilities";
-import ventasService from "app/services/detalles_ventas_service";
+import ventasService from "app/services/ventas_service";
 import UpdateVenta from "../UpdateVenta";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const TableVentas = ({ ventas, searchTerm, fechaInicio, fechaFin, actualizarListaVentas }) => {
     const [ventaById, setVentaById] = useState('');
 
+    useEffect (() => {
+        console.log(ventaById)
+    },[ventaById])
+
+    const eliminarVenta = (venta) => {
+        const MySwal = withReactContent(Swal);
+        MySwal.fire({
+            title: '¿Está seguro de eliminar la venta?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#732f48',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleEliminarVenta(venta);
+            }
+        });
+    }
+
+    const handleEliminarVenta = (venta) => {
+        venta.estado = 0;
+        ventasService.updateVenta(venta)
+        .then(() => {
+            showAlert(
+                "success",
+                "Venta Eliminada",
+                "La venta ha sido eliminada correctamente"
+                );
+                actualizarListaVentas();
+            })
+            .catch(() => {
+                showAlert(
+                    "error",
+                "No se pudo eliminar la venta",
+                "Vuelva a intentarlo más tarde"
+            );
+        });
+        console.log(venta)
+    }
+
     const handleCerrarModalDetalleVenta = () => {
         document.getElementById('modalDetalleVenta').click();
     };
-    console.log(ventas)
     return (
         <>
             <div className="tablaConTab">
@@ -51,8 +93,11 @@ const TableVentas = ({ ventas, searchTerm, fechaInicio, fechaFin, actualizarList
                                             <td>{formatNumberToCopWithDecimal(venta.total_venta)}</td>
                                             <td className="tabla__opcion">
                                                 <div className="opciones_tabla">
-                                                    <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#update" onClick={() => setVentaById(venta.id_pedido)}>
+                                                    <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#update" onClick={() => setVentaById(venta.id_venta)}>
                                                         🔍
+                                                    </div>
+                                                    <div className="cursor-pointer" onClick={() => eliminarVenta(venta)}>
+                                                        ❌
                                                     </div>
                                                 </div>
                                             </td>

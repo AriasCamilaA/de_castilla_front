@@ -18,7 +18,7 @@ const DetallesVenta = ({ id_venta }) => {
                 );
             });
     }
-    , []);
+    , [id_venta]);
     return (
         <div>
             <h4 className="color-oscuro fw-bold m-0 me-2 mt-2">Detalle:</h4>
@@ -32,7 +32,7 @@ const DetallesVenta = ({ id_venta }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {detallesPedido.map((detalle) => (
+                    {detallesVenta.map((detalle) => (
                         <tr key={detalle.id}>
                             <td>{detalle.producto.nombre_producto}</td>
                             <td>{detalle.cantidad_producto}</td>

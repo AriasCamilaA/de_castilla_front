@@ -18,7 +18,7 @@ const DetallesPedido = ({ id_pedido }) => {
                 );
             });
     }
-    , []);
+    , [id_pedido]);
     return (
         <div>
             <h4 className="color-oscuro fw-bold m-0 me-2 mt-2">Detalle:</h4>

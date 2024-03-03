@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { AiOutlineCalendar, AiOutlineInfoCircle, AiOutlineMail, AiOutlinePhone, AiOutlineUser } from "react-icons/ai";
 import ventasService from "app/services/ventas_service";
-import { formatearFechaParaInputDate, showAlert } from "app/utilities";
+import { formatNumberToCopWithDecimal, formatearFechaParaInputDate, showAlert } from "app/utilities";
+import DetallesVenta from "../DetallesVenta/DetallesVenta";
 
 const UpdateVenta = ({ ventaById }) => {
     const [venta, setVenta] = useState(null);
@@ -43,7 +44,7 @@ const UpdateVenta = ({ ventaById }) => {
                                         </div>
 
                                         <h4 className="color-oscuro fw-bold m-0 me-2">Datos de Venta:</h4>
-                                        <span className="fw-light mb-2 d-flex justify-content-center align-items-start ">(<AiOutlineInfoCircle /> Tenga en cuenta que estos cambios deben ser aprobados para actualización del pedido)</span>
+                                        <span className="fw-light mb-2 d-flex justify-content-center align-items-start ">(<AiOutlineInfoCircle /> Visualizar venta y ver la persona que la registro)</span>
 
                                         <div className="input-group mb-3">
                                             <span className="input-group-text"><AiOutlineCalendar /></span>
@@ -53,11 +54,12 @@ const UpdateVenta = ({ ventaById }) => {
 
                                         <div className="input-group mb-3">
                                             <span className="input-group-text"><AiOutlineUser /></span>
-                                            <input type="text" className="form-control" placeholder="Nombre vendedor" aria-label="Username" value={venta.usuario && (`${venta.usuario.nombre_usuario} ${venta.usuario.apellido_usuario}`)} disabled />
+                                            <input type="text" className="form-control" placeholder="Nombre vendedor" aria-label="Username" value={venta.usuario && (`${venta.usuario.rol.nombre_rol}`)} disabled />
                                             <span className="input-group-text"><AiOutlineMail /></span>
-                                            <input type="number" className="form-control" placeholder="Total venta" aria-label="Server" value={venta.total} disabled />
+                                            <input type="text" className="form-control" placeholder="Total venta" aria-label="Server" value={formatNumberToCopWithDecimal(venta.total_venta)} disabled />
                                         </div>
-                                    </div>
+                                        {ventaById && (<DetallesVenta id_venta = {ventaById} />)}
+                                    </div> 
                                 )}
                             </div>
                         </div>
