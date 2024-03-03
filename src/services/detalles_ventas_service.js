@@ -18,7 +18,7 @@ const detallesVentas = {
     },
     getDetallesVentasById : async (id_venta) => {
         try {
-            const url_ventas = url + "detallepedidos/venta/"+id_venta+"/";
+            const url_ventas = url + "detalleventas/venta/"+id_venta+"/";
             const response = await axios.get(url_ventas);
             const data = response.data;
             // console.log(data)
@@ -27,7 +27,6 @@ const detallesVentas = {
             console.error("API ERROR: DETALLE VENTAS POR VENTA: "+error);
             throw error;
         }
-        
     },
     createDetalleVenta : async (detalleVenta) => {
         try {

@@ -211,7 +211,6 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
                     >
                       -
                     </button>
-                    {console.log(producto)}
                     <div className="descripcion">
                       <h5 className="card-title">{producto.nombre}</h5>
                       <p className="card-title">$ {producto.precio}</p>
