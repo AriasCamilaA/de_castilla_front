@@ -22,6 +22,24 @@ const registerService = {
         }
         
     },
+    newUser : async (user) => {
+        try {
+            user.is_superuser = false, // Ajusta los valores predeterminados según tus necesidades
+            user.estado = true,
+            user.is_active = true,
+            user.is_staff = true,
+            user.groups = [],
+            user.user_permissions = []
+            const url_register = url + "usuarios/";
+            const response = await axios.post(url_register, user);
+            const data = response.data;
+            return data;
+        } catch (error) {
+            console.error("API ERROR: REGISTRO CLIENTE: "+error);
+            throw error; 
+        }
+        
+    },
 }
 
 export default registerService;

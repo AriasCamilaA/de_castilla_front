@@ -68,7 +68,7 @@ const TablaUsuarios = ({ usuarios, searchTerm }) => {
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Celular</th>
                                         <th scope="col">Correo Electrónico</th>
-                                        <th scope="col">Estado</th>
+                                        {/* <th scope="col">Estado</th> */}
                                         <th scope="col">Opciones</th>
                                     </tr>
                                 </thead>
@@ -79,7 +79,7 @@ const TablaUsuarios = ({ usuarios, searchTerm }) => {
                                             <td>{usuario.nombre_usuario} {usuario.apellido_usuario}</td>
                                             <td>{usuario.celular_usuario}</td>
                                             <td>{usuario.email}</td>
-                                            <td>{usuario.estado == 1 ? '✅' : '❌'}</td>
+                                            {/* <td>{usuario.estado == 1 ? '✅' : '❌'}</td> */}
                                             <td>🔍</td>
                                         </tr>
                                     ))}
