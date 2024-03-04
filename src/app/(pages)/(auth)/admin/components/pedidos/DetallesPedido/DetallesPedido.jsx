@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import detallesPedidosService from 'app/services/detalles_pedidos_service';
+import detallesPedidosService from 'app/services/pedidos/detalles_pedidos_service';
 import { showAlert, formatNumberToCop } from 'app/utilities';
 
 const DetallesPedido = ({ id_pedido }) => {

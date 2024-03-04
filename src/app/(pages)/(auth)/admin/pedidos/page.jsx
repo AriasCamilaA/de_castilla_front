@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import pedidosService from 'app/services/pedidos_service';
+import pedidosService from 'app/services/pedidos/pedidos_service';
 import { showAlert } from 'app/utilities';
 import CreatePedido from '../components/pedidos/CreatePedido';
 import TablePedidos from '../components/pedidos/TablePedidos';
@@ -9,7 +9,7 @@ import "app/css/pedidos/tablas.css";
 import "app/css/pedidos/filtros.css";
 import "app/css/pedidos/Pedidos.css"
 import "app/css/pedidos/botones.css";
-import estadosPedidosService from 'app/services/estados_pedidos_servise';
+import estadosPedidosService from 'app/services/pedidos/estados_pedidos_servise';
 
 const PedidosPage = () => {
     const [pedidos, setPedidos] = useState([]);
