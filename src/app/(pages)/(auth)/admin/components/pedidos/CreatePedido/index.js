@@ -50,14 +50,14 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
           <h1>¡Hola!</h1>
           <h2>Gracias por crear su pedido con nosotros.<h2>
           <ul>
-          ${data.map((detalle) => {
-            total_pedido += detalle.producto.precio_producto 
+          ${data.map((detalle) => { 
+            total_pedido += detalle.producto.precio_producto * detalle.cantidad_producto
             return(
               `<li>✅ ${detalle.cantidad_producto} ${detalle.producto.nombre_producto} ${formatNumberToCopWithDecimal(detalle.producto.precio_producto)} = ${formatNumberToCopWithDecimal(detalle.subtotal_detalle_pedido)}</li>`
             )
           })}
           <ul/>
-          <h2>Precio Total: ${total_pedido}</h2>
+          <h2>Precio Total: ${formatNumberToCopWithDecimal(total_pedido)}</h2>
         `;
         sendMyEmail({
           to: 'ariasruizcamilaa@gmail.com',

@@ -1,5 +1,6 @@
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
+import { format, parseISO } from 'date-fns';
 
 export function showAlert(i, title, text){
     const MySwal = withReactContent(Swal);
@@ -35,16 +36,11 @@ export function formatNumberToCopWithDecimal(value) {
 }
 
 export const formatearFecha = (fechaString) => {
-    const fecha = new Date(fechaString);
-    
-    // Obtener día, mes y año
-    const dia = fecha.getDate();
-    const mes = fecha.toLocaleString('default', { month: 'short' }); // Obtiene el mes en formato de tres letras
-    const anio = fecha.getFullYear();
-    
-    // Concatenar y devolver la fecha formateada
-    return `${dia}/${mes}/${anio}`;
-  };
+    const fecha = parseISO(fechaString); // Parsea la fecha en formato ISO
+
+    // Formatea la fecha en el formato deseado (día/mes/año)
+    return format(fecha, 'dd/MM/yyyy');
+};
 
 export const formatearFechaParaInputDate= (fecha) => {
     // Asegúrate de que la fecha es un array con al menos tres elementos
