@@ -83,6 +83,7 @@ const TableVentas = ({ ventas, searchTerm, fechaInicio, fechaFin, actualizarList
                                                 venta.usuario.no_documento_usuario.toString().toLowerCase().includes(searchTerm))
                                         );
                                     })
+                                    .filter(venta => venta.estado == 1)
                                     .sort((a, b) => b.id_venta - a.id_venta)
                                     .map((venta) => (
                                         <tr key={venta.id_venta}>

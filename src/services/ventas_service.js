@@ -45,7 +45,6 @@ const ventasService = {
     },
     updateVenta : async (venta) => {
         try {
-            venta.estado = 1;
             const url_ventas = url + "ventas/"+venta.id_venta+"/";
             const response = await axios.put(url_ventas, venta);
             const data = response.data;

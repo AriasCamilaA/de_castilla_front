@@ -6,13 +6,27 @@ import "app/css/ventas/createPedidoVenta.css";
 import productosService from "app/services/productos_service";
 import detallesVentas from "app/services/detalles_ventas_service";
 import Image from "next/image";
+import validateAccessToken from "app/utilities/auth/validateAccessToken";
 
 const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => {
   const [productos, setProductos] = useState([]);
   const [productosAgregados, setProductosAgregados] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
+  const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
+    validateAccessToken()
+    .then((response) => {
+      if (response) {
+        setUsuario(response);
+      } else {
+        showAlert(
+          "error",
+          "Usuario no encontrado",
+          "No se encontró el usuario para cargar."
+        );
+      }
+    })
     productosService
       .getProductos()
       .then((response) => {
@@ -113,13 +127,12 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
       const dia = ('0' + fechaActual.getDate()).slice(-2);
   
       const fechaVenta = `${año}-${mes}-${dia}`;
-      const no_documento_usuario = 3456789014;
       const total_venta = calcularTotal();
       const hora_venta = obtenerHoraActual();
 
       const createdVenta = await ventasService.createVenta({
         fecha_venta: fechaVenta,
-        no_documento_usuario_fk: no_documento_usuario, // Pasar solo el ID del usuario
+        no_documento_usuario_fk: usuario.no_documento_usuario, // Pasar solo el ID del usuario
         total_venta: total_venta,
         hora_venta: hora_venta,
       });
