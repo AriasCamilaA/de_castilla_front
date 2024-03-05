@@ -47,7 +47,7 @@ const UsuariosPage = () => {
                     </div>
                     <CrearUsuarios actualizarListaUsuarios={actualizarListaUsuarios}/>
                 </div>
-            {usuarios && <TableUsuarios usuarios={usuarios} searchTerm={searchTerm}/>}
+            {usuarios && <TableUsuarios usuarios={usuarios} searchTerm={searchTerm} actualizarListaUsuarios={actualizarListaUsuarios}/>}
         </div>
     );
 };

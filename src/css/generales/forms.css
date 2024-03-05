@@ -4,14 +4,26 @@
     --fondo2: #FDEBEB;
 }
 
-.form {
-    width: 45rem;
+.form_user {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: var(--fondo2);
+}
+
+.form_user input{
+    height: 32px;
+    border: 1px solid var(--oscuro);
+    border-radius: 16px;
+    padding: 0 12px;
+}
+
+.form_user select{
+    height: 32px;
+    border: 1px solid var(--oscuro);
+    border-radius: 16px;
+    padding: 0 12px;
 }
 
 .form__title {

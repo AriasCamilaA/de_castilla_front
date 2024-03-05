@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import "app/css/pedidos/tab_tabla.css";
 import "app/css/pedidos/tablas.css";
 import "app/css/pedidos/filtros.css";
-import "app/css/pedidos/Pedidos.css"
 import "app/css/pedidos/botones.css";
+import ActualizarUsuarios from "../ActualizarUsuarios";
 
-const TablaUsuarios = ({ usuarios, searchTerm }) => {
+const TablaUsuarios = ({ usuarios, searchTerm, actualizarListaUsuarios }) => {
     const [usuariosAdmin, setUsuariosAdmin] = useState([]);
     const [usuariosCliente, setUsuariosCliente] = useState([]);
     const [usuariosEmpleado, setUsuariosEmpleado] = useState([]);
     const [tabActual, setTabActual] = useState('Cliente');
+    const [usuario, setUsuario] = useState(null);
 
     useEffect(() => {
         usuarios = usuarios.filter((usuario) => usuario.nombre_usuario.toLowerCase().includes(searchTerm) || usuario.no_documento_usuario.toString().toLowerCase().includes(searchTerm));  
@@ -73,14 +74,14 @@ const TablaUsuarios = ({ usuarios, searchTerm }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {mostrarUsuarios(rol).map(usuario => (
-                                        <tr key={usuario.no_documento_usuario}>
-                                            <td>{usuario.no_documento_usuario}</td>
-                                            <td>{usuario.nombre_usuario} {usuario.apellido_usuario}</td>
-                                            <td>{usuario.celular_usuario}</td>
-                                            <td>{usuario.email}</td>
+                                    {mostrarUsuarios(rol).map(user => (
+                                        <tr key={user.no_documento_usuario}>
+                                            <td>{user.no_documento_usuario}</td>
+                                            <td>{user.nombre_usuario} {user.apellido_usuario}</td>
+                                            <td>{user.celular_usuario}</td>
+                                            <td>{user.email}</td>
                                             {/* <td>{usuario.estado == 1 ? '✅' : '❌'}</td> */}
-                                            <td>🔍</td>
+                                            <td className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#updateUsuario" onClick={()=>setUsuario(user)}>🔍</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -89,6 +90,7 @@ const TablaUsuarios = ({ usuarios, searchTerm }) => {
                     </div>
                 ))}
             </div>
+            <ActualizarUsuarios usuario={usuario} actualizarListaUsuarios={actualizarListaUsuarios} />
         </>
     );
 };
