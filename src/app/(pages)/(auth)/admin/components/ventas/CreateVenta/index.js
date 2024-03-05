@@ -147,7 +147,6 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
             id_producto_fk: producto.id, // Cambiar a id_producto_fk
             id_venta_fk: createdVenta.id_venta, // Cambiar a id_pedido_fk
           }
-          console.log(detalle);
           detallesVentas.createDetalleVenta(detalle)
         }
       );

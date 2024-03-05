@@ -7,11 +7,6 @@ import withReactContent from "sweetalert2-react-content";
 
 const TableVentas = ({ ventas, searchTerm, fechaInicio, fechaFin, actualizarListaVentas }) => {
     const [ventaById, setVentaById] = useState('');
-
-    useEffect (() => {
-        console.log(ventaById)
-    },[ventaById])
-
     const eliminarVenta = (venta) => {
         const MySwal = withReactContent(Swal);
         MySwal.fire({
@@ -46,7 +41,6 @@ const TableVentas = ({ ventas, searchTerm, fechaInicio, fechaFin, actualizarList
                 "Vuelva a intentarlo más tarde"
             );
         });
-        console.log(venta)
     }
 
     const handleCerrarModalDetalleVenta = () => {
