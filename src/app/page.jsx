@@ -19,7 +19,7 @@ export default function Home() {
                     <div className="carousel-item active">
                     <div className="carrusel">
                         <div>
-                        <h1>producto 1</h1>
+                        <h1>Postre de mora</h1>
                         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus laudantium
                             optio, odit porro aliquid quasi inventore quia quo neque officiis, quisquam incidunt
                             consequuntur impedit distinctio libero. Debitis aut quasi rerum.</p>
