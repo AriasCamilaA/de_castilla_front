@@ -198,7 +198,7 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
         await Promise.all(detallesPedidosPromises);
     
         actualizarListaPedidos();
-        handleCerrarModalCrearPedido();
+        document.getElementById('cerrarModalCreatePedido').click();
         showAlert(
           "success",
           "Pedido Creado",
@@ -219,113 +219,129 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
 
   return (
     <>
-      <div className="d-flex">
-        <div data-bs-dismiss="modal" aria-label="Close" id="CloseModal"></div>
-        <div className="catalogo">
-          {productos.map((producto) => (
-            <div className="card" style={{ width: "18rem" }} key={producto.id_producto}>
-              <div className="card-body">
-                <Image
-                  src={producto.imagen_producto}
-                  alt="producto"
-                  width={200}
-                  height={50}
-                />
-                <h5 className="card-title nombre_Producto">{producto.nombre_producto}</h5>
-                <p className="card-title precio_Producto">{formatNumberToCop(producto.precio_producto)}</p>
-                <div
-                  className="btn agregar-producto"
-                  data-producto-id={producto.id_producto}
-                  onClick={(e) =>
-                    handleAgregarProducto(
-                      e,
-                      producto.id_producto,
-                      producto.nombre_producto,
-                      producto.precio_producto
-                    )
-                  }
-                >
-                  Agregar
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="carrito">
-          <div className="d-flex justify-content-between w-100">
-            <h2 className="titulo">Carrito</h2>
-            <button className="btn btn-trash px-1" onClick={() => setProductosAgregados({})} disabled={isCarritoVacio}>
-              <IoTrash />
-            </button>
-          </div>
-          <div className="carrito__productos">
-            {Object.keys(productosAgregados).map((key) => {
-              const producto = productosAgregados[key];
-              return (
-                <div className="card" key={key} data-producto-id={key}>
-                  <div className="card-body">
-                    <button
-                      className="btn btn-quitar"
-                      onClick={(e) => handleQuitarCantidad(e, key)}
-                    >
-                      -
+      <div className="modal fade" id="create" tabIndex={-1} role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div className="modal-dialog modal-xl" role="document">
+            <div className="modal-content">
+                <div className="modal-header d-flex align-items-start">
+                    <h5 className="modal-title" id="modalTitleId">Nuevo Pedido</h5>
+                    <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id='cerrarModalCreatePedido'>
+                        <p style={{fontFamily: "arial"}}>x</p>
                     </button>
-                    <div className="descripcion">
-                      <h5 className="card-title">{producto.nombre}</h5>
-                      <p className="card-title">$ {producto.precio}</p>
-                      <span className="badge bg-secondary">{producto.cantidad}</span>
+                </div>
+                <div className="modal-body">
+                    <div className="container-fluid">
+                      <div className="d-flex">
+                        <div data-bs-dismiss="modal" aria-label="Close" id="CloseModal"></div>
+                        <div className="catalogo">
+                          {productos.map((producto) => (
+                            <div className="card" style={{ width: "18rem" }} key={producto.id_producto}>
+                              <div className="card-body">
+                                <Image
+                                  src={producto.imagen_producto}
+                                  alt="producto"
+                                  width={200}
+                                  height={50}
+                                />
+                                <h5 className="card-title nombre_Producto">{producto.nombre_producto}</h5>
+                                <p className="card-title precio_Producto">{formatNumberToCop(producto.precio_producto)}</p>
+                                <div
+                                  className="btn agregar-producto"
+                                  data-producto-id={producto.id_producto}
+                                  onClick={(e) =>
+                                    handleAgregarProducto(
+                                      e,
+                                      producto.id_producto,
+                                      producto.nombre_producto,
+                                      producto.precio_producto
+                                    )
+                                  }
+                                >
+                                  Agregar
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="carrito">
+                          <div className="d-flex justify-content-between w-100">
+                            <h2 className="titulo">Carrito</h2>
+                            <button className="btn btn-trash px-1" onClick={() => setProductosAgregados({})} disabled={isCarritoVacio}>
+                              <IoTrash />
+                            </button>
+                          </div>
+                          <div className="carrito__productos">
+                            {Object.keys(productosAgregados).map((key) => {
+                              const producto = productosAgregados[key];
+                              return (
+                                <div className="card" key={key} data-producto-id={key}>
+                                  <div className="card-body">
+                                    <button
+                                      className="btn btn-quitar"
+                                      onClick={(e) => handleQuitarCantidad(e, key)}
+                                    >
+                                      -
+                                    </button>
+                                    <div className="descripcion">
+                                      <h5 className="card-title">{producto.nombre}</h5>
+                                      <p className="card-title">$ {producto.precio}</p>
+                                      <span className="badge bg-secondary">{producto.cantidad}</span>
+                                    </div>
+                                    <button
+                                      className="btn btn-agregar"
+                                      onClick={(e) => handleAgregarCantidad(e, key)}
+                                    >
+                                      +
+                                    </button>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                          <div className="carrito__footer">
+                            <h2>Total</h2>
+                            <p id="total-precio">${calcularTotal().toLocaleString()}</p>
+                          </div>
+                          <div className="d-flex flex-wrap w-100 justify-content-between gap-1">
+                            <button className="btn" onClick={abrirModal}>
+                              + Preferencias
+                            </button>
+                            <button className="btn btn-excel" id="crear-pedido" onClick={handleCrearPedido} disabled={isCarritoVacio}>
+                              Crear Pedido
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="modal" tabIndex="-1" style={{ display: modalVisible ? 'block' : 'none' }}>
+                        <div className="modal-dialog modal-dialog-centered">
+                          <div className="modal-content">
+                            <div className="modal-header d-flex align-items-start">
+                              <h5 className="modal-title">Preferencias del Pedido</h5>
+                              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => setModalVisible(false)}>
+                                <p style={{ fontFamily: "arial" }}>x</p>
+                              </button>
+                            </div>
+                            <div className="modal-body">
+                              <textarea
+                                placeholder="Escriba si desea algo en específico- Ej: Utilizar poca azucar."
+                                className="form-control"
+                                id="descripcionPedido"
+                                rows="3"
+                                value={descripcionPedido}
+                                onChange={(e) => setDescripcionPedido(e.target.value)}
+                              ></textarea>
+                            </div>
+                            <div className="modal-footer">
+                              <button type="button" className="btn btn-all" data-bs-dismiss="modal" onClick={() => setModalVisible(false)}>x Cancelar</button>
+                              <button type="button" className="btn btn-oscuro" data-bs-dismiss="modal" onClick={guardarPreferencias}>+ Guardar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <button
-                      className="btn btn-agregar"
-                      onClick={(e) => handleAgregarCantidad(e, key)}
-                    >
-                      +
-                    </button>
-                  </div>
                 </div>
-              );
-            })}
-          </div>
-          <div className="carrito__footer">
-            <h2>Total</h2>
-            <p id="total-precio">${calcularTotal().toLocaleString()}</p>
-          </div>
-          <div className="d-flex flex-wrap w-100 justify-content-between gap-1">
-            <button className="btn" onClick={abrirModal}>
-              + Preferencias
-            </button>
-            <button className="btn btn-excel" id="crear-pedido" onClick={handleCrearPedido} disabled={isCarritoVacio}>
-              Crear Pedido
-            </button>
-          </div>
+            </div>
         </div>
-      </div>
-      <div className="modal" tabIndex="-1" style={{ display: modalVisible ? 'block' : 'none' }}>
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header d-flex align-items-start">
-              <h5 className="modal-title">Preferencias del Pedido</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => setModalVisible(false)}>
-                <p style={{ fontFamily: "arial" }}>x</p>
-              </button>
-            </div>
-            <div className="modal-body">
-              <textarea
-                placeholder="Escriba si desea algo en específico- Ej: Utilizar poca azucar."
-                className="form-control"
-                id="descripcionPedido"
-                rows="3"
-                value={descripcionPedido}
-                onChange={(e) => setDescripcionPedido(e.target.value)}
-              ></textarea>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-all" data-bs-dismiss="modal" onClick={() => setModalVisible(false)}>x Cancelar</button>
-              <button type="button" className="btn btn-oscuro" data-bs-dismiss="modal" onClick={guardarPreferencias}>+ Guardar</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div>   
       {modalVisible && <div className="modal-backdrop fade show"></div>}
     </>
   );
