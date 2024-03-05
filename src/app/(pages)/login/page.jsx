@@ -15,6 +15,7 @@ const LoginPage = () => {
     e.preventDefault();
     createAccessToken(email, password)
       .then((response) => {
+        console.log(response);
         showAlert("success", "Credenciales correctas", "Bienvenido a De Castilla");
         window.location.href = "/admin";
       })
@@ -28,8 +29,11 @@ const LoginPage = () => {
   return (
     <div className="fondoTranslucido">
       <section className="container">
-        <h2 className="title">Iniciar Sesión</h2>
+      <a className="logo" href="/landing">
+                    <img src="assets/img/logo_letra_oscura.png" alt="Logo"/>
+                </a>
         <form className="form" onSubmit={handleSubmit}>
+        <h2 className="title">Iniciar Sesión</h2>
           <div className="form__inputs">
             <div className="divLogin">
               <div className="inputConLogo">
@@ -40,7 +44,7 @@ const LoginPage = () => {
                   className="form__input"
                   type="email"
                   name="email"
-                  placeholder="CorreoElectrónico@micorreo.com"
+                  placeholder="ejemplo@correo.com"
                   id="email"
                   required
                   autoFocus

@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import pedidosService from 'app/services/pedidos_service';
+import pedidosService from 'app/services/pedidos/pedidos_service';
 import { showAlert } from 'app/utilities';
 import CreatePedido from '../components/pedidos/CreatePedido';
 import TablePedidos from '../components/pedidos/TablePedidos';
@@ -9,7 +9,7 @@ import "app/css/pedidos/tablas.css";
 import "app/css/pedidos/filtros.css";
 import "app/css/pedidos/Pedidos.css"
 import "app/css/pedidos/botones.css";
-import estadosPedidosService from 'app/services/estados_pedidos_servise';
+import estadosPedidosService from 'app/services/pedidos/estados_pedidos_servise';
 
 const PedidosPage = () => {
     const [pedidos, setPedidos] = useState([]);
@@ -76,9 +76,6 @@ const PedidosPage = () => {
         setSelectedEstado(estado);
     };
 
-    const handleCerrarModalCrearPedido = () => {
-        document.getElementById('modalCrearPedido').click();
-    };
 
     const limpiarFiltros = () => {
         setSearchTerm("");
@@ -170,23 +167,7 @@ const PedidosPage = () => {
                 />
             </div>
             {/*--------------------------- MODAL DE NUEVO PEDIDO ------------------------------------*/}
-            <div className="modal fade" id="create" tabIndex={-1} role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                <div className="modal-dialog modal-xl" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header d-flex align-items-start">
-                            <h5 className="modal-title" id="modalTitleId">Nuevo Pedido</h5>
-                            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id='modalCrearPedido'>
-                                <p style={{fontFamily: "arial"}}>x</p>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <div className="container-fluid">
-                            <CreatePedido actualizarListaPedidos={actualizarListaPedidos} handleCerrarModalCrearPedido={handleCerrarModalCrearPedido}/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>              
+            <CreatePedido actualizarListaPedidos={actualizarListaPedidos}/>
         </>
     );
 };

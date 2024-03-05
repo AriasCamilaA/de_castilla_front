@@ -1,45 +1,84 @@
-import 'app/css/generales/style.css';
-import 'app/css/generales/botones.css';
-import 'app/css/generales/login.css';
+"use client"
+import React, { useState } from 'react';
+import registerService from 'app/services/auth/register_service'; 
+import "app/css/generales/style.css";
+import "app/css/generales/forms.css";
+import "app/css/generales/login.css";
+import "app/css/generales/botones.css";
+import { showAlert } from 'app/utilities';
 
+const RegisterPage = () => {
+    const initialState = {
+        nombre_usuario: '',
+        apellido_usuario: '',
+        no_documento_usuario: '',
+        celular_usuario: '',
+        email: '',
+        password: '',
+    };
 
-const registerPage = () => {
-  return (
-    <div class='fondoTraslucido'>
-        <section class="container">
-            <a class="logo" href="/landing">
-                <img src="assets/img/logo_letra_oscura.png"/>
-            </a>
-            <form action="{{ route('register') }}" class="form register" method="POST">
-                @csrf
-                <h2 class="title">Registrar usuario</h2>
-                <div>
-                    <input class="form__input" type="text" placeholder="Nombre 1" autofocus required autocomplete="none" name="nombre_Usuario1" value="{{old('nombre_Usuario1')}}"/>
-                    <input class="form__input" type="text" placeholder="Nombre 2" autocomplete="none" name="nombre_Usuario2" value="{{old('nombre_Usuario2')}}"/>
-                </div>
-                <div>
-                    <input class="form__input" type="text" placeholder="Apellido 1" required autocomplete="none" name="apellido_Usuario1" value="{{old('apellido_Usuario1')}}"/>
-                    <input class="form__input" type="text" placeholder="Apellido 2" autocomplete="none" name="apellido_Usuario2" value="{{old('apellido_Usuario2')}}"/>
-                </div>
-                <div>
-                    <input class="form__input" type="number" placeholder="Número de documento" required autocomplete="none" name="noDocumento_Usuario" value="{{old('noDocumento_Usuario')}}"/>
-                    <input class="form__input" type="number" placeholder="Número de celular" required autocomplete="none" name="celular_Usuario" value="{{old('celular_Usuario')}}"/>
-                </div>
-                <div>
-                    <input class="form__input" type="email" placeholder="Correo electrónico" required autocomplete="none" name="email" value="{{old('email')}}"/>
-                </div>
-                <div>
-                    <input class="form__input" type="password" placeholder="Contraseña" required autocomplete="none" name="password"/>
-                    <input class="form__input" type="password" placeholder="Confirmar contraseña" required autocomplete="none" name="password_confirmation"/>
-                </div>
-                <div class="form__options">
-                    <input class="btn btn_largo" type="submit" value="Registrate"/>
-                    <p>Ya tienes cuenta, <a href="/login">Iniciar Sesión</a></p>
-                </div>
-            </form>
-        </section>
-    </div>
-  );
-}
+    const [formData, setFormData] = useState(initialState);
 
-export default registerPage;
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await registerService.newClient(formData);
+            showAlert("success", "Usuario creado correctamente", "Redireccionando a la página de inicio de sesión");
+            setFormData(initialState);
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 3000);
+        } catch (error) {
+            console.log(error);
+            if (error.response.data.no_documento_usuario) {
+                showAlert("error", "El documento del usuario ya está registrado", "Vuelva a intentarlo");
+            } else if (error.response.data.email) {
+                showAlert("error", "El correo del usuario ya está registrado", "Vuelva a intentarlo");
+            } else {
+                showAlert("error", "Error al crear el usuario", "Vuelva a intentarlo");
+            }
+        }
+    };
+    
+
+    return (
+        <div className='fondoTranslucido'>
+            <section className="container">
+                <a className="logo" href="/">
+                    <img src="assets/img/logo_letra_oscura.png" alt="Logo"/>
+                </a>
+                <form onSubmit={handleSubmit} className="form register">
+                    <h2 className="title">Registrar usuario</h2>
+                    <div>
+                        <input className="form__input" type="text" placeholder="Nombre" name="nombre_usuario" value={formData.nombre_usuario} onChange={handleChange} required />
+                        <input className="form__input" type="text" placeholder="Apellido" name="apellido_usuario" value={formData.apellido_usuario} onChange={handleChange} required />
+                    </div>
+                    <div>
+                        <input className="form__input" type="number" placeholder="Número de documento" name="no_documento_usuario" value={formData.no_documento_usuario} onChange={handleChange} required />
+                        <input className="form__input" type="number" placeholder="Número de celular" name="celular_usuario" value={formData.celular_usuario} onChange={handleChange} required />
+                    </div>
+                    <div>
+                        <input className="form__input" type="email" placeholder="Correo electrónico" name="email" value={formData.email} onChange={handleChange} required />
+                    </div>
+                    <div>
+                        <input className="form__input" type="password" placeholder="Contraseña" name="password" value={formData.password} onChange={handleChange} required />
+                        {/* Confirmación de contraseña */}
+                    </div>
+                    <div className="form__options">
+                        <input className="btn btn_largo" type="submit" value="Registrarse" />
+                        <p>¿Ya tienes cuenta? <a href="/login">Iniciar Sesión</a></p>
+                    </div>
+                </form>
+            </section>
+        </div>
+    );
+};
+
+export default RegisterPage;

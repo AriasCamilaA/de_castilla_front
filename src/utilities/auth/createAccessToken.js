@@ -1,5 +1,5 @@
 "use server"
-import loginService from "app/services/login_service";
+import loginService from "app/services/auth/login_service";
 import { cookies } from "next/headers";
 
 const createAccessToken = async (email, password) => {
@@ -37,7 +37,8 @@ const createAccessToken = async (email, password) => {
             return data;
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
+        throw error;
     }
 };
 

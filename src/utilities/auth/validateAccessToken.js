@@ -1,5 +1,5 @@
 "use server"
-import loginService from "app/services/login_service";
+import loginService from "app/services/auth/login_service";
 import { cookies } from "next/headers";
 
 const validateAccessToken = async () => {

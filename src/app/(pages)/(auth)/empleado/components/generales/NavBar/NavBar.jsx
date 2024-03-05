@@ -71,7 +71,7 @@ const NavBar = () => {
             <div className="dropdown">
                 <button className="dropdown-toggle menu-user" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img className="icon" src='/assets/icons/Logo Usuario.png'/>
-                {user && user.nombre_usuario}
+                {user && `${user.nombre_usuario} ${user.apellido_usuario}`}
                 </button>
                 <ul className="dropdown-menu user-dropdown">
                 <li>
