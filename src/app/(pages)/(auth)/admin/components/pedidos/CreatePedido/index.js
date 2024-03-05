@@ -17,8 +17,21 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
   const [modalVisible, setModalVisible] = useState(false);
   const [descripcionPedido, setDescripcionPedido] = useState('Sin descripción');
   const [detallesPedido, setDetallesPedido] = useState([]);
+  const [usuario, setUsuario] = useState({});
 
   useEffect(() => {
+    validateAccessToken()
+    .then((response) => {
+      if (response) {
+        setUsuario(response);
+      } else {
+        showAlert(
+          "error",
+          "Usuario no encontrado",
+          "No se encontró el usuario para cargar."
+        );
+      }
+    })
     productosService
       .getProductos()
       .then((response) => {
@@ -60,7 +73,7 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
           <h2>Precio Total: ${formatNumberToCopWithDecimal(total_pedido)}</h2>
         `;
         sendMyEmail({
-          to: 'ariasruizcamilaa@gmail.com',
+          to: pedido.usuario.email,
           subject: 'Creación de tu nuevo pedido',
           body: contenido,
         });
@@ -150,56 +163,56 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
   };
 
   const handleCrearPedido = async () => {
-    try {
-      if (descripcionPedido.trim() === '') {
-        showAlert("error", "Descripción Requerida", "Por favor ingrese una descripción del pedido.");
-        return;
-      }
-  
-      const fechaActual = new Date();
-      const año = fechaActual.getFullYear();
-      const mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2);
-      const dia = ('0' + fechaActual.getDate()).slice(-2);
-  
-      const fechaPedido = `${año}-${mes}-${dia}`;
-      const estadoPedidoId = 1;
-      const no_documento_usuario = 1234567893;
-  
-      const createdPedido = await pedidosService.createPedido({
-        descripcion_pedido: descripcionPedido,
-        fecha_pedido: fechaPedido,
-        id_estado_pedido_fk: estadoPedidoId, 
-        no_Documento_Usuario_fk: no_documento_usuario, 
-      });
-  
-      const detallesPedidosPromises = Object.values(productosAgregados).map(
-        (producto) =>
-        detallesPedidosService.createDetallePedido({
-            cantidad_producto: producto.cantidad,
-            subtotal_detalle_pedido: producto.cantidad * parseFloat(producto.precio), 
-            id_producto_fk: producto.id, 
-            id_pedido_fk: createdPedido.id_pedido, 
-            estado: true,
-          })
-      );
-  
-      await Promise.all(detallesPedidosPromises);
-  
-      actualizarListaPedidos();
-      handleCerrarModalCrearPedido();
-      showAlert(
-        "success",
-        "Pedido Creado",
-        "Gracias por crear su pedido con nosotros"
+    if (usuario){
+      try {
+        if (descripcionPedido.trim() === '') {
+          showAlert("error", "Descripción Requerida", "Por favor ingrese una descripción del pedido.");
+          return;
+        }
+    
+        const fechaActual = new Date();
+        const año = fechaActual.getFullYear();
+        const mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2);
+        const dia = ('0' + fechaActual.getDate()).slice(-2);
+    
+        const fechaPedido = `${año}-${mes}-${dia}`;
+        const estadoPedidoId = 1;
+        const createdPedido = await pedidosService.createPedido({
+          descripcion_pedido: descripcionPedido,
+          fecha_pedido: fechaPedido,
+          id_estado_pedido_fk: estadoPedidoId, 
+          no_Documento_Usuario_fk: usuario.no_documento_usuario, 
+        });
+    
+        const detallesPedidosPromises = Object.values(productosAgregados).map(
+          (producto) =>
+          detallesPedidosService.createDetallePedido({
+              cantidad_producto: producto.cantidad,
+              subtotal_detalle_pedido: producto.cantidad * parseFloat(producto.precio), 
+              id_producto_fk: producto.id, 
+              id_pedido_fk: createdPedido.id_pedido, 
+              estado: true,
+            })
         );
-      sendEmail(createdPedido)
-  
-      setProductosAgregados({});
-      setDescripcionPedido("Sin descripción"); 
-      setModalVisible(false); 
-  
-    } catch (error) {
-      console.error("Error al crear el pedido:", error);
+    
+        await Promise.all(detallesPedidosPromises);
+    
+        actualizarListaPedidos();
+        handleCerrarModalCrearPedido();
+        showAlert(
+          "success",
+          "Pedido Creado",
+          "Gracias por crear su pedido con nosotros"
+          );
+        sendEmail(createdPedido)
+    
+        setProductosAgregados({});
+        setDescripcionPedido("Sin descripción"); 
+        setModalVisible(false); 
+    
+      } catch (error) {
+        console.error("Error al crear el pedido:", error);
+      }
     }
   };
   
