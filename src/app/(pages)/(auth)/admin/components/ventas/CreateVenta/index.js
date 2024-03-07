@@ -7,6 +7,7 @@ import productosService from "app/services/productos_service";
 import detallesVentas from "app/services/detalles_ventas_service";
 import Image from "next/image";
 import validateAccessToken from "app/utilities/auth/validateAccessToken";
+import inventarioService from "app/services/Inventario_service";
 
 const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => {
   const [productos, setProductos] = useState([]);
@@ -120,7 +121,6 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
 
   const handleCrearVenta = async () => {
     try {
-  
       const fechaActual = new Date();
       const año = fechaActual.getFullYear();
       const mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2);
@@ -129,27 +129,38 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
       const fechaVenta = `${año}-${mes}-${dia}`;
       const total_venta = calcularTotal();
       const hora_venta = obtenerHoraActual();
-
+  
+      // Verificar el stock antes de crear la venta
+      const detallePromises = Object.values(productosAgregados).map(async (producto) => {
+        const inventario = await inventarioService.getInventarioProductoById(producto.id);
+        console.log('stock', inventario.stock_inventario);
+        console.log('producto', producto.cantidad)
+        if (inventario && inventario.stock_inventario >= producto.cantidad) {
+          return {
+            estado: 1,
+            cantidad_producto: producto.cantidad,
+            subtotal_detalle_venta: producto.cantidad * parseFloat(producto.precio),
+            id_producto_fk: producto.id,
+          };
+        } else {
+          throw new Error(`No hay suficiente stock para ${producto.nombre}.`);
+        }
+      });
+  
+      const detallesVentasData = await Promise.all(detallePromises);
+  
+      // Crear la venta solo si hay suficiente stock para todos los productos en el carrito
       const createdVenta = await ventasService.createVenta({
         fecha_venta: fechaVenta,
-        no_documento_usuario_fk: usuario.no_documento_usuario, // Pasar solo el ID del usuario
+        no_documento_usuario_fk: usuario.no_documento_usuario,
         total_venta: total_venta,
         hora_venta: hora_venta,
       });
-
-
-      const detallesVentasPromises = Object.values(productosAgregados).map(
-        (producto) =>{
-          const detalle = {
-            estado: 1,
-            cantidad_producto: producto.cantidad,
-            subtotal_detalle_venta: producto.cantidad * parseFloat(producto.precio), // Calcular subtotal aquí
-            id_producto_fk: producto.id, // Cambiar a id_producto_fk
-            id_venta_fk: createdVenta.id_venta, // Cambiar a id_pedido_fk
-          }
-          detallesVentas.createDetalleVenta(detalle)
-        }
-      );
+  
+      const detallesVentasPromises = detallesVentasData.map(detalle => detallesVentas.createDetalleVenta({
+        ...detalle,
+        id_venta_fk: createdVenta.id_venta,
+      }));
   
       await Promise.all(detallesVentasPromises);
   
@@ -163,9 +174,9 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
   
       setProductosAgregados({});
       setModalVisible(false); // Cerrar modal
-  
     } catch (error) {
       console.error("Error al crear el venta:", error);
+      showAlert("error", "Error al crear la venta", error.message);
     }
   };
   
