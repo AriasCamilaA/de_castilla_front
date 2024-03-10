@@ -54,6 +54,18 @@ const productosService = {
         }
         
     },
+    ActivarDesactivar : async (producto) => {
+        try {
+            const url_productos = url + "productos/"+producto.id_producto+"/";
+            const response = await axios.put(url_productos, producto);
+            const data = response.data;
+            return data;
+        } catch (error) {
+            console.error("API ERROR: AL ACTIVAR o DESCARIVAR PRODUCTO: "+error);
+            throw error;
+        }
+        
+    },
 
     // _________ PDF ___________________________________________________________
     // getPDF : async () => {
