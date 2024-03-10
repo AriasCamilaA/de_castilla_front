@@ -7,7 +7,6 @@ const ActualizarProducto = ({ actualizarListaProductos, producto }) => {
   const [productoActualizado, setProductoActualizado] = useState({
     id_producto: producto.id_producto,
     nombre_producto: producto.nombre_producto,
-    imagen_producto: producto.imagen_producto,
     precio_producto: producto.precio_producto,
     id_categoria_fk: producto.id_categoria_fk
   });
@@ -33,15 +32,18 @@ const ActualizarProducto = ({ actualizarListaProductos, producto }) => {
   };
  
   const actualizarProducto = () => {
+    console.log(productoActualizado);
     const formData = new FormData();
     formData.append('id_producto', productoActualizado.id_producto);
     formData.append('nombre_producto', productoActualizado.nombre_producto);
-    formData.append('imagen_producto', productoActualizado.imagen_producto);
+    if (productoActualizado.imagen_producto) {
+      console.log("JOASLDJASÑ");
+      formData.append('imagen_producto', productoActualizado.imagen_producto);
+    }
     formData.append('precio_producto', productoActualizado.precio_producto);
     formData.append('id_categoria_fk', productoActualizado.id_categoria_fk);
-    formData.append('estado', true);
-    
-    productosService.updateProducto(formData, productoActualizado.id_producto)
+    console.log(formData.get('nombre_producto'));
+    productosService.updateProducto(formData)
       .then(() => {
         document.getElementById('cerrarModalActualizarProducto').click();
         actualizarListaProductos();
@@ -68,7 +70,7 @@ const ActualizarProducto = ({ actualizarListaProductos, producto }) => {
                         <p className='color-oscuro mb-0'><strong>Nombre:</strong></p>
                         <input type="text" className='inputForm mb-2' name="nombre_producto" placeholder="Nombre" value={productoActualizado.nombre_producto} onChange={handleChange} />
                         <p className='color-oscuro mb-0'><strong>Imagen:</strong></p>
-                        <input type="file" className='form-control mb-2' name="imagen_producto" onChange={handleImagenChange}  />
+                        <input type="file" className='form-control mb-2' name="imagen_producto" onChange={handleImagenChange} />
                         <p className='color-oscuro mb-0'><strong>Precio:</strong></p>
                         <input type="text" className='inputForm mb-2' name="precio_producto" placeholder="Precio" value={productoActualizado.precio_producto} onChange={handleChange} />
                         <p className='color-oscuro mb-0'><strong>Categoría:</strong></p>

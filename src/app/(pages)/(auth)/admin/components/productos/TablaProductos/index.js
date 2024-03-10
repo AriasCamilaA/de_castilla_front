@@ -46,7 +46,7 @@ const TablaProductos = ({ productos, filtroNombre, actualizarListaProductos }) =
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Imagen</th>
+                        {/* <th scope="col">Imagen</th> */}
                         <th scope="col">Precio</th>
                         <th scope="col">Categoria</th>
                         <th className="tabla__opcion" scope="col">Acciones</th>
@@ -59,7 +59,7 @@ const TablaProductos = ({ productos, filtroNombre, actualizarListaProductos }) =
                     <tr key={producto.id_producto}>
                     <td>{producto.id_producto}</td>
                     <td>{producto.nombre_producto}</td>
-                    <td>{producto.imagen_producto}</td>
+                    {/* <td>{producto.imagen_producto}</td> */}
                     <td>{formatNumberToCop(producto.precio_producto)}</td>
                     <td>{producto.categoria.nombre_categoria}</td>
                     <td className="tabla__opcion">

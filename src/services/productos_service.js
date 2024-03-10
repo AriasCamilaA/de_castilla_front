@@ -41,9 +41,10 @@ const productosService = {
         }
         
     },
-    updateProducto : async (formData, id) => {
+    updateProducto : async (formData) => {
         try {
-            const url_productos = url + "productos/"+id+"/";
+            formData.append('estado', true )
+            const url_productos = url + "productos/"+formData.get('id_producto')+"/";
             const response = await axios.put(url_productos, formData);
             const data = response.data;
             return data;
