@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import productosService from 'app/services/productos_service'; // Asegúrate de proporcionar la ruta correcta
 import { showAlert } from 'app/utilities';
 import categoriaService from 'app/services/categoria_service';
+import Image from 'next/image';
 
 const CrearProducto = ({ actualizarListaProductos }) => {
   const [nuevoProducto, setNuevoProducto] = useState({
@@ -11,6 +12,7 @@ const CrearProducto = ({ actualizarListaProductos }) => {
     id_categoria_fk: ''
   });
   const [categorias, setCategorias] = useState([]); // Asegúrate de importar el estado de las categorías
+  const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
 
   useEffect(() => {
     categoriaService.getcategorias()
@@ -26,6 +28,7 @@ const CrearProducto = ({ actualizarListaProductos }) => {
     if (e.target.name === 'imagen_producto') {
       // Manejar el cambio de la imagen
       setNuevoProducto({ ...nuevoProducto, imagen_producto: e.target.files[0] });
+      setImagenSeleccionada(URL.createObjectURL(e.target.files[0])); // Mostrar la imagen seleccionada
     } else {
       // Manejar el cambio de otros campos
       const { name, value } = e.target;
@@ -61,6 +64,7 @@ const CrearProducto = ({ actualizarListaProductos }) => {
             id_categoria_fk: ''
         });
         document.getElementById('imagen_producto').value = '';
+        setImagenSeleccionada(null); // Limpiar la imagen seleccionada
       }).catch((error) => {
         console.error('Error al crear el producto:', error);
         showAlert('error', 'Error', 'No se pudo crear el producto');
@@ -82,19 +86,38 @@ const CrearProducto = ({ actualizarListaProductos }) => {
                 <div className="modal-body">
                     <div className="container-fluid">
                       <div className="d-flex flex-column">
-                        <p className='color-oscuro mb-0'><strong>Nombre:</strong></p>
-                        <input type="text" className='mb-2' name="nombre_producto" placeholder="Nombre" value={nuevoProducto.nombre_producto} onChange={handleChange} />
-                        <p className='color-oscuro mb-0'><strong>Imagen producto:</strong></p>
-                        <input type="file" className='form-control mb-2' name="imagen_producto" id='imagen_producto' onChange={handleChange} />
-                        <p className='color-oscuro mb-0'><strong>Precio producto:</strong></p>
-                        <input type="number" className='mb-2' name="precio_producto" placeholder="Precio producto" value={nuevoProducto.precio_producto} onChange={handleChange} />
-                        <p className='color-oscuro mb-0'><strong>Categoria:</strong></p>
-                        <select name="id_categoria_fk" className='mb-2' value={nuevoProducto.id_categoria_fk} onChange={handleChange}>
-                          <option value="">Selecciona una categoría</option>
-                          {categorias.map((categoria) => (
-                            <option key={categoria.id_categoria} value={categoria.id_categoria}>{categoria.nombre_categoria}</option>
-                          ))}
-                        </select>
+                        <div className="d-flex justify-content-between">
+                          <div className="w-50">
+                            <p className='color-oscuro mb-0'><strong>Nombre:</strong></p>
+                            <input type="text" className='mb-2' name="nombre_producto" placeholder="Nombre" value={nuevoProducto.nombre_producto} onChange={handleChange} />
+                            <p className='color-oscuro mb-0'><strong>Precio producto:</strong></p>
+                            <input type="number" className='mb-2' name="precio_producto" placeholder="Precio producto" value={nuevoProducto.precio_producto} onChange={handleChange} />
+                            <p className='color-oscuro mb-0'><strong>Categoria:</strong></p>
+                            <select name="id_categoria_fk" className='mb-2' value={nuevoProducto.id_categoria_fk} onChange={handleChange}>
+                              <option value="">Selecciona una categoría</option>
+                              {categorias.map((categoria) => (
+                                <option key={categoria.id_categoria} value={categoria.id_categoria}>{categoria.nombre_categoria}</option>
+                              ))}
+                            </select>
+                          </div>
+                          <div className="w-50">
+                            <p className='color-oscuro mb-0'><strong>Imagen producto:</strong></p>
+                            <input type="file" className='form-control mb-2' name="imagen_producto" id='imagen_producto' onChange={handleChange} />
+                            {/* {imagenSeleccionada && <img src={imagenSeleccionada} alt="Imagen seleccionada" className="mb-2"/>} */}
+                            {imagenSeleccionada && 
+                              <div className="d-flex justify-content-center align-items-center mb-2" style={{ border: '1px solid var(--oscuro)', borderRadius: '4px', overflow: 'hidden', width: '100%', height: '110px'}}>
+                                <Image 
+                                  src={imagenSeleccionada} 
+                                  alt='Producto seleccionado' 
+                                  width="0"
+                                  height="0"
+                                  sizes="100vw"
+                                  style={{ width: '100%', height: 'auto', borderRadius: '0'}}
+                                />
+                            </div>
+                            }
+                          </div>
+                        </div>
                         <button type="button" className="btn btn-oscuro mt-3" onClick={crearProducto}>Agregar Producto</button>
                       </div>
                     </div>

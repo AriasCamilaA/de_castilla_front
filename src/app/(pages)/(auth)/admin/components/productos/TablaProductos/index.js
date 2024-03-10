@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ActualizarProducto from '../ActualizarProducto';
 import productosService from 'app/services/productos_service';
 import withReactContent from 'sweetalert2-react-content';
@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { formatNumberToCop, showAlert } from 'app/utilities';
 
 const TablaProductos = ({ productos, filtroNombre, actualizarListaProductos }) => {
+    const [producto, setProducto] = useState([]);
     const productosFiltrados = productos.filter((producto) =>
     producto.nombre_producto.toLowerCase().includes(filtroNombre.toLowerCase()) && producto.estado == 1
   );
@@ -40,7 +41,8 @@ const TablaProductos = ({ productos, filtroNombre, actualizarListaProductos }) =
     }
 
   return (
-    <div className="tabla container mt-4">
+    <>
+        <div className="tabla container mt-4">
             <table className="table table-hover">
                 <thead>
                     <tr>
@@ -64,10 +66,9 @@ const TablaProductos = ({ productos, filtroNombre, actualizarListaProductos }) =
                     <td>{producto.categoria.nombre_categoria}</td>
                     <td className="tabla__opcion">
                         <div className="opciones_tabla">
-                        <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#actualizarProducto">
+                        <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#actualizarProducto" onClick={()=>setProducto(producto)}>
                             🔍
                         </div>
-                        <ActualizarProducto actualizarListaProductos={actualizarListaProductos} producto={producto}/>
                         <div className="cursor-pointer" onClick={()=>{eliminarProducto(producto)}}>
                             ❌
                         </div>
@@ -78,6 +79,8 @@ const TablaProductos = ({ productos, filtroNombre, actualizarListaProductos }) =
                 </tbody>
             </table>
         </div>
+        <ActualizarProducto actualizarListaProductos={actualizarListaProductos} producto={producto}/>
+    </>
   );
 };
 
