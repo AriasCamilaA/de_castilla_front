@@ -12,6 +12,7 @@ const TablaUsuarios = ({ usuarios, searchTerm, actualizarListaUsuarios }) => {
     const [tabActual, setTabActual] = useState('Cliente');
     const [usuario, setUsuario] = useState(null);
 
+
     useEffect(() => {
         usuarios = usuarios.filter((usuario) => usuario.nombre_usuario.toLowerCase().includes(searchTerm) || usuario.no_documento_usuario.toString().toLowerCase().includes(searchTerm));  
         setUsuariosAdmin(usuarios.filter((usuario) => usuario.id_rol_fk === 1));

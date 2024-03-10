@@ -3,7 +3,7 @@ import ActualizarProducto from '../ActualizarProducto';
 import productosService from 'app/services/productos_service';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
-import { showAlert } from 'app/utilities';
+import { formatNumberToCop, showAlert } from 'app/utilities';
 
 const TablaProductos = ({ productos, filtroNombre, actualizarListaProductos }) => {
     const productosFiltrados = productos.filter((producto) =>
@@ -60,8 +60,8 @@ const TablaProductos = ({ productos, filtroNombre, actualizarListaProductos }) =
                     <td>{producto.id_producto}</td>
                     <td>{producto.nombre_producto}</td>
                     <td>{producto.imagen_producto}</td>
-                    <td>{producto.precio_producto}</td>
-                    <td>{producto.id_categoria_fk}</td>
+                    <td>{formatNumberToCop(producto.precio_producto)}</td>
+                    <td>{producto.categoria.nombre_categoria}</td>
                     <td className="tabla__opcion">
                         <div className="opciones_tabla">
                         <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#actualizarProducto">

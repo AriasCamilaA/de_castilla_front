@@ -31,7 +31,6 @@ const productosService = {
     },
     createProducto : async (producto) => {
         try {
-            producto.estado = true;
             const url_productos = url + "productos/";
             const response = await axios.post(url_productos, producto);
             const data = response.data;
@@ -42,10 +41,10 @@ const productosService = {
         }
         
     },
-    updateProducto : async (producto) => {
+    updateProducto : async (formData, id) => {
         try {
-            const url_productos = url + "productos/"+producto.id_producto+"/";
-            const response = await axios.put(url_productos, producto);
+            const url_productos = url + "productos/"+id+"/";
+            const response = await axios.put(url_productos, formData);
             const data = response.data;
             return data;
         } catch (error) {
