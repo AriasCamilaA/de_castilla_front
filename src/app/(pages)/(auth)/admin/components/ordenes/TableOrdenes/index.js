@@ -4,7 +4,8 @@ import "app/css/pedidos/tablas.css";
 import "app/css/pedidos/filtros.css";
 import "app/css/pedidos/botones.css";
 import OchasproveedorService from "app/services/oc_has_proveedor_service";
-// import ActualizarUsuarios from "../ActualizarUsuarios";
+import UpdateOrden from "../UpdateOrden";
+
 
 const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
     const [ordenesSolicitada, setOrdenesSolicitada] = useState([]);
@@ -99,7 +100,7 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
                                             <td>{orden.hora_oc}</td>
                                             <td>{ochasproveedorData[orden.id_oc]?.proveedor.nombre_proveedor}</td>
                                             {/* <td>{usuario.estado == 1 ? '✅' : '❌'}</td> */}
-                                            <td className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#updateUsuario" onClick={()=>setOrden(orden)}>🔍</td>
+                                            <td className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#modalDetallePedido" onClick={()=>setOrden(orden)}>🔍</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -108,7 +109,7 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
                     </div>
                 ))}
             </div>
-            {/* <ActualizarOrdenes orden={orden} actualizarListaOrdenes={actualizarListaOrdenes} /> */}
+            <UpdateOrden orden={orden} actualizarListaOrdenes={actualizarListaOrdenes} />
         </>
     );
 };

@@ -35,19 +35,6 @@ const MenuPrincipalPage = async () => {
                     <h2>Inventario</h2>
                 </div>
                 <div className="btn_opciones">
-                    <Link href="/admin/ordenes_compra">
-                        <Image 
-                            src="/assets/icons/Proveedores.png" 
-                            alt='opción menú'
-                            width="0"
-                            height="0"
-                            sizes="100vw"
-                            style={{ width: '140px', height: 'auto' }}    
-                        />
-                    </Link>
-                    <h2>Ordenes</h2>
-                </div>
-                <div className="btn_opciones">
                     <Link href="/admin/pedidos">
                         <Image 
                             src="/assets/icons/Pedidos.png" 
@@ -60,7 +47,7 @@ const MenuPrincipalPage = async () => {
                     </Link>
                     <h2>Pedidos</h2>
                 </div>
-                {/* <div className="btn_opciones">
+                <div className="btn_opciones">
                     <Link href="admin/ordenes">
                         <Image 
                             src="/assets/icons/LogoOrdenes.png" 
@@ -72,7 +59,7 @@ const MenuPrincipalPage = async () => {
                         />
                     </Link>
                     <h2>Ordenes</h2>
-                </div> */}
+                </div>
                 {/* <div className="btn_opciones">
                     <Link href="admin/categorias">
                         <Image 
