@@ -1,36 +1,31 @@
 import { useEffect, useState } from "react";
 import { AiOutlineCalendar, AiOutlineInfoCircle, AiOutlineMail, AiOutlinePhone, AiOutlineUser } from "react-icons/ai";
-import pedidosService from "app/services/pedidos/pedidos_service";
+import ordenesService from "app/services/ordenes_service";
 import { formatearFechaParaInputDate, showAlert } from "app/utilities";
-import DetallesPedido from "../DetallesPedido/DetallesPedido";
+import DetallesOrden from "../DetallesOrden/DetallesOrden";
 
 const estados = [
-    { label: 'Por Aprobar', value: 1 },
-    { label: 'Aprobado', value: 2 },
-    { label: 'Preparándose', value: 3 },
-    { label: 'Para Recoger', value: 4 },
-    { label: 'Cancelado', value: 5 },
-    { label: 'Aceptar Cambios', value: 6 },
-    { label: 'Finalizados', value: 7 },
+    { label: 'Solicitado', value: 1 },
+    { label: 'Cancelado', value: 2 },
+    { label: 'Finalizado', value: 3 },
 ];
 
-const UpdatePedido = ({ pedidoById, actualizarListaPedidos, handleCerrarModalDetallePedido }) => {
-    const [pedido, setPedido] = useState(null);
-    const [nuevaDescripcion, setNuevaDescripcion] = useState('');
+const UpdateOrden = ({ ordenById, actualizarListaOrdenes, handleCerrarModalDetalleOrden }) => {
+    const [orden, setOrden] = useState(null);
     const [nuevoEstado, setNuevoEstado] = useState('');
 
     useEffect(() => {
-        pedidosService.getPedidosById(pedidoById)
+        ordenesService.getOrdenesById(ordenById)
             .then((response) => {
-                setPedido(response);
-                setNuevaDescripcion(response.descripcion_pedido);
-                setNuevoEstado(response.id_estado_pedido_fk); // Cambiado a id_estado_pedido_fk
+                setOrden(response);
+                setNuevoEstado(response.id_estado_oc_fk); // Cambiado a id_estado_pedido_fk
             })
             .catch(() => {
-                showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente el pedido");
+                showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente la orden");
             });
-    }, [pedidoById]);
+    }, [ordenById]);
 
+    
     const handleActualizarPedido = (e) => {
         e.preventDefault(); // Evitar la recarga de la página al enviar el formulario
 

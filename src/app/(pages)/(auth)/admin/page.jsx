@@ -61,6 +61,19 @@ const MenuPrincipalPage = async () => {
                     <h2>Pedidos</h2>
                 </div>
                 {/* <div className="btn_opciones">
+                    <Link href="admin/ordenes">
+                        <Image 
+                            src="/assets/icons/LogoOrdenes.png" 
+                            alt='opción menú'
+                            width="0"
+                            height="0"
+                            sizes="100vw"
+                            style={{ width: '140px', height: 'auto' }}
+                        />
+                    </Link>
+                    <h2>Ordenes</h2>
+                </div> */}
+                {/* <div className="btn_opciones">
                     <Link href="admin/categorias">
                         <Image 
                             src="/assets/icons/LogoUsuarios.png" 
