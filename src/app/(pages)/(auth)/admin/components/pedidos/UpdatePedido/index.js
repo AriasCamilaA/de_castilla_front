@@ -40,7 +40,6 @@ const UpdatePedido = ({ pedidoById, actualizarListaPedidos, handleCerrarModalDet
             showAlert("error", "Descripción Vacía", "Ingrese una descripción para actualizar el pedido.");
             return;
         }
-<<<<<<< HEAD
 
         const pedidoActualizado = {
             ...pedido,
@@ -58,46 +57,6 @@ const UpdatePedido = ({ pedidoById, actualizarListaPedidos, handleCerrarModalDet
             .catch(() => {
                 showAlert("error", "Error de Actualización", "No se pudo actualizar el pedido.");
             });
-=======
-    
-        if (nuevoEstado !== 7) {
-            showAlert("error", "Estado Incorrecto", "El pedido solo puede actualizarse cuando está en estado 'Finalizados'.");
-            return;
-        }
-    
-        try {
-            // Obtener todos los detalles del pedido asociados al pedido actual
-            const detallesPedido = await detallesPedidosService.getDetallesPedidosById(pedidoById);
-            
-            // Verificar el stock para cada detalle del pedido
-            for (const detalle of detallesPedido) {
-                const inventario = await inventarioService.getInventarioProductoById(detalle.producto.id_producto);
-                
-                // Verificar si hay suficiente stock
-                if (!inventario || inventario[0].stock_inventario < detalle.cantidad_producto) {
-                    showAlert("error", "Stock Insuficiente", `No hay suficiente stock para ${detalle.producto.nombre_producto}.`);
-                    return;
-                }
-            }
-    
-            // Si se pasó la validación de stock, proceder con la actualización del pedido
-            const pedidoActualizado = {
-                ...pedido,
-                descripcion_pedido: nuevaDescripcion,
-                id_estado_pedido_fk: nuevoEstado // Cambiado a id_estado_pedido_fk
-            };
-    
-            await pedidosService.updatePedido(pedidoActualizado);
-    
-            showAlert("success", "Pedido Actualizado", "El pedido ha sido actualizado correctamente.");
-            setPedido(pedidoActualizado);
-            handleCerrarModalDetallePedido();
-            actualizarListaPedidos();
-        } catch (error) {
-            showAlert("error", "Error de Actualización", "No se pudo actualizar el pedido.");
-            console.error("Error al actualizar el pedido:", error);
-        }
->>>>>>> 95692d20f6bdd1c6dfe357fa837e846510c61117
     };
     
 
