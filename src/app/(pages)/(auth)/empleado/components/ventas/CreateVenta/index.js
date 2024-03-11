@@ -133,9 +133,9 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
       // Verificar el stock antes de crear la venta
       const detallePromises = Object.values(productosAgregados).map(async (producto) => {
         const inventario = await inventarioService.getInventarioProductoById(producto.id);
-        console.log('stock', inventario[0].stock_inventario);
+        console.log('stock', inventario.stock_inventario);
         console.log('producto', producto.cantidad)
-        if (inventario && inventario[0].stock_inventario >= producto.cantidad) {
+        if (inventario && inventario.stock_inventario >= producto.cantidad) {
           return {
             estado: 1,
             cantidad_producto: producto.cantidad,
@@ -225,13 +225,6 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
           <div className="carrito__productos">
             {Object.keys(productosAgregados).map((key) => {
               const producto = productosAgregados[key];
-              inventarioService.getInventarioProductoById(producto.id)
-              .then((response) => {
-                producto.stock = response[0].stock_inventario;
-                console.log('STOCK', response[0].stock_inventario);
-              })
-              console.log('porfuera', producto.stock);
-              console.log('producto', producto);
               return (
                 <div className="card" key={key} data-producto-id={key}>
                   <div className="card-body">
@@ -242,7 +235,6 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
                       -
                     </button>
                     <div className="descripcion">
-                      {producto.stock < producto.cantidad && <span className="badge bg-danger opacity-75">Stock insuficiente</span>}
                       <h5 className="card-title">{producto.nombre}</h5>
                       <p className="card-title">$ {producto.precio}</p>
                       <span className="badge bg-secondary">{producto.cantidad}</span>

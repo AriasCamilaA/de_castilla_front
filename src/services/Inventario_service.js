@@ -17,9 +17,23 @@ const inventarioService = {
         }
         
     },
-    getInventarioById : async (id) => {
+    getInventarioInsumoById : async (id) => {
         try {
-            const url_inventario = url + "inventario/"+id;
+            const url_inventario = url + "inventario/insumos/"+id;
+            const response = await axios.get(url_inventario);
+            const data = response.data;
+            // console.log(data)
+            return data;
+        } catch (error) {
+            console.error("API ERROR: INVENTARIO POR ID: "+error);
+            throw error;
+        }
+        
+    },
+
+    getInventarioProductoById : async (id) => {
+        try {
+            const url_inventario = url + "inventario/productos/"+id;
             const response = await axios.get(url_inventario);
             const data = response.data;
             // console.log(data)

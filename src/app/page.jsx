@@ -1,3 +1,4 @@
+import Catalogo from "app/components/Catalogo";
 import NavBar from "app/components/Landing/NavBar/NavBar";
 import Footer from "app/components/Landing/Footer/Footer";
 import "app/css/generales/Landing.css";
@@ -124,18 +125,10 @@ export default function Home() {
                 </div>
             </section>
             <img src='assets/img/separador.png' alt='imagen'className="separador" />
-            <section id="galeria" className="galeria">
+            <section id="galeria" className="catalogo">
                 <div className="separador" />
                 <div className="container">
-                <h1>Galería</h1>
-                <div className="imgs_galeria">
-                    <img src='assets/img/galeria 1.png' alt="galeria_1" />
-                    <img src='assets/img/galeria 2.png' alt="galeria_2" />
-                    <img src='assets/img/galeria 1.png' alt="galeria_1" />
-                    <img src='assets/img/galeria 2.png' alt="galeria_2" />
-                    <img src='assets/img/galeria 1.png' alt="galeria_1" />
-                    <img src='assets/img/galeria 2.png' alt="galeria_2" />
-                </div>
+                    <Catalogo/>
                 </div>
             </section>
             <div className="separador" />
