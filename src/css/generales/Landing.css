@@ -69,30 +69,6 @@
     letter-spacing: 5px;
 }
 
-.galeria>div{
-    display: flex ;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.imgs_galeria{
-    display: flex;
-    margin: auto;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-}
-
-.galeria{
-    background-color: var(--fondo2);
-}
-
-.galeria img{
-    width: 300px;
-    margin: 16px;
-}
-
 @media(max-width:768px) {
 
     .separador {
