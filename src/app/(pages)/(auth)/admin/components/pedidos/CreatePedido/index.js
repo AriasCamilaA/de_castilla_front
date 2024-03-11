@@ -4,7 +4,7 @@ import pedidosService from "app/services/pedidos/pedidos_service";
 import { formatNumberToCop, formatNumberToCopWithDecimal, showAlert } from "app/utilities";
 import "app/css/pedidos/createPedidoVenta.css";
 import "app/css/pedidos/botones.css";
-import productosService from "app/services/productos_service";
+import productosService from "app/services/inventario/productos_service";
 import detallesPedidosService from "app/services/pedidos/detalles_pedidos_service";
 import Image from "next/image";
 import validateAccessToken from "app/utilities/auth/validateAccessToken";

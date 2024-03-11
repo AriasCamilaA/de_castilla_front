@@ -48,24 +48,32 @@ const NavBar = () => {
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoInventario.png' alt="icono" />
-                        <Link href="/admin/inventarios">Inventario</Link>
+                        <Link href="/admin/inventario">Inventario</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoProveedores.png' alt="icono" />
-                        <Link href="/admin/proveedores">Proveedores</Link>
+                        <Link href="/admin/ordenes_compra">Ordenes</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoPedidos.png' alt="icono" />
                         <Link href="/admin/pedidos">Pedidos</Link>
                     </div>
                     <div className="menuLateral__Opcion">
-                        <img src='/assets/icons/menuLateral/LogoUsuarios.png' alt="icono" />
-                        <Link href="/admin/usuarios">Usuarios</Link>
+                        <img src='/assets/icons/menuLateral/ajustes.png' alt="icono" />
+                        <Link href="/admin/configuraciones">Otros</Link>
                     </div>
-                    {/* <div className="menuLateral__Opcion">
-                        <img src='/assets/icons/menuLateral/LogoEstadisticas.png' alt="icono" />
-                        <Link href="#">Estadísticas</Link>
-                    </div> */}
+                    <div className="menuLateral__Opcion">
+                        <Link className="ms-5" href="/admin/productos">° Productos</Link>
+                    </div>
+                    <div className="menuLateral__Opcion">
+                        <Link className="ms-5" href="/admin/insumos">° Insumos</Link>
+                    </div>
+                    <div className="menuLateral__Opcion">
+                        <Link className="ms-5" href="/admin/proveedores">° Proveedores</Link>
+                    </div>
+                    <div className="menuLateral__Opcion">
+                        <Link className="ms-5" href="/admin/usuarios">° Usuarios</Link>
+                    </div>
                 </div>
                 </div>
                 {

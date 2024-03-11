@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import productosService from 'app/services/productos_service';
+import productosService from 'app/services/inventario/productos_service';
 import { showAlert } from 'app/utilities';
 import "app/css/pedidos/tab_tabla.css";
 import "app/css/pedidos/tablas.css";
@@ -27,10 +27,17 @@ const ProductosPage = () => {
         fetchProductos();
     }, []);
 
-    const actualizarListaProductos = () => {
-        proveedoresService.getProductos().then((data) => {
-            setProductos(data);
-        }); 
+    const actualizarListaProductos = async () => {
+        try {
+            const productosData = await productosService.getProductos();
+            setProductos(productosData);
+        } catch (error) {
+            showAlert("error", 'Error', "No se pudieron actualizar los productos");
+        }
+    };
+
+    const limpiarFiltros = () => {
+        setSearchTerm('');
     };
 
     return (
@@ -43,7 +50,7 @@ const ProductosPage = () => {
                             <img src="/assets/icons/lupa.png" />
                             <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} id="searchTerm" placeholder='Nombre producto' />
                         </div>
-                        <p className='btn btn-oscuro mb-0 py-1 px-2' onClick={()=>limpiarFiltros()}>x</p>
+                        <p className='btn btn-oscuro mb-0 py-1 px-2' onClick={limpiarFiltros}>x</p>
                     </div>
                     <div className='flitros__opciones d-flex'>
                         <p className='btn btn-excel' >Excel</p>

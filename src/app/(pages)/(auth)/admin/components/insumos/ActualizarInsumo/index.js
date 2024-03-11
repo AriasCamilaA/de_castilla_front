@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import insumosService from 'app/services/insumos_service'; // Asegúrate de proporcionar la ruta correcta
+import insumosService from 'app/services/inventario/insumos_service'; // Asegúrate de proporcionar la ruta correcta
 import { showAlert } from 'app/utilities';
 
 const ActualizarInsumo = ({actualizarListaInsumos, insumo }) => {
@@ -16,10 +16,9 @@ const ActualizarInsumo = ({actualizarListaInsumos, insumo }) => {
   };
  
   const crearInsumo = () => {
-    console.log(insumoActualizado);
     insumosService.updateInsumo(insumoActualizado)
       .then(() => {
-        document.getElementById('cerrarModalCrearInsumo').click();
+        document.getElementById('cerrarModalACtualizarInsumo').click();
         actualizarListaInsumos();
         showAlert('success', 'Insumo Creado', 'El insumo ha sido actualizado exitosamente');
       }).catch((error) => {
@@ -34,7 +33,7 @@ const ActualizarInsumo = ({actualizarListaInsumos, insumo }) => {
             <div className="modal-content">
                 <div className="modal-header d-flex align-items-start">
                     <h5 className="modal-title" id="modalTitleId">Actualizar Insumo: {insumo.nombre_insumo}</h5>
-                    <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id="cerrarModalCrearInsumo">
+                    <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id="cerrarModalACtualizarInsumo">
                         <p style={{fontFamily: "arial"}}>x</p>
                     </button>
                 </div>
@@ -43,8 +42,8 @@ const ActualizarInsumo = ({actualizarListaInsumos, insumo }) => {
                       <div className="d-flex flex-column">
                         <p className='color-oscuro mb-0'><strong>Nombre:</strong></p>
                         <input type="text" className='inputForm mb-2' name="nombre_insumo" placeholder="Nombre" value={insumoActualizado.nombre_insumo} onChange={handleChange} />
-                        <p className='color-oscuro mb-0'><strong>Id estado:</strong></p>
-                        <input type="text" className='inputForm mb-2' name="id_estado_insumo" placeholder="Id estado" value={insumoActualizado.id_estado_insumo} onChange={handleChange} />
+                        {/* <p className='color-oscuro mb-0'><strong>Id estado:</strong></p>
+                        <input type="text" className='inputForm mb-2' name="id_estado_insumo" placeholder="Id estado" value={insumoActualizado.id_estado_insumo} onChange={handleChange} /> */}
                         <button type="button" className="btn btn-oscuro mt-3" onClick={crearInsumo}>Actualizar insumo</button>
                       </div>
                     </div>

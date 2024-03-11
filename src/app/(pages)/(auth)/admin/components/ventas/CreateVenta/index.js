@@ -3,7 +3,7 @@ import { IoTrash } from "react-icons/io5";
 import ventasService from "app/services/ventas_service";
 import { formatNumberToCop, showAlert } from "app/utilities";
 import "app/css/ventas/createPedidoVenta.css";
-import productosService from "app/services/productos_service";
+import productosService from "app/services/inventario/productos_service";
 import detallesVentas from "app/services/detalles_ventas_service";
 import Image from "next/image";
 import validateAccessToken from "app/utilities/auth/validateAccessToken";

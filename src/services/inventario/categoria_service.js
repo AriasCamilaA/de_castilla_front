@@ -4,7 +4,11 @@ const url = 'http://localhost:8000/castilla/api/';
 
 const categoriaService = {
     // _________ Categoria ___________________________________________________________
+<<<<<<< HEAD:src/services/categoria_service.js
     getCategoria : async () => {
+=======
+    getcategorias : async () => {
+>>>>>>> Arias:src/services/inventario/categoria_service.js
         try {
             const url_categoria = url + "categorias/";
             const response = await axios.get(url_categoria);

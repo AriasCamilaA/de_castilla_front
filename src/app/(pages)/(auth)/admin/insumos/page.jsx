@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import insumosService from 'app/services/insumos_service';
+import insumosService from 'app/services/inventario/insumos_service';
 import { showAlert } from 'app/utilities';
 import "app/css/pedidos/tab_tabla.css";
 import "app/css/pedidos/tablas.css";
@@ -33,6 +33,10 @@ const InsumosPage = () => {
         }); 
     };
 
+    const limpiarFiltros = () => {
+        setSearchTerm('');
+    }
+
     return (
         <>
             <div className="contenido">
@@ -41,7 +45,7 @@ const InsumosPage = () => {
                     <div className='filtros__div1'>
                         <div className='inputSearch'>
                             <img src="/assets/icons/lupa.png" />
-                            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} id="searchTerm" placeholder='Nombre o Empresa' />
+                            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} id="searchTerm" placeholder='Nombre o ID' />
                         </div>
                         <p className='btn btn-oscuro mb-0 py-1 px-2' onClick={()=>limpiarFiltros()}>x</p>
                     </div>
