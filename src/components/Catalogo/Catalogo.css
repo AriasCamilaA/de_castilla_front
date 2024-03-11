@@ -1,3 +1,49 @@
+.flex-categoria-producto {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.flex-producto {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 80%;
+  border: 1px solid var(--oscuro);
+  height: 80vh;
+  overflow: auto;
+}
+
+.flex-producto .card {
+  height: 280px;
+} 
+
 .flex-categoria {
-    
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+
+.btn-categoria {
+  background-color: white;
+  padding: 10px 50px;
+  margin-bottom: 15px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-categoria:hover {
+  background-color: var(--claro);
+  color: white;
+}
+
+.btn-categoria:focus {
+  background-color: var(--claro);
+  color: white;
+}
+
+.productos {
+  width: 200px;
+  margin: 16px;
 }

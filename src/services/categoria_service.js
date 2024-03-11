@@ -4,9 +4,9 @@ const url = 'http://localhost:8000/castilla/api/';
 
 const categoriaService = {
     // _________ Categoria ___________________________________________________________
-    getcategoria : async () => {
+    getCategoria : async () => {
         try {
-            const url_categoria = url + "categoria/";
+            const url_categoria = url + "categorias/";
             const response = await axios.get(url_categoria);
             const data = response.data;
             // console.log(data)
@@ -19,7 +19,7 @@ const categoriaService = {
     },
     getCategoriaById : async (id) => {
         try {
-            const url_categoria = url + "categoria/"+id;
+            const url_categoria = url + "categorias/"+id;
             const response = await axios.get(url_categoria);
             const data = response.data;
             // console.log(data)
@@ -33,7 +33,7 @@ const categoriaService = {
     createCategoria : async (categoria) => {
         try {
             categoria.estado = true;
-            const url_categoria = url + "categoria/";
+            const url_categoria = url + "categorias/";
             const response = await axios.post(url_categoria, categoria);
             const data = response.data;
             return data;
@@ -45,7 +45,7 @@ const categoriaService = {
     },
     updateCategoria : async (categoria) => {
         try {
-            const url_categoria = url + "categoria/"+categoria.id_categoria+"/";
+            const url_categoria = url + "categorias/"+categoria.id_categoria+"/";
             const response = await axios.put(url_categoria, categoria);
             const data = response.data;
             return data;
