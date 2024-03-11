@@ -13,7 +13,7 @@ const MenuPrincipalPage = () => {
                     <h2>Ventas</h2>
                 </div>
                 <div className="btn_opciones">
-                    <Link href="empleado/inventarios">
+                    <Link href="empleado/inventario">
                         <Image src="/assets/icons/Inventario.png" alt='opción menú' width={140} height={50} />
                     </Link>
                     <h2>Inventario</h2>
