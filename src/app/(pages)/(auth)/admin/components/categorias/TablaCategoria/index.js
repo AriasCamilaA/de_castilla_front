@@ -1,5 +1,5 @@
 import React from 'react';
-import categoriaService from 'app/services/categoria_service';
+import categoriaService from 'app/services/inventario/categoria_service';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { showAlert } from 'app/utilities';

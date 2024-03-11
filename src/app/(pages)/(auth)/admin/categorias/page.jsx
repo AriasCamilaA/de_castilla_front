@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import categoriaService from 'app/services/categoria_service';
+import categoriaService from 'app/services/inventario/categoria_service';
 import { showAlert } from 'app/utilities';
 import "app/css/pedidos/tab_tabla.css";
 import "app/css/pedidos/tablas.css";

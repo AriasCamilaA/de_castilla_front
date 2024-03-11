@@ -31,7 +31,6 @@ const productosService = {
     },
     createProducto : async (producto) => {
         try {
-            producto.estado = true;
             const url_productos = url + "productos/";
             const response = await axios.post(url_productos, producto);
             const data = response.data;
@@ -42,14 +41,27 @@ const productosService = {
         }
         
     },
-    updateProducto : async (producto) => {
+    updateProducto : async (formData) => {
+        try {
+            formData.append('estado', true )
+            const url_productos = url + "productos/"+formData.get('id_producto')+"/";
+            const response = await axios.put(url_productos, formData);
+            const data = response.data;
+            return data;
+        } catch (error) {
+            console.error("API ERROR: AL ACTUALIZAR PRODUCTO: "+error);
+            throw error;
+        }
+        
+    },
+    ActivarDesactivar : async (producto) => {
         try {
             const url_productos = url + "productos/"+producto.id_producto+"/";
             const response = await axios.put(url_productos, producto);
             const data = response.data;
             return data;
         } catch (error) {
-            console.error("API ERROR: AL ACTUALIZAR PRODUCTO: "+error);
+            console.error("API ERROR: AL ACTIVAR o DESCARIVAR PRODUCTO: "+error);
             throw error;
         }
         

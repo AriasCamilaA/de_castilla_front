@@ -9,7 +9,7 @@ const MenuPrincipalPage = async () => {
             <h1>Menú Administrador</h1>
             <div className="opciones menuAdmin">
                 <div className="btn_opciones">
-                    <Link href="admin/ventas">
+                    <Link href="/admin/ventas">
                         <Image 
                             src="/assets/icons/ventas.png" 
                             alt='opción menú' 
@@ -22,7 +22,7 @@ const MenuPrincipalPage = async () => {
                     <h2>Ventas</h2>
                 </div>
                 <div className="btn_opciones">
-                    <Link href="admin/inventarios">
+                    <Link href="/admin/inventario">
                         <Image 
                             src="/assets/icons/Inventario.png" 
                             alt='opción menú' 
@@ -35,7 +35,7 @@ const MenuPrincipalPage = async () => {
                     <h2>Inventario</h2>
                 </div>
                 <div className="btn_opciones">
-                    <Link href="admin/proveedores">
+                    <Link href="/admin/ordenes_compra">
                         <Image 
                             src="/assets/icons/Proveedores.png" 
                             alt='opción menú'
@@ -45,10 +45,10 @@ const MenuPrincipalPage = async () => {
                             style={{ width: '140px', height: 'auto' }}    
                         />
                     </Link>
-                    <h2>Proveedores</h2>
+                    <h2>Ordenes</h2>
                 </div>
                 <div className="btn_opciones">
-                    <Link href="admin/pedidos">
+                    <Link href="/admin/pedidos">
                         <Image 
                             src="/assets/icons/Pedidos.png" 
                             alt='opción menú'
@@ -87,9 +87,9 @@ const MenuPrincipalPage = async () => {
                     <h2>Categorias</h2>
                 </div> */}
                 <div className="btn_opciones">
-                    <Link href="admin/usuarios">
+                    <Link href="/admin/configuraciones">
                         <Image 
-                            src="/assets/icons/LogoUsuarios.png" 
+                            src="/assets/icons/Configuracion.png" 
                             alt='opción menú'
                             width="0"
                             height="0"
@@ -97,13 +97,7 @@ const MenuPrincipalPage = async () => {
                             style={{ width: '140px', height: 'auto' }}
                         />
                     </Link>
-                    <h2>Usuarios</h2>
-                </div>
-                <div className="btn_opciones">
-                    <Link href="admin/categorias">
-                        <Image src="/assets/icons/Configuracion.png" alt='opción menú' width={140} height={50} />
-                    </Link>
-                    <h2>Configuración</h2>
+                    <h2>Otros</h2>
                 </div>
             </div>
         </div>

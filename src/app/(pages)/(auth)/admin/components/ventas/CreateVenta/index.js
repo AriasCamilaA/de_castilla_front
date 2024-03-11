@@ -3,11 +3,11 @@ import { IoTrash } from "react-icons/io5";
 import ventasService from "app/services/ventas_service";
 import { formatNumberToCop, showAlert } from "app/utilities";
 import "app/css/ventas/createPedidoVenta.css";
-import productosService from "app/services/productos_service";
+import productosService from "app/services/inventario/productos_service";
 import detallesVentas from "app/services/detalles_ventas_service";
 import Image from "next/image";
 import validateAccessToken from "app/utilities/auth/validateAccessToken";
-import inventarioService from "app/services/Inventario_service";
+import inventarioService from "app/services/inventario/Inventario_service";
 
 const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => {
   const [productos, setProductos] = useState([]);
@@ -121,6 +121,14 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
 
   const handleCrearVenta = async () => {
     try {
+      // Verificar si alguna cantidad es cero
+      const cantidadesCero = Object.values(productosAgregados).some(producto => producto.cantidad === 0);
+
+      if (cantidadesCero) {
+        showAlert("error", "Error al crear la venta", "No se puede crear una venta con una cantidad de producto igual a cero.");
+        return;
+      }
+
       const fechaActual = new Date();
       const año = fechaActual.getFullYear();
       const mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2);
@@ -180,6 +188,19 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
     }
   };
   
+  const handleCantidadChange = (e, productoId) => {
+    const nuevaCantidad = parseInt(e.target.value) || 0; // Convertimos el valor del input a entero o establecemos 0 si no es válido
+    if (nuevaCantidad >= 0) {
+      // Verificamos si es un número válido y mayor o igual que cero
+      setProductosAgregados((prevProductos) => ({
+        ...prevProductos,
+        [productoId]: {
+          ...prevProductos[productoId],
+          cantidad: nuevaCantidad,
+        },
+      }));
+    }
+  };
 
   return (
     <>
@@ -245,7 +266,11 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
                       {producto.stock < producto.cantidad && <span className="badge bg-danger opacity-75">Stock insuficiente</span>}
                       <h5 className="card-title">{producto.nombre}</h5>
                       <p className="card-title">$ {producto.precio}</p>
-                      <span className="badge bg-secondary">{producto.cantidad}</span>
+                      <input className="text-center w-full"
+                        type="number"
+                        value={producto.cantidad}
+                        onChange={(e) => handleCantidadChange(e, key)}
+                      />
                     </div>
                     <button
                       className="btn btn-agregar"

@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import productosService from 'app/services/productos_service';
-import categoriaService from 'app/services/categoria_service';
+import productosService from 'app/services/inventario/productos_service';
+import categoriaService from 'app/services/inventario/categoria_service';
 import "./Catalogo.css"
 import "app/css/generales/botones.css"
 
@@ -44,6 +44,7 @@ const Catalogo = () => {
                         <button key={categoria.id_categoria} className="btn-categoria" onClick={() => handleCategoriaClick(categoria.id_categoria)}>{categoria.nombre_categoria}</button>
                     ))}
                 </div>
+                <div className="separador"></div>
                 <div className="flex-producto">
                     {productos.map(producto => (
                     <div className="card m-2">
