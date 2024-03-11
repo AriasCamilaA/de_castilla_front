@@ -1,84 +1,79 @@
-import React from 'react';
-// import ActualizarInventario from '../ActualizarProveedor';
-import proveedoresService from 'app/services/proveedores_service';
-import withReactContent from 'sweetalert2-react-content';
-import Swal from 'sweetalert2';
-import { showAlert } from 'app/utilities';
+import React, { useState, useEffect } from "react";
+import "app/css/pedidos/tab_tabla.css";
+import "app/css/pedidos/tablas.css";
+import "app/css/pedidos/filtros.css";
+import "app/css/pedidos/botones.css";
 
-const TablaInventario = ({ inventario, filtroNombre, actualizarListaInventario }) => {
-    const inventarioFiltrados = inventario.filter((inventario) =>
-    inventario.nombre_proveedor.toLowerCase().includes(filtroNombre.toLowerCase()) && proveedor.estado == 1
-  );
+const TablaInventario = ({ inventario, searchTerm, actualizarListaInventario }) => {
+    const [insumos, setInsumos] = useState([]);
+    const [productos, setProductos] = useState([]);
+    const [tabActual, setTabActual] = useState('Insumo');
+    const [item, setItem] = useState(null);
 
-  const handlrerEliminarProveedor = (proveedor) => {
-        proveedor.estado = 0;
-        proveedoresService.updateProveedor(proveedor)
-        .then(() => {
-            actualizarListaProveedores(); // Actualiza la lista global de proveedores
-            showAlert('success', 'Proveedor Eliminado', 'El proveedor ha sido eliminado exitosamente');
-        })
-        .catch(() => {
-            showAlert('error', 'Error', 'No se pudo eliminar el proveedor');
-        });
+    useEffect(() => {
+        const filteredInsumos = inventario.filter(item => item.tipo_inventario === 'INSUMO' && item.insumo.nombre_insumo.toLowerCase().includes(searchTerm));
+        const filteredProductos = inventario.filter(item => item.tipo_inventario === 'PRODUCTO' && item.producto.nombre_producto.toLowerCase().includes(searchTerm));
+        
+        setInsumos(filteredInsumos);
+        setProductos(filteredProductos);
+    }, [inventario, searchTerm]);
+
+    const cambiarTab = (tab) => {
+        setTabActual(tab);
     };
 
+    const mostrarItems = (tipo) => {
+        return tipo === 'Insumo' ? insumos : productos;
+    };
 
-    const eliminarProveedor = (proveedor) => {
-        const MySwal = withReactContent(Swal);
-        MySwal.fire({
-            title: '¿Está seguro de Eliminar el proveedor?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Sí',
-            cancelButtonText: 'Cancelar',
-            confirmButtonColor: '#732f48',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                handlrerEliminarProveedor(proveedor);
-            }
-        });
-    }
-
-  return (
-    <div className="tabla container mt-4">
-            <table className="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Empresa</th>
-                        <th scope="col">NIT</th>
-                        <th scope="col">Celular</th>
-                        <th scope="col">Correo</th>
-                        <th className="tabla__opcion" scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {proveedoresFiltrados
-                .sort((a, b) => b.id_proveedor - a.id_proveedor)
-                .map((proveedor) => (
-                    <tr key={proveedor.id_proveedor}>
-                    <td>{proveedor.nombre_proveedor}</td>
-                    <td>{proveedor.empresa_proveedor}</td>
-                    <td>{proveedor.nit_proveedor}</td>
-                    <td>{proveedor.celular_proveedor}</td>
-                    <td>{proveedor.correo_proveedor}</td>
-                    <td className="tabla__opcion">
-                        <div className="opciones_tabla">
-                        <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#actualizarProveedor">
-                            🔍
+    return (
+        <>
+            <div className="tablaConTab">
+                <div>
+                    <button
+                        className={`tablink ${tabActual === 'Insumo' ? 'bg-oscuro' : ''}`}
+                        onClick={() => cambiarTab('Insumo')}
+                    >
+                        Insumos
+                    </button>
+                    <button
+                        className={`tablink ${tabActual === 'Producto' ? 'bg-oscuro' : ''}`}
+                        onClick={() => cambiarTab('Producto')}
+                    >
+                        Productos
+                    </button>
+                </div>
+                {['Insumo', 'Producto'].map(tipo => (
+                    <div key={tipo} id={tipo} className="tab_content" style={{ display: tabActual === tipo ? 'block' : 'none' }}>
+                        <div className="tabla">
+                            <table className="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Stock</th>
+                                        {/* <th scope="col">Tipo</th> */}
+                                        {/* <th scope="col">Estado</th> */}
+                                        <th scope="col">Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {mostrarItems(tipo).map(item => (
+                                        <tr key={item.id_inventario}>
+                                            <td>{tipo === 'Insumo' ? item.insumo.nombre_insumo : item.producto.nombre_producto}</td>
+                                            <td>{item.stock_inventario}</td>
+                                            {/* <td>{item.tipo_inventario}</td> */}
+                                            {/* <td>{item.estado ? 'Activo' : 'Inactivo'}</td> */}
+                                            <td className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#updateItem" onClick={() => setItem(item)}>🔍</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
-                        <ActualizarProveedor actualizarListaProveedores={actualizarListaProveedores} proveedor={proveedor}/>
-                        <div className="cursor-pointer" onClick={()=>{eliminarProveedor(proveedor)}}>
-                            ❌
-                        </div>
-                        </div>
-                    </td>
-                    </tr>
+                    </div>
                 ))}
-                </tbody>
-            </table>
-        </div>
-  );
+            </div>
+        </>
+    );
 };
 
-export default TablaProveedores;
+export default TablaInventario;

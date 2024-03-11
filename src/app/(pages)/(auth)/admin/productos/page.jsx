@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import productosService from 'app/services/productos_service';
+import productosService from 'app/services/inventario/productos_service';
 import { showAlert } from 'app/utilities';
 import "app/css/pedidos/tab_tabla.css";
 import "app/css/pedidos/tablas.css";

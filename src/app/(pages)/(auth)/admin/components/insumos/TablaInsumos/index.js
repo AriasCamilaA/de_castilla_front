@@ -1,6 +1,6 @@
 import React from 'react';
 import ActualizarInsumo from '../ActualizarInsumo';
-import insumosService from 'app/services/insumos_service';
+import insumosService from 'app/services/inventario/insumos_service';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { showAlert } from 'app/utilities';
@@ -96,7 +96,7 @@ const TablaInsumos = ({ insumos, filtroNombre, actualizarListaInsumos }) => {
                     <td className="tabla__opcion">
                         <div className="opciones_tabla">
                         <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#actualizarInsumo">
-                            🖊️
+                            🔍
                         </div>
                         <ActualizarInsumo actualizarListaInsumos={actualizarListaInsumos} insumo={insumo}/>
                         </div>

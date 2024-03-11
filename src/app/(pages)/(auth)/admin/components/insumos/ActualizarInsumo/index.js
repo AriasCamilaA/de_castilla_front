@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import insumosService from 'app/services/insumos_service'; // Asegúrate de proporcionar la ruta correcta
+import insumosService from 'app/services/inventario/insumos_service'; // Asegúrate de proporcionar la ruta correcta
 import { showAlert } from 'app/utilities';
 
 const ActualizarInsumo = ({actualizarListaInsumos, insumo }) => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ActualizarProducto from '../ActualizarProducto';
-import productosService from 'app/services/productos_service';
+import productosService from 'app/services/inventario/productos_service';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import { formatNumberToCop, showAlert } from 'app/utilities';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import productosService from 'app/services/productos_service'; // Asegúrate de proporcionar la ruta correcta
+import productosService from 'app/services/inventario/productos_service'; // Asegúrate de proporcionar la ruta correcta
 import { showAlert } from 'app/utilities';
-import categoriaService from 'app/services/categoria_service';
+import categoriaService from 'app/services/inventario/categoria_service';
 import Image from 'next/image';
 
 const CrearProducto = ({ actualizarListaProductos }) => {

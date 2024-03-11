@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import insumosService from 'app/services/insumos_service';
+import insumosService from 'app/services/inventario/insumos_service';
 import { showAlert } from 'app/utilities';
 import "app/css/pedidos/tab_tabla.css";
 import "app/css/pedidos/tablas.css";
