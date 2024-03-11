@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import inventarioService from "app/services/inventario/Inventario_service";
 import TablaInventario from "../components/inventario/TablaInventario";
 import Link from "next/link";
+import { showAlert } from "app/utilities";
 // import CrearInventario from "../components/inventario/CrearInventario";
 
 const InventarioPage = () => {
@@ -29,6 +30,16 @@ const InventarioPage = () => {
             console.error("Error fetching inventory:", error);
         });
     }, []);
+
+    const generarPDF = () => {
+        inventarioService.getPDF(searchTerm)
+        .then((response) => {
+            showAlert("success", 'PDF', "PDF exportado correctamente");
+        })
+        .catch(() => {
+            showAlert("error", 'Conexión Fallida', "No se pudo generar el pdf");
+        });
+    }
   
     return (
         <div className="contenido">
@@ -48,6 +59,9 @@ const InventarioPage = () => {
                     <p className='btn btn-oscuro mb-0 py-1 px-2' onClick={()=>limpiarFiltros()}>X</p>
                 </div>
                 <div>
+                    <div className="btn btn-cancelados" onClick={generarPDF}>
+                        PDF
+                    </div>
                     <Link href="/admin/productos" className="ms-2 btn btn-oscuro">
                         Productos 
                     </Link>

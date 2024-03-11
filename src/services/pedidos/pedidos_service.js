@@ -58,21 +58,37 @@ const pedidosService = {
     },
 
     // _________ PDF ___________________________________________________________
-    getPDF : async () => {
+    getPDF: async (filtro, fecha_inicial, fecha_final) => {
         try {
-            const url_productos = url + "pedidos/generate-pdf/";
-            // const response = await axios.get(url_productos);
-            // const data = response.data;
+            let url_productos = url + "pedidos/generate-pdf/";
+    
+            // Verifica si hay filtro y actualiza la URL en consecuencia
+            if (filtro) {
+                url_productos += filtro;
+            } else {
+                // Si hay fecha inicial o fecha final, agrega los parámetros a la URL
+                if (fecha_inicial || fecha_final) {
+                    url_productos += "?";
+    
+                    if (fecha_inicial) {
+                        url_productos += `fecha_inicial=${fecha_inicial}`;
+                    }
+    
+                    if (fecha_final) {
+                        // Verifica si ya hay parámetros en la URL
+                        url_productos += (fecha_inicial ? "&" : "") + `fecha_final=${fecha_final}`;
+                    }
+                }
+            }
+    
             window.open(url_productos);
             return null;
-            // console.log(data)
-            return data;
         } catch (error) {
-            console.error("API ERROR: ESTADOS PEDIDO: "+error);
+            console.error("API ERROR: ESTADOS PEDIDO: " + error);
             throw error;
         }
-        
-    },
+    }
+    
 }
 
 export default pedidosService;

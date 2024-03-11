@@ -71,21 +71,22 @@ const inventarioService = {
     },
 
     // _________ PDF ___________________________________________________________
-    // getPDF : async () => {
-    //     try {
-    //         const url_productos = url + "proveedores/generate-pdf/";
-    //         // const response = await axios.get(url_productos);
-    //         // const data = response.data;
-    //         window.open(url_productos);
-    //         return null;
-    //         // console.log(data)
-    //         return data;
-    //     } catch (error) {
-    //         console.error("API ERROR: ESTADOS PEDIDO: "+error);
-    //         throw error;
-    //     }
-        
-    // },
+    getPDF: async (filtro) => {
+        try {
+            let url_productos = url + "inventario/generate-pdf/";
+    
+            // Verifica si hay filtro y actualiza la URL en consecuencia
+            if (filtro) {
+                url_productos += filtro;
+            }
+    
+            window.open(url_productos);
+            return null;
+        } catch (error) {
+            console.error("API ERROR: ESTADOS PEDIDO: " + error);
+            throw error;
+        }
+    }
 }
 
 export default inventarioService;
