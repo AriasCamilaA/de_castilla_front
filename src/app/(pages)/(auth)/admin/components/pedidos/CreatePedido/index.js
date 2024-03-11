@@ -215,7 +215,20 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
       }
     }
   };
-  
+
+    
+  const handleCantidadChange = (e, productoId) => {
+    const nuevaCantidad = parseInt(e.target.value) || 0; 
+    if (nuevaCantidad >= 0) {
+      setProductosAgregados((prevProductos) => ({
+        ...prevProductos,
+        [productoId]: {
+          ...prevProductos[productoId],
+          cantidad: nuevaCantidad,
+        },
+      }));
+    }
+  };
 
   return (
     <>
@@ -284,7 +297,11 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
                                     <div className="descripcion">
                                       <h5 className="card-title">{producto.nombre}</h5>
                                       <p className="card-title">$ {producto.precio}</p>
-                                      <span className="badge bg-secondary">{producto.cantidad}</span>
+                                      <input className="text-center w-full"
+                                        type="number"
+                                        value={producto.cantidad}
+                                        onChange={(e) => handleCantidadChange(e, key)}
+                                      />
                                     </div>
                                     <button
                                       className="btn btn-agregar"
