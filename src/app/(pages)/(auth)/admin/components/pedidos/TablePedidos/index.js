@@ -171,7 +171,7 @@ const TablePedidos = ({ pedidosNoFinalizados, pedidosFinalizados, searchTerm, es
                                             <th>{pedido.id_pedido}</th>
                                             <td>{pedido.descripcion_pedido}</td>
                                             <td>{formatearFecha(pedido.fecha_pedido)}</td>
-                                            <td>{pedido.usuario.no_documento_usuario}</td>
+                                            <td>{pedido.usuario.no_documento_usuario}</td>  
                                             <td>{pedido.usuario.celular_usuario}</td>
                                             <td>{pedido.usuario.nombre_usuario} {pedido.usuario.apellido_usuario}</td>
                                             <td className="tabla__estado">
