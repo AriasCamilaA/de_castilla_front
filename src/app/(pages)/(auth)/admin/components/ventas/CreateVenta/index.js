@@ -7,7 +7,7 @@ import productosService from "app/services/inventario/productos_service";
 import detallesVentas from "app/services/detalles_ventas_service";
 import Image from "next/image";
 import validateAccessToken from "app/utilities/auth/validateAccessToken";
-import inventarioService from "app/services/Inventario_service";
+import inventarioService from "app/services/inventario/Inventario_service";
 
 const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => {
   const [productos, setProductos] = useState([]);
