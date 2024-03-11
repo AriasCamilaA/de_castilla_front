@@ -33,7 +33,7 @@ const DetallesVenta = ({ id_venta }) => {
                 </thead>
                 <tbody>
                     {detallesVenta.map((detalle) => (
-                        <tr key={detalle.id}>
+                        <tr key={detalle.id_venta}>
                             <td>{detalle.producto.nombre_producto}</td>
                             <td>{detalle.cantidad_producto}</td>
                             <td>{detalle.producto.precio_producto}</td>
