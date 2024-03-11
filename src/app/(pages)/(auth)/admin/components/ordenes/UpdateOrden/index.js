@@ -1,46 +1,38 @@
 import { useEffect, useState } from "react";
 import { AiOutlineCalendar, AiOutlineInfoCircle, AiOutlineMail, AiOutlinePhone, AiOutlineUser } from "react-icons/ai";
-import pedidosService from "app/services/pedidos/pedidos_service";
+import ordenesService from "app/services/ordenes_service";
 import { formatearFechaParaInputDate, showAlert } from "app/utilities";
-import DetallesPedido from "../DetallesPedido/DetallesPedido";
-import detallesPedidosService from "app/services/pedidos/detalles_pedidos_service";
-import inventarioService from "app/services/inventario/Inventario_service";
+import DetallesOrden from "../DetallesOrden/DetallesOrden";
 
 const estados = [
-    { label: 'Por Aprobar', value: 1 },
-    { label: 'Aprobado', value: 2 },
-    { label: 'Preparándose', value: 3 },
-    { label: 'Para Recoger', value: 4 },
-    { label: 'Cancelado', value: 5 },
-    { label: 'Aceptar Cambios', value: 6 },
-    { label: 'Finalizados', value: 7 },
+    { label: 'Solicitado', value: 1 },
+    { label: 'Cancelado', value: 2 },
+    { label: 'Finalizado', value: 3 },
 ];
 
-const UpdatePedido = ({ pedidoById, actualizarListaPedidos, handleCerrarModalDetallePedido }) => {
-    const [pedido, setPedido] = useState(null);
-    const [nuevaDescripcion, setNuevaDescripcion] = useState('');
+const UpdateOrden = ({ ordenById, actualizarListaOrdenes, handleCerrarModalDetalleOrden }) => {
+    const [orden, setOrden] = useState(null);
     const [nuevoEstado, setNuevoEstado] = useState('');
 
     useEffect(() => {
-        pedidosService.getPedidosById(pedidoById)
+        ordenesService.getOrdenesById(ordenById)
             .then((response) => {
-                setPedido(response);
-                setNuevaDescripcion(response.descripcion_pedido);
-                setNuevoEstado(response.id_estado_pedido_fk); // Cambiado a id_estado_pedido_fk
+                setOrden(response);
+                setNuevoEstado(response.id_estado_oc_fk); // Cambiado a id_estado_pedido_fk
             })
             .catch(() => {
-                showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente el pedido");
+                showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente la orden");
             });
-    }, [pedidoById]);
+    }, [ordenById]);
 
-    const handleActualizarPedido = async (e) => {
-        e.preventDefault(); // Evitar la recarga de la página al enviar el formulario
     
+    const handleActualizarPedido = (e) => {
+        e.preventDefault(); // Evitar la recarga de la página al enviar el formulario
+
         if (!nuevaDescripcion.trim()) {
             showAlert("error", "Descripción Vacía", "Ingrese una descripción para actualizar el pedido.");
             return;
         }
-<<<<<<< HEAD
 
         const pedidoActualizado = {
             ...pedido,
@@ -58,48 +50,7 @@ const UpdatePedido = ({ pedidoById, actualizarListaPedidos, handleCerrarModalDet
             .catch(() => {
                 showAlert("error", "Error de Actualización", "No se pudo actualizar el pedido.");
             });
-=======
-    
-        if (nuevoEstado !== 7) {
-            showAlert("error", "Estado Incorrecto", "El pedido solo puede actualizarse cuando está en estado 'Finalizados'.");
-            return;
-        }
-    
-        try {
-            // Obtener todos los detalles del pedido asociados al pedido actual
-            const detallesPedido = await detallesPedidosService.getDetallesPedidosById(pedidoById);
-            
-            // Verificar el stock para cada detalle del pedido
-            for (const detalle of detallesPedido) {
-                const inventario = await inventarioService.getInventarioProductoById(detalle.producto.id_producto);
-                
-                // Verificar si hay suficiente stock
-                if (!inventario || inventario[0].stock_inventario < detalle.cantidad_producto) {
-                    showAlert("error", "Stock Insuficiente", `No hay suficiente stock para ${detalle.producto.nombre_producto}.`);
-                    return;
-                }
-            }
-    
-            // Si se pasó la validación de stock, proceder con la actualización del pedido
-            const pedidoActualizado = {
-                ...pedido,
-                descripcion_pedido: nuevaDescripcion,
-                id_estado_pedido_fk: nuevoEstado // Cambiado a id_estado_pedido_fk
-            };
-    
-            await pedidosService.updatePedido(pedidoActualizado);
-    
-            showAlert("success", "Pedido Actualizado", "El pedido ha sido actualizado correctamente.");
-            setPedido(pedidoActualizado);
-            handleCerrarModalDetallePedido();
-            actualizarListaPedidos();
-        } catch (error) {
-            showAlert("error", "Error de Actualización", "No se pudo actualizar el pedido.");
-            console.error("Error al actualizar el pedido:", error);
-        }
->>>>>>> 95692d20f6bdd1c6dfe357fa837e846510c61117
     };
-    
 
     return (
         <>
