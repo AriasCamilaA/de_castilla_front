@@ -126,9 +126,11 @@ export default function Home() {
             </section>
             <img src='assets/img/separador.png' alt='imagen'className="separador" />
             <section id="galeria" className="catalogo">
-                <div className="separador" />
-                <div className="container">
-                    <Catalogo/>
+                <h1 className="center-title">Catalogo</h1>
+                <div className="container-catalogo">
+                    <div className="container">
+                        <Catalogo/>
+                    </div>
                 </div>
             </section>
             <div className="separador" />

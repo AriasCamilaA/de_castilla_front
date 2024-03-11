@@ -117,6 +117,16 @@ footer {
     height: calc(100vh - 68px);
 }
 
+.container-catalogo {
+    background-color: var(--fondo2);
+    height: 800px;
+}
+
+.center-title {
+    text-align: center;
+    background-color: var(--fondo2);
+    padding: 40px;
+  }
 /*-------------------------Menu Principal-----------------------------------*/
 .opciones {
     display: flex;
