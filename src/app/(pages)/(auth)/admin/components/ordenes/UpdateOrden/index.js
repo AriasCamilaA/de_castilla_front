@@ -11,28 +11,16 @@ const estados = [
     { label: 'Finalizado', value: 3 },
 ];
 
-const UpdateOrden = ({ ordenById, actualizarListaOrdenes, handleCerrarModalDetalleOrden }) => {
-    const [orden, setOrden] = useState(null);
-    const [nuevoEstado, setNuevoEstado] = useState('');
+const UpdateOrden = ({ orden, actualizarListaOrdenes, handleCerrarModalDetalleOrden }) => {
+    const [nuevoEstado, setNuevoEstado] = useState(orden.id_oc);
     const [ochasproveedorData, setOchasproveedorData] = useState({});
 
     useEffect(() => {
-        ordenesService.getOrdenesById(ordenById)
-            .then((response) => {
-                setOrden(response);
-                setNuevoEstado(response.id_estado_oc_fk); // Cambiado a id_estado_pedido_fk
-            })
-            .catch(() => {
-                showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente la orden");
-            });
-    }, [ordenById]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            if (orden) {
-                const response = await OchasproveedorService.getHasproveedorById(orden.id_oc);
-                setOchasproveedorData(response);
-            }
+        const fetchData = () => {
+            OchasproveedorService.getHasproveedorById(orden.id_oc)
+                .then((response) => {
+                    setOchasproveedorData(response);
+                })
         };
         fetchData();
     }, [orden]);
@@ -63,7 +51,7 @@ const UpdateOrden = ({ ordenById, actualizarListaOrdenes, handleCerrarModalDetal
                 <div className="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                     <div className="modal-content">
                         <div className="modal-header d-flex align-items-start">
-                            <h5 className="modal-title" id="modalTitleId">Actualizar Orden # {ordenById}</h5>
+                            <h5 className="modal-title" id="modalTitleId">Actualizar Orden # {orden?.id_oc}</h5>
                             <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id="cerrarModalDetallePedido">
                                 <p style={{fontFamily: "arial"}}>x</p>
                             </button>

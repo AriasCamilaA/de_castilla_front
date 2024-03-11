@@ -6,7 +6,7 @@ const OchasproveedorService = {
     // _________ Inventario ___________________________________________________________
     getOchasproveedor : async () => {
         try {
-            const url_ochasproveedor = url + "ochasproveedores//";
+            const url_ochasproveedor = url + "ochasproveedores/";
             const response = await axios.get(url_ochasproveedor);
             const data = response.data;
             // console.log(data)

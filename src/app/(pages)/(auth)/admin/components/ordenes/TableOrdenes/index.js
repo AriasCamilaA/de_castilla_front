@@ -12,7 +12,7 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
     const [ordenesCancelada, setOrdenesCancelada] = useState([]);
     const [ordenesFinalizada, setOrdenesFinalizada] = useState([]);
     const [tabActual, setTabActual] = useState('Solicitada');
-    const [orden, setOrden] = useState(null);
+    const [myOrden, setMyOrden] = useState({});
     const [ochasproveedorData, setOchasproveedorData] = useState({});
 
     useEffect(() => {
@@ -26,13 +26,15 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
 
     useEffect(() => {
         if (ordenes) {
-            const fetchData = async () => {
+            const fetchData = () => {
                 const ochasproveedorMap = {};
                 for (const orden of ordenes) {
-                    const response = await OchasproveedorService.getHasproveedorById(orden.id_oc);
-                    ochasproveedorMap[orden.id_oc] = response;
-                }
-                setOchasproveedorData(ochasproveedorMap);
+                    OchasproveedorService.getHasproveedorById(orden.id_oc)
+                        .then((response)=>{
+                            ochasproveedorMap[orden.id_oc] = response;
+                        })
+                    }
+                    setOchasproveedorData(ochasproveedorMap);
             };
             fetchData();
         }
@@ -100,7 +102,7 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
                                             <td>{orden.hora_oc}</td>
                                             <td>{ochasproveedorData[orden.id_oc]?.proveedor.nombre_proveedor}</td>
                                             {/* <td>{usuario.estado == 1 ? '✅' : '❌'}</td> */}
-                                            <td className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#modalDetallePedido" onClick={()=>setOrden(orden)}>🔍</td>
+                                            <td className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#modalDetallePedido" onClick={()=>{setMyOrden(orden)}}>🔍</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -109,7 +111,7 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
                     </div>
                 ))}
             </div>
-            <UpdateOrden orden={orden} actualizarListaOrdenes={actualizarListaOrdenes} />
+            <UpdateOrden orden={myOrden} actualizarListaOrdenes={actualizarListaOrdenes} />
         </>
     );
 };
