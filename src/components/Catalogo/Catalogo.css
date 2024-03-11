@@ -8,10 +8,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 80%;
-  border: 1px solid var(--oscuro);
-  height: 80vh;
+  width: 76%;
+  box-shadow: inset 0px 0px 5px 1px var(--oscuro);
+  border-radius: 10px;
+  height: 78vh;
   overflow: auto;
+  background-color: var(--fondo1);
 }
 
 .flex-producto .card {
@@ -25,7 +27,7 @@
 }
 
 .btn-categoria {
-  background-color: white;
+  background-color: #ffffff;
   padding: 10px 50px;
   margin-bottom: 15px;
   border: none;
