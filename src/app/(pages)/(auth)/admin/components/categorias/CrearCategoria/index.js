@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import categoriaService from 'app/services/categoria_service';
+import categoriaService from 'app/services/inventario/categoria_service';
 import { showAlert } from 'app/utilities';
 
 const CrearCategoria = ({ actualizarListaCategoria }) => {
