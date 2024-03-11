@@ -47,9 +47,17 @@ const InventarioPage = () => {
                     </div>
                     <p className='btn btn-oscuro mb-0 py-1 px-2' onClick={()=>limpiarFiltros()}>X</p>
                 </div>
-                <Link href="/admin/inventario/historico" className="btn btn-oscuro">
-                    Ver Histórico
-                </Link>
+                <div>
+                    <Link href="/admin/productos" className="ms-2 btn btn-oscuro">
+                        Productos 
+                    </Link>
+                    <Link href="/admin/insumos" className="ms-2 btn btn-oscuro">
+                        Insumos 
+                    </Link>
+                    <Link href="/admin/inventario/historico" className="ms-2 btn btn-oscuro">
+                        Ver Histórico 
+                    </Link>
+                </div>
                 {/* <CrearInventario actualizarListaInventario={actualizarListaInventario}/> */}
             </div>
             {inventario && <TablaInventario inventario={inventario} searchTerm={searchTerm} actualizarListaInventario={actualizarListaInventario}/>}

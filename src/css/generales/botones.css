@@ -18,6 +18,16 @@
     color: var(--blanco);
     cursor: pointer;
 }
+.btn_claro {
+    border: 1px solid var(--fondo1);
+    color: var(--claro);
+}
+
+.btn_claro:hover {
+    background: var(--fondo1) ;
+    color: var(--blanco);
+    cursor: pointer;
+}
 
 .btn_largo {
     padding: 12px;

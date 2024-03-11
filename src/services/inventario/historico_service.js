@@ -17,6 +17,17 @@ const historicoService = {
         }
         
     },
+    postHistorico : async (historico) => {
+        try {
+            const url_historico = url + "historicos/";
+            const response = await axios.post(url_historico, historico);
+            const data = response.data;
+            return data;
+        } catch (error) {
+            console.error("API ERROR: INSUMOS: "+error);
+            throw error;
+        }
+    },
 }
 
 export default historicoService;
