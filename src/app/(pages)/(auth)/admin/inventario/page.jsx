@@ -59,7 +59,7 @@ const InventarioPage = () => {
                     <p className='btn btn-oscuro mb-0 py-1 px-2' onClick={()=>limpiarFiltros()}>X</p>
                 </div>
                 <div>
-                    <div className="btn btn-cancelados" onClick={generarPDF}>
+                    <div className="btn btn-pdf" onClick={generarPDF}>
                         PDF
                     </div>
                     <Link href="/admin/productos" className="ms-2 btn btn-oscuro">

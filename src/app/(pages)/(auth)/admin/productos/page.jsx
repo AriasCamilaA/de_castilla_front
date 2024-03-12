@@ -40,6 +40,16 @@ const ProductosPage = () => {
         setSearchTerm('');
     };
 
+    const generarPDF = () => {
+        productosService.getPDF(searchTerm)
+        .then((response) => {
+            showAlert("success", 'PDF', "PDF exportado correctamente");
+        })
+        .catch(() => {
+            showAlert("error", 'Conexión Fallida', "No se pudo generar el pdf");
+        });
+    }
+
     return (
         <>
             <div className="contenido">
@@ -53,8 +63,7 @@ const ProductosPage = () => {
                         <p className='btn btn-oscuro mb-0 py-1 px-2' onClick={limpiarFiltros}>x</p>
                     </div>
                     <div className='flitros__opciones d-flex'>
-                        <p className='btn btn-excel' >Excel</p>
-                        <p className='btn btn-pdf'>PDF</p>
+                        <p className='btn btn-pdf' onClick={generarPDF}>PDF</p>
                         <CrearProducto actualizarListaProductos={actualizarListaProductos}/>
                         <p className='btn btn-oscuro' data-bs-toggle="modal" data-bs-target="#createProducto">
                             <strong className='me-1'>+</strong>
