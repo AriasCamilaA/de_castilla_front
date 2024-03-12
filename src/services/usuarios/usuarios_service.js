@@ -17,6 +17,21 @@ const usuariosService = {
         }
         
     },
+
+    getUsuariosById : async (id) => {
+        try {
+            const url_usuarios = url + "usuarios/"+id+"/";
+            const response = await axios.get(url_usuarios);
+            const data = response.data;
+            // console.log(data)
+            return data;
+        } catch (error) {
+            console.error("API ERROR: ORDEN POR ID: "+error);
+            throw error;
+        }
+        
+    },
+
     updateUsuarios : async (user) => {
         try {
             const url_usuarios = url + "usuarios/" + user.no_documento_usuario + "/";

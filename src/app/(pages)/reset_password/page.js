@@ -1,8 +1,8 @@
 "use client"
 import React, { useState } from "react";
-import usuariosService from "app/services/usuarios/usuarios_service";
+import passwordResetService from "app/services/password_service";
 
-const ResetPassword = () => {
+const ResetPasswordRequest = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -10,39 +10,12 @@ const ResetPassword = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Verificar si el correo electrónico existe
-      const usuarios = await usuariosService.getUsuarios();
-      const usuario = usuarios.find((user) => user.email === email);
-      if (!usuario) {
-        setError("El correo electrónico proporcionado no está registrado.");
-        return;
-      }
-      // Aquí debes enviar la solicitud de restablecimiento de contraseña por correo electrónico
-      await enviarCorreoElectronico(email); // Implementa la lógica para enviar el correo electrónico
+      // Solicitar token para restablecimiento de contraseña
+      const response = await passwordResetService.requestPasswordResetToken(email);
       setSuccessMessage("Se ha enviado un correo electrónico con instrucciones para restablecer tu contraseña.");
     } catch (error) {
       console.error("Error al enviar solicitud de recuperación de contraseña:", error);
       setError("Error al enviar solicitud de recuperación de contraseña. Por favor, inténtalo de nuevo más tarde.");
-    }
-  };
-
-  // Función para enviar el correo electrónico de restablecimiento de contraseña
-  const enviarCorreoElectronico = async (email) => {
-    try {
-      // Aquí deberías llamar a tu API o servicio externo para enviar el correo electrónico
-      // Puedes usar fetch, axios o cualquier otra biblioteca de solicitudes HTTP para realizar la solicitud a tu servidor
-      const response = await fetch('ruta/al/servicio/para/enviar/correo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-      if (!response.ok) {
-        throw new Error('Error al enviar el correo electrónico');
-      }
-    } catch (error) {
-      throw error;
     }
   };
 
@@ -81,4 +54,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default ResetPasswordRequest;

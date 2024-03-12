@@ -83,7 +83,7 @@ const LoginPage = () => {
           <div className="form__options">
             <p>
               ¿Olvidaste tu Contraseña?{" "}
-              <a href="password"> Haz click aquí</a>
+              <a href="./reset_password"> Haz click aquí</a>
             </p>
             <p>
               No tienes cuenta,{" "}
