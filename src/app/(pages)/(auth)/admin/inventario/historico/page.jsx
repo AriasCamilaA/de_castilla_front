@@ -82,7 +82,12 @@ const TablaHistorico = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {mostrarHistorial(tipo).map(item => (
+                                        {mostrarHistorial(tipo)
+                                        .filter(
+                                            item => item.insumo && item.insumo.nombre_insumo.toLowerCase().includes(searchTerm)
+                                            || item.producto && item.producto.nombre_producto.toLowerCase().includes(searchTerm)
+                                        )
+                                        .map(item => (
                                             <tr key={item.id_historico}>
                                                 {/* <td>{item.id_historico}</td> */}
                                                 <td>{tipo === 'INSUMO' ? item.insumo.nombre_insumo : item.producto?.nombre_producto}</td>
