@@ -1,28 +1,27 @@
 "use client"
-import React, { useEffect, useState } from 'react';
 import ordenesService from 'app/services/ordenes_service';
 import { showAlert } from 'app/utilities';
+import { useEffect, useState } from 'react';
 // import CreatePedido from '../components/pedidos/CreatePedido';
-import TableOrdenes from '../components/ordenes/TableOrdenes';
+import "app/css/pedidos/Pedidos.css";
+import "app/css/pedidos/botones.css";
+import "app/css/pedidos/filtros.css";
 import "app/css/pedidos/tab_tabla.css";
 import "app/css/pedidos/tablas.css";
-import "app/css/pedidos/filtros.css";
-import "app/css/pedidos/Pedidos.css"
-import "app/css/pedidos/botones.css";
-import estadosOrdenesService from 'app/services/estados_ocs_service';   
-import OchasproveedorService from 'app/services/oc_has_proveedor_service';
+import TableOrdenes from '../components/ordenes/TableOrdenes';
+
 
 const OrdenesPage = () => {
-    const [oCHasProveedors, setOCHasProveedors] = useState([]);
+    const [ordenes, setOrdenes] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [fechaInicio, setFechaInicio] = useState("");
     const [fechaFin, setFechaFin] = useState("");
 
     useEffect(() => {
         // Obtenemos los pedidos
-        OchasproveedorService.getOchasproveedor()
+        ordenesService.getOrdenes()
             .then((response) => {
-                setOCHasProveedors(response);
+                setOrdenes(response);
             })
             .catch(() => {
                 showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente las Ordenes");
@@ -38,8 +37,8 @@ const OrdenesPage = () => {
 
     const actualizarListaOrdenes = async () => {
         try {
-          const nuevosOrdenes = await ordOchasproveedorService.getOchasproveedor();
-          setOCHasProveedors(nuevosOrdenes);
+          const nuevosOrdenes = await ordenesService.getOrdenes();
+          setOrdenes(nuevosOrdenes);
         } catch (error) {
           console.error("Error al actualizar la lista de ordenes:", error);
         }
@@ -54,7 +53,7 @@ const OrdenesPage = () => {
                     <div className='filtros__div1'>
                         <div className='inputSearch'>
                             <img src="/assets/icons/lupa.png" />
-                            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} id="searchTerm" placeholder='Nombre o #Documento' />
+                            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} id="searchTerm" placeholder='Insumo o id' />
                         </div>
                         <div className="filtros__fecha">
                             <input type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} id="fechaInicio"/>
@@ -71,7 +70,7 @@ const OrdenesPage = () => {
                     </div>
                 </div>
                 <TableOrdenes
-                    ordenes={oCHasProveedors} 
+                    ordenes={ordenes} 
                     searchTerm={searchTerm}
                     fechaInicio={fechaInicio}
                     fechaFin={fechaFin}

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { AiOutlineCalendar, AiOutlineInfoCircle, AiOutlineMail, AiOutlinePhone, AiOutlineUser } from "react-icons/ai";
 import ordenesService from "app/services/ordenes_service";
-import { formatearFechaParaInputDate, showAlert } from "app/utilities";
+import { showAlert } from "app/utilities";
+import { useState } from "react";
+import { AiOutlineCalendar, AiOutlineInfoCircle, AiOutlineMail, AiOutlinePhone, AiOutlineUser } from "react-icons/ai";
 import DetallesOrden from "../DetallesOrden/DetallesOrden";
 
 const estados = [
@@ -10,8 +10,8 @@ const estados = [
     { label: 'Finalizado', value: 3 },
 ];
 
-const UpdateOrden = ({ orden, actualizarListaOrdenes, handleCerrarModalDetalleOrden }) => {
-    const [nuevoEstado, setNuevoEstado] = useState(orden.id_oc);
+const UpdateOrden = ({ orden, actualizarListaOrdenes }) => {
+    const [nuevoEstado, setNuevoEstado] = useState(orden.id_estado_oc_fk);
 
 
     const handleActualizarOrden = (e) => {
@@ -25,8 +25,7 @@ const UpdateOrden = ({ orden, actualizarListaOrdenes, handleCerrarModalDetalleOr
         ordenesService.updateOrden(ordenActualizado)
             .then(() => {
                 showAlert("success", "Orden Actualizado", "La orden ha sido actualizada correctamente.");
-                setOrden(ordenActualizado);
-                handleCerrarModalDetalleOrden();
+                document.getElementById('cerrarModalOrden').click()
                 actualizarListaOrdenes();
             })  
             .catch(() => {
@@ -36,12 +35,12 @@ const UpdateOrden = ({ orden, actualizarListaOrdenes, handleCerrarModalDetalleOr
 
     return (
         <>
-            <div className="modal fade" id="modalDetallePedido" tabIndex={-1} role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div className="modal fade" id={`modalDetallePedido-${orden.id_oc}`} tabIndex={-1} role="dialog" aria-labelledby={`modalTitleId-${orden.id_oc}`} aria-hidden="true">
                 <div className="modal-dialog modal-xl modal-dialog-scrollable" role="document">
                     <div className="modal-content">
                         <div className="modal-header d-flex align-items-start">
                             <h5 className="modal-title" id="modalTitleId">Actualizar Orden # {orden?.id_oc}</h5>
-                            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id="cerrarModalDetallePedido">
+                            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id="cerrarModalOrden">
                                 <p style={{fontFamily: "arial"}}>x</p>
                             </button>
                         </div>
@@ -53,11 +52,11 @@ const UpdateOrden = ({ orden, actualizarListaOrdenes, handleCerrarModalDetalleOr
                                         <span className="fw-light mb-2 d-flex justify-content-center align-items-center ">(<AiOutlineInfoCircle /> Si desea cambiar estos datos diríjase a su perfil)</span>
                                         <div className="input-group mb-3">
                                             <span className="input-group-text"><AiOutlineUser /></span>
-                                            <input type="text" className="form-control" placeholder="Nombre" aria-label="Username" value={orden && orden.proveedor.nombre_proveedor} disabled />
+                                            <input type="text" className="form-control" placeholder="Nombre" aria-label="Username" value={orden && orden.Proveedor.nombre_proveedor} disabled />
                                             <span className="input-group-text"><AiOutlineMail /></span>
-                                            <input type="text" className="form-control" placeholder="Correo" aria-label="Server" value={orden && orden.proveedor.correo_proveedor} disabled />
+                                            <input type="text" className="form-control" placeholder="Correo" aria-label="Server" value={orden && orden.Proveedor.correo_proveedor} disabled />
                                             <span className="input-group-text"><AiOutlinePhone /></span>
-                                            <input type="text" className="form-control" placeholder="Teléfono" aria-label="Server" value={orden && orden.proveedor.celular_proveedor} disabled />
+                                            <input type="text" className="form-control" placeholder="Teléfono" aria-label="Server" value={orden && orden.Proveedor.celular_proveedor} disabled />
                                         </div>
 
                                         <h4 className="color-oscuro fw-bold m-0 me-2">Datos de orden:</h4>
@@ -65,9 +64,9 @@ const UpdateOrden = ({ orden, actualizarListaOrdenes, handleCerrarModalDetalleOr
 
                                         <div className="input-group mb-3">
                                             <span className="input-group-text"><AiOutlineCalendar /></span>
-                                            <input type="date" className="form-control" placeholder="Fecha" aria-label="Username" value={formatearFechaParaInputDate(orden.fecha_oc)} disabled />
+                                            <input type="date" className="form-control" placeholder="Fecha" aria-label="Username" value={(orden.fecha_oc)} disabled />
                                             <span className="input-group-text"><AiOutlineInfoCircle /></span>
-                                            <select className="form-select" value={nuevoEstado} onChange={(e) => setNuevoEstado(parseInt(e.target.value))}>
+                                            <select className="form-select" value={nuevoEstado} onChange={(e) => setNuevoEstado(parseInt(e.target.value))} disabled={nuevoEstado !== 1}>
                                                 {estados.map((estado) => (
                                                     <option key={estado.value} value={estado.value}>{estado.label}</option>
                                                 ))}
@@ -75,6 +74,7 @@ const UpdateOrden = ({ orden, actualizarListaOrdenes, handleCerrarModalDetalleOr
                                         </div>
 
                                         {orden.id_oc && (<DetallesOrden id_oc={orden.id_oc} />)}
+                                        
                                         <button type="button" className="btn btn-oscuro mt-3" onClick={handleActualizarOrden}>Actualizar Orden</button>
                                     </div>
                                 )}

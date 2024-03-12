@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
 import detallesOrdenesService from 'app/services/detalles_ocs_service';
-import { showAlert, formatNumberToCop } from 'app/utilities';
+import { showAlert } from 'app/utilities';
+import { useEffect, useState } from 'react';
 
 const DetallesOrden = ({ id_oc }) => {
     const [detallesOrden, setDetallesOrden] = useState([]);
@@ -17,8 +17,8 @@ const DetallesOrden = ({ id_oc }) => {
                     "No se pudieron cargar correctamente los detalles de la orden"
                 );
             });
-    }
-    , [id_oc]);
+    }, [id_oc]);
+
     return (
         <div>
             <h4 className="color-oscuro fw-bold m-0 me-2 mt-2">Detalle:</h4>
@@ -31,7 +31,7 @@ const DetallesOrden = ({ id_oc }) => {
                 </thead>
                 <tbody>
                     {detallesOrden.map((detalleorden) => (
-                        <tr key={detalleorden.id}>
+                        <tr key={detalleorden.id_detalle_oc}>
                             <td>{detalleorden.insumo.nombre_insumo}</td>
                             <td>{detalleorden.cantidad_insumo}</td>
                         </tr>
@@ -39,8 +39,7 @@ const DetallesOrden = ({ id_oc }) => {
                 </tbody>
             </table>
         </div>
-
-    )
+    );
 }
 
 export default DetallesOrden;
