@@ -3,7 +3,6 @@ import "app/css/pedidos/tab_tabla.css";
 import "app/css/pedidos/tablas.css";
 import "app/css/pedidos/filtros.css";
 import "app/css/pedidos/botones.css";
-import OchasproveedorService from "app/services/oc_has_proveedor_service";
 import UpdateOrden from "../UpdateOrden";
 
 
@@ -12,33 +11,16 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
     const [ordenesCancelada, setOrdenesCancelada] = useState([]);
     const [ordenesFinalizada, setOrdenesFinalizada] = useState([]);
     const [tabActual, setTabActual] = useState('Solicitada');
-    const [myOrden, setMyOrden] = useState({});
-    const [ochasproveedorData, setOchasproveedorData] = useState({});
 
     useEffect(() => {
         if (ordenes) {
-            const filteredOrdenes = ordenes.filter((orden) => orden.id_oc.toString().toLowerCase().includes(searchTerm));
-            setOrdenesSolicitada(filteredOrdenes.filter((orden) => orden.id_estado_oc_fk === 1));
-            setOrdenesCancelada(filteredOrdenes.filter((orden) => orden.id_estado_oc_fk === 2));
-            setOrdenesFinalizada(filteredOrdenes.filter((orden) => orden.id_estado_oc_fk === 3));
+            const filteredOrdenes = ordenes.filter((orden) => orden.id_oc_fk.toString().toLowerCase().includes(searchTerm));
+            setOrdenesSolicitada(filteredOrdenes.filter((orden) => orden.orden_compra.id_estado_oc_fk === 1));
+            setOrdenesCancelada(filteredOrdenes.filter((orden) => orden.orden_compra.id_estado_oc_fk === 2));
+            setOrdenesFinalizada(filteredOrdenes.filter((orden) => orden.orden_compra.id_estado_oc_fk === 3));
         }
     }, [ordenes, searchTerm]);
 
-    useEffect(() => {
-        if (ordenes) {
-            const fetchData = () => {
-                const ochasproveedorMap = {};
-                for (const orden of ordenes) {
-                    OchasproveedorService.getHasproveedorById(orden.id_oc)
-                        .then((response)=>{
-                            ochasproveedorMap[orden.id_oc] = response;
-                        })
-                    }
-                    setOchasproveedorData(ochasproveedorMap);
-            };
-            fetchData();
-        }
-    }, [ordenes]);
 
     const cambiarTab = (tab) => {
         setTabActual(tab);
@@ -89,20 +71,27 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
                                         <th scope="col">Id</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Hora</th>
-                                        <th scope="col">Estado</th>
+                                        <th scope="col">Nombre</th>
                                         {/* <th scope="col">Estado</th> */}
                                         {/* <th scope="col">Opciones</th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {mostrarOrdenes(estado).map(orden => (
-                                        <tr key={orden.id_oc}>
-                                            <td>{orden.id_oc}</td>
-                                            <td>{orden.fecha_oc}</td>
-                                            <td>{orden.hora_oc}</td>
-                                            <td>{ochasproveedorData[orden.id_oc]?.proveedor.nombre_proveedor}</td>
+                                        <tr key={orden.orden_compra.id_oc}>
+                                            <td>{orden.orden_compra.id_oc}</td>
+                                            <td>{orden.orden_compra.fecha_oc}</td>
+                                            <td>{orden.orden_compra.hora_oc}</td>
+                                            <td>{orden.proveedor.nombre_proveedor}</td>
                                             {/* <td>{usuario.estado == 1 ? '✅' : '❌'}</td> */}
-                                            <td className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#modalDetallePedido" onClick={()=>{setMyOrden(orden)}}>🔍</td>
+                                            <td>
+                                                <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#modalDetallePedido">
+                                                    🔍
+                                                </div>
+                                                <div>
+                                                    <UpdateOrden orden={orden} actualizarListaOrdenes={actualizarListaOrdenes} />
+                                                </div>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -111,7 +100,6 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
                     </div>
                 ))}
             </div>
-            <UpdateOrden orden={myOrden} actualizarListaOrdenes={actualizarListaOrdenes} />
         </>
     );
 };

@@ -3,7 +3,6 @@ import { AiOutlineCalendar, AiOutlineInfoCircle, AiOutlineMail, AiOutlinePhone, 
 import ordenesService from "app/services/ordenes_service";
 import { formatearFechaParaInputDate, showAlert } from "app/utilities";
 import DetallesOrden from "../DetallesOrden/DetallesOrden";
-import OchasproveedorService from "app/services/oc_has_proveedor_service";
 
 const estados = [
     { label: 'Solicitado', value: 1 },
@@ -13,17 +12,7 @@ const estados = [
 
 const UpdateOrden = ({ orden, actualizarListaOrdenes, handleCerrarModalDetalleOrden }) => {
     const [nuevoEstado, setNuevoEstado] = useState(orden.id_oc);
-    const [ochasproveedorData, setOchasproveedorData] = useState({});
 
-    useEffect(() => {
-        const fetchData = () => {
-            OchasproveedorService.getHasproveedorById(orden.id_oc)
-                .then((response) => {
-                    setOchasproveedorData(response);
-                })
-        };
-        fetchData();
-    }, [orden]);
 
     const handleActualizarOrden = (e) => {
         e.preventDefault(); // Evitar la recarga de la página al enviar el formulario
@@ -64,11 +53,11 @@ const UpdateOrden = ({ orden, actualizarListaOrdenes, handleCerrarModalDetalleOr
                                         <span className="fw-light mb-2 d-flex justify-content-center align-items-center ">(<AiOutlineInfoCircle /> Si desea cambiar estos datos diríjase a su perfil)</span>
                                         <div className="input-group mb-3">
                                             <span className="input-group-text"><AiOutlineUser /></span>
-                                            <input type="text" className="form-control" placeholder="Nombre" aria-label="Username" value={ochasproveedorData.proveedor && (`${ochasproveedorData.proveedor.nombre_proveedor}`)} disabled />
+                                            <input type="text" className="form-control" placeholder="Nombre" aria-label="Username" value={orden && orden.proveedor.nombre_proveedor} disabled />
                                             <span className="input-group-text"><AiOutlineMail /></span>
-                                            <input type="text" className="form-control" placeholder="Correo" aria-label="Server" value={ochasproveedorData.proveedor && (ochasproveedorData.proveedor.email)} disabled />
+                                            <input type="text" className="form-control" placeholder="Correo" aria-label="Server" value={orden && orden.proveedor.correo_proveedor} disabled />
                                             <span className="input-group-text"><AiOutlinePhone /></span>
-                                            <input type="text" className="form-control" placeholder="Teléfono" aria-label="Server" value={ochasproveedorData.proveedor && (ochasproveedorData.proveedor.telefono)} disabled />
+                                            <input type="text" className="form-control" placeholder="Teléfono" aria-label="Server" value={orden && orden.proveedor.celular_proveedor} disabled />
                                         </div>
 
                                         <h4 className="color-oscuro fw-bold m-0 me-2">Datos de orden:</h4>

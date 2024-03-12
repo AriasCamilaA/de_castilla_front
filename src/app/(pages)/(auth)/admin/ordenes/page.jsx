@@ -10,28 +10,19 @@ import "app/css/pedidos/filtros.css";
 import "app/css/pedidos/Pedidos.css"
 import "app/css/pedidos/botones.css";
 import estadosOrdenesService from 'app/services/estados_ocs_service';   
+import OchasproveedorService from 'app/services/oc_has_proveedor_service';
 
 const OrdenesPage = () => {
-    const [ordenes, setOrdenes] = useState([]);
+    const [oCHasProveedors, setOCHasProveedors] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [fechaInicio, setFechaInicio] = useState("");
     const [fechaFin, setFechaFin] = useState("");
 
-    const generarPDF = () => {
-        pedidosService.getPDF()
-        .then((response) => {
-            showAlert("success", 'PDF', "Pedidos exportados correctamente");
-        })
-        .catch(() => {
-            showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente los pedidos");
-        });
-    }
-
     useEffect(() => {
         // Obtenemos los pedidos
-        ordenesService.getOrdenes()
+        OchasproveedorService.getOchasproveedor()
             .then((response) => {
-                setOrdenes(response);
+                setOCHasProveedors(response);
             })
             .catch(() => {
                 showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente las Ordenes");
@@ -47,8 +38,8 @@ const OrdenesPage = () => {
 
     const actualizarListaOrdenes = async () => {
         try {
-          const nuevosOrdenes = await ordenesService.getOrdenes();
-          setPedidos(nuevosOrdenes);
+          const nuevosOrdenes = await ordOchasproveedorService.getOchasproveedor();
+          setOCHasProveedors(nuevosOrdenes);
         } catch (error) {
           console.error("Error al actualizar la lista de ordenes:", error);
         }
@@ -73,7 +64,6 @@ const OrdenesPage = () => {
                     </div>
                     <div className='flitros__opciones d-flex'>
                         <p className='btn btn-excel' >Excel</p>
-                        <p className='btn btn-pdf' onClick={generarPDF}>PDF</p>
                         <p className='btn btn-oscuro' data-bs-toggle="modal" data-bs-target="#create">
                             <strong className='me-1'>+</strong>
                             Agregar Orden
@@ -81,7 +71,7 @@ const OrdenesPage = () => {
                     </div>
                 </div>
                 <TableOrdenes
-                    ordenes={ordenes} 
+                    ordenes={oCHasProveedors} 
                     searchTerm={searchTerm}
                     fechaInicio={fechaInicio}
                     fechaFin={fechaFin}

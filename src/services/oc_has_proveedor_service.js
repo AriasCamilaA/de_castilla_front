@@ -17,12 +17,25 @@ const OchasproveedorService = {
         }
         
     },
-    getHasproveedorById : async (id) => {
+    getOcHasProveedorByIdProveedor : async (id) => {
         try {
-            const url_ochasproveedor = url + "ochasproveedores/"+id;
+            const url_ochasproveedor = url + "ochasproveedores/proveedor/"+id;
             const response = await axios.get(url_ochasproveedor);
             const data = response.data;
             // console.log(data)
+            return data;
+        } catch (error) {
+            console.error("API ERROR: OCHASPROVEEDOR POR ID: "+error);
+            throw error;
+        }
+        
+    },
+    getOcHasProveedorByIdOC : async (id) => {
+        try {
+            const url_ochasproveedor = url + "ochasproveedores/oc/"+id;
+            const response = await axios.get(url_ochasproveedor);
+            const data = response.data[0];
+            // console.log("API",data)
             return data;
         } catch (error) {
             console.error("API ERROR: OCHASPROVEEDOR POR ID: "+error);
