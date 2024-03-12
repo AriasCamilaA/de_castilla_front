@@ -47,7 +47,7 @@ const NavBar = () => {
                 </div>
                 {
                     // Aca debo saber en que ruta estoy para mostrar el logo
-                    <Link href="/menu_principal">
+                    <Link href="/cliente/">
                         <img className="icon" src='/assets/icons/LogoCasa.png'/>
                     </Link>
                 }

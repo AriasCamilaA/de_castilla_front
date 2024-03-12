@@ -18,6 +18,7 @@
   --fondo3: #FDF5E7;
   --blanco: #ffffff;
   --gris: #f2f2f2;
+  --btn-pdf: #b20902;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -235,4 +236,15 @@ footer {
 input:focus, textarea:focus {
     border-color: var(--fondo2) !important;
     box-shadow: 0 0 5px var(--fondo2) !important;
+}
+
+.btn-pdf{
+    border: 1px solid var(--btn-pdf) !important ;
+    color: var(--btn-pdf) !important ;
+}
+
+.btn-pdf:hover{
+    border: 1px solid var(--btn-pdf) !important ;
+    background: var(--btn-pdf) !important ;
+    color: var(--blanco) !important ;
 }

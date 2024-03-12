@@ -4,6 +4,7 @@ import "./NavBar.css";
 import validateAccessToken from "app/utilities/auth/validateAccessToken";
 import { useState, useEffect } from "react";
 import cerrarSession from "app/utilities/auth/cerrarSession";
+import inventarioService from "app/services/inventario/Inventario_service";
 
 const NavBar = () => {
     const [user, setUser] = useState(null);
@@ -85,7 +86,7 @@ const NavBar = () => {
                 </div>
                 {
                     // Aca debo saber en que ruta estoy para mostrar el logo
-                    <Link href="/menu_principal">
+                    <Link href="/empleado/">
                         <img className="icon" src='/assets/icons/LogoCasa.png'/>
                     </Link>
                 }
