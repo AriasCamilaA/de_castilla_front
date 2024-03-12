@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import productosService from 'app/services/inventario/productos_service';
-import categoriaService from 'app/services/inventario/categoria_service';
+import productosService from "app/services/inventario/productos_service";
+import categoriaService from "app/services/inventario/categoria_service";
 import "./Catalogo.css"
 import "app/css/generales/botones.css"
 
@@ -16,7 +16,7 @@ const Catalogo = () => {
                 const productosData = await productosService.getProductos();
                 setProductos(productosData);
                 setProductosSinFiltrar(productosData);
-                const categoriasData = await categoriaService.getCategoria();
+                const categoriasData = await categoriaService.getcategorias();
                 setCategorias(categoriasData);
             } catch (error) {
                 console.error("Error al obtener datos:", error);
