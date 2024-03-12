@@ -189,11 +189,11 @@ const TablePedidos = ({ pedidosNoFinalizados, pedidosFinalizados, searchTerm, es
                                                             ❌
                                                         </div>
                                                     )}
-                                                    {['Por Aprobar', 'Aceptar Cambios'].includes(pedido.estado_pedido.nombre_estado) && (
+                                                    {/* {['Por Aprobar', 'Aceptar Cambios'].includes(pedido.estado_pedido.nombre_estado) && (
                                                         <div className="cursor-pointer"  onClick={() => aceptarCambios(pedido)}>
                                                             ✅
                                                         </div>
-                                                    )}
+                                                    )} */}
                                                 </div>
                                             </td>
                                         </tr>
@@ -249,11 +249,11 @@ const TablePedidos = ({ pedidosNoFinalizados, pedidosFinalizados, searchTerm, es
                                             </td>
                                             <td className="tabla__opcion">
                                                 <div className="opciones_tabla">
-                                                    {/* {['Finalizados'].includes(pedido.estado_pedido.nombre_estado) && (
+                                                    {['Finalizados'].includes(pedido.estado_pedido.nombre_estado) && (
                                                         <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#calificacionModal" onClick={()=>handlerSelectPedido(pedido)}>
                                                             ⭐
                                                         </div>
-                                                    )} */}
+                                                    )}
                                                     <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#update" onClick={() => setPedidoById(pedido.id_pedido)}>
                                                         🔍
                                                     </div>

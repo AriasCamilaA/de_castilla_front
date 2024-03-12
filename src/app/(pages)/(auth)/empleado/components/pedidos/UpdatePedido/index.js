@@ -93,7 +93,7 @@ const UpdatePedido = ({ pedidoById, actualizarListaPedidos, handleCerrarModalDet
                                             <span className="input-group-text"><AiOutlineCalendar /></span>
                                             <input type="date" className="form-control" placeholder="Fecha" aria-label="Username" value={(pedido.fecha_pedido)} disabled />
                                             <span className="input-group-text"><AiOutlineInfoCircle /></span>
-                                            <select className="form-select" value={nuevoEstado} onChange={(e) => setNuevoEstado(parseInt(e.target.value))}>
+                                            <select className="form-select" value={nuevoEstado} onChange={(e) => setNuevoEstado(parseInt(e.target.value))} disabled={nuevoEstado === 7}>
                                                 {estados.filter(estado => estado.value !== 5).map((estado) => (
                                                     <option key={estado.value} value={estado.value}>{estado.label}</option>
                                                 ))}
@@ -101,7 +101,7 @@ const UpdatePedido = ({ pedidoById, actualizarListaPedidos, handleCerrarModalDet
                                         </div>
 
                                         <div className="form-floating">
-                                            <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={nuevaDescripcion} onChange={(e) => setNuevaDescripcion(e.target.value)}></textarea>
+                                            <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" value={nuevaDescripcion} onChange={(e) => setNuevaDescripcion(e.target.value)} disabled={nuevoEstado === 7}></textarea>
                                             <label htmlFor="floatingTextarea">Descripción</label>
                                         </div>
                                         {pedido.id_pedido && (<DetallesPedido id_pedido={pedido.id_pedido} />)}
