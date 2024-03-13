@@ -28,6 +28,16 @@
     color: var(--blanco);
     cursor: pointer;
 }
+.btn_oscuro {
+    border: 1px solid var(--oscuro);
+    color: var(--oscuro);
+}
+
+.btn_oscuro:hover {
+    background: var(--oscuro) ;
+    color: var(--blanco);
+    cursor: pointer;
+}
 
 .btn_largo {
     padding: 12px;
