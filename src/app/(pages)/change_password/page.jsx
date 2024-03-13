@@ -45,7 +45,13 @@ const ResetPasswordConfirmation = () => {
   }, [idUser]);
 
   const handlePasswordChange = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Evitar la recarga de la página al enviar el formulario
+
+    if (!user) {
+      setError("El usuario no existe.");
+      return;
+    }
+
     if (password !== confirmPassword) {
       showAlert("error", "Error", "Las contraseñas no coinciden");
     }else{
