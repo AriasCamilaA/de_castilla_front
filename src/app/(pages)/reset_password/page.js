@@ -1,6 +1,5 @@
 "use client"
 import React, { useState } from "react";
-import passwordResetService from "app/services/password_service";
 
 const ResetPasswordRequest = () => {
   const [email, setEmail] = useState("");
@@ -10,9 +9,15 @@ const ResetPasswordRequest = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Solicitar token para restablecimiento de contraseña
-      const response = await passwordResetService.requestPasswordResetToken(email);
-      setSuccessMessage("Se ha enviado un correo electrónico con instrucciones para restablecer tu contraseña.");
+      const response = await fetch('/reset-password-request/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+      setSuccessMessage(data.message);
     } catch (error) {
       console.error("Error al enviar solicitud de recuperación de contraseña:", error);
       setError("Error al enviar solicitud de recuperación de contraseña. Por favor, inténtalo de nuevo más tarde.");
@@ -23,7 +28,7 @@ const ResetPasswordRequest = () => {
     <div className="fondoTranslucido">
       <section className="container">
         <form className="form" onSubmit={handleFormSubmit}>
-          <h2 className="title">Recuperación de contraseña</h2>
+          <h2 className="title">Correo electrónico</h2>
           <div className="form__inputs">
             <div className="divLogin">
               <div className="inputConLogo">

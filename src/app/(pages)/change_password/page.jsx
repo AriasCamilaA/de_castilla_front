@@ -1,22 +1,45 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import passwordResetService from "app/services/password_service";
+import usuariosService from "app/services/usuarios/usuarios_service";
 
 const ResetPasswordConfirmation = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [user, setUser] = useState(null);
+
+  const id = 1234567890; // Asigna el ID del usuario que deseas restablecer la contraseña
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await usuariosService.getUsuariosById(id);
+        setUser(response);
+      } catch (error) {
+        setError("El usuario no existe.");
+      }
+    }
+    fetchUser();
+  }, []);
 
   const handlePasswordChange = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Evitar la recarga de la página al enviar el formulario
+
+    if (!user) {
+      setError("El usuario no existe.");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("Las contraseñas no coinciden.");
       return;
     }
+
     try {
-      // Cambiar la contraseña
-      const response = await passwordResetService.resetPassword(email, password);
+      // Restablecer la contraseña utilizando el servicio passwordResetService
+      await passwordResetService.resetPassword(user.email, password);
       setSuccessMessage("Tu contraseña ha sido restablecida con éxito.");
     } catch (error) {
       console.error("Error al restablecer la contraseña:", error);
