@@ -28,6 +28,7 @@
     color: var(--blanco);
     cursor: pointer;
 }
+
 .btn_oscuro {
     border: 1px solid var(--oscuro);
     color: var(--oscuro);
@@ -111,3 +112,11 @@
 }
 
 
+
+.border-top-oscuro{
+    border-top: 1px solid var(--oscuro);
+}
+
+.border-top-claro{
+    border-top: 1px solid var(--claro);
+}

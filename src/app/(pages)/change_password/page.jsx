@@ -7,6 +7,7 @@ import "app/css/generales/style.css";
 import "app/css/generales/forms.css";
 import "app/css/generales/login.css";
 import "app/css/generales/botones.css";
+import Link from "next/link";
 
 
 
@@ -115,6 +116,9 @@ const ResetPasswordConfirmation = () => {
             <button className="btn btn_oscuro" type="submit">
               Restablecer contraseña
             </button>
+            <Link href='/login' className="border-top-oscuro pt-2">
+              ¿Iniciar Sesión?
+            </Link>
         </form>
       </section>
     </div>
