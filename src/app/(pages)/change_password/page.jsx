@@ -17,33 +17,33 @@ const ResetPasswordConfirmation = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [user, setUser] = useState({});
-  const [idUser, setIdUser] = useState(null);
+  const [email, setEmail] = useState(null);
   const searchParams = useSearchParams()
 
-  const getId = () => {
-    setIdUser(searchParams.get('user'))
+  const getEmail = () => {
+    setEmail(searchParams.get('user'))
   }
   
 
   useEffect(() => {
-    getId()
+    getEmail()
   }, []);
 
   useEffect(() => {
-    if(idUser){
+    if(email){
       try {
-        usuariosService.getUsuariosById(idUser)
+        usuariosService.getUsuariosByEmail(email)
         .then((response) => {
-          setUser(response);
+          setUser(response[0]);
         }).catch((error) => {
-          showAlert("error", "Información no encontrada", `El usuario identificado con ${idUser} no existe`)
+          showAlert("error", "Información no encontrada", `El usuario identificado con ${email} no existe`)
         })  
       } catch (error) {
         showAlert("error", "Error al cargar el usuario", "No existe")
       }
     }
     
-  }, [idUser]);
+  }, [email]);
 
   const handlePasswordChange = async (e) => {
     e.preventDefault(); // Evitar la recarga de la página al enviar el formulario

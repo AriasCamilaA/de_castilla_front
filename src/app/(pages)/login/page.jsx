@@ -5,7 +5,12 @@ import "app/css/generales/style.css";
 import "app/css/generales/forms.css";
 import "app/css/generales/login.css";
 import "app/css/generales/botones.css";
+import "app/css/pedidos/tab_tabla.css";
+import "app/css/pedidos/tablas.css";
+import "app/css/pedidos/filtros.css";
+import "app/css/pedidos/botones.css";
 import { showAlert } from "app/utilities";
+import ResetPassword from "app/components/ResetPassword";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -83,7 +88,7 @@ const LoginPage = () => {
           <div className="form__options">
             <p>
               ¿Olvidaste tu Contraseña?{" "}
-              <a href="./reset_password"> Haz click aquí</a>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#modal_restablecer_pass"> Haz click aquí</a>
             </p>
             <p>
               No tienes cuenta,{" "}
@@ -92,6 +97,7 @@ const LoginPage = () => {
           </div>
         </form>
       </section>
+      <ResetPassword />
     </div>
   );
 };

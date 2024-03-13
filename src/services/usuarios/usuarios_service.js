@@ -32,6 +32,20 @@ const usuariosService = {
         
     },
 
+    getUsuariosByEmail : async (email) => {
+        try {
+            const url_usuarios = url + "usuarios/email/"+email+"/";
+            const response = await axios.get(url_usuarios);
+            const data = response.data;
+            // console.log(data)
+            return data;
+        } catch (error) {
+            console.error("API ERROR:Restablecer contraseña: "+error);
+            throw error;
+        }
+        
+    },
+
     updateUsuarios : async (user) => {
         try {
             const url_usuarios = url + "usuarios/" + user.no_documento_usuario + "/";
