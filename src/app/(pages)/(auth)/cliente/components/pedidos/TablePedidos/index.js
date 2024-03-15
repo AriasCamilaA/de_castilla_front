@@ -213,6 +213,7 @@ const TablePedidos = ({ pedidosNoFinalizados, pedidosFinalizados, searchTerm, es
                                     <th scope="col">Documento</th>
                                     <th scope="col">Celular</th>
                                     <th scope="col">Cliente</th>
+                                    <th scope="col">Fecha Fin</th>
                                     <th className="tabla__estado" scope="col">Estado</th>
                                     <th className="tabla__opcion" scope="col">Acciones</th>
                                 </tr>
@@ -242,6 +243,7 @@ const TablePedidos = ({ pedidosNoFinalizados, pedidosFinalizados, searchTerm, es
                                             <td>{pedido.usuario.no_documento_usuario}</td>
                                             <td>{pedido.usuario.celular_usuario}</td>
                                             <td>{pedido.usuario.nombre_usuario} {pedido.usuario.apellido_usuario}</td>
+                                            <td>{pedido.fecha_fin_pedido && formatearFecha(pedido.fecha_fin_pedido)}</td>
                                             <td className="tabla__estado">
                                                 <label className={`py-1 px-2 rounded border-radius-5 lbl_Estado btn-${estados.find(estado => estado.label === pedido.estado_pedido.nombre_estado)?.value}`}>
                                                     {pedido.estado_pedido.nombre_estado}
