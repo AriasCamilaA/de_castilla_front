@@ -72,6 +72,21 @@ const ventasService = {
         }
         
     },
+    getFactura : async (id) => {
+        try {
+            const url_productos = url + "detallesVentas/generate_pdf/"+id;
+            // const response = await axios.get(url_productos);
+            // const data = response.data;
+            window.open(url_productos);
+            return null;
+            // console.log(data)
+            return data;
+        } catch (error) {
+            console.error("API ERROR: ESTADOS VENTA: "+error);
+            throw error;
+        }
+        
+    },
 }
 
 export default ventasService;

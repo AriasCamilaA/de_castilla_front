@@ -11,6 +11,15 @@ const TableVentas = ({ ventas, searchTerm, fechaInicio, fechaFin, actualizarList
     const handleCerrarModalDetalleVenta = () => {
         document.getElementById('modalDetalleVenta').click();
     };
+    const generarFactura = (id) => {
+        ventasService.getFactura(id)
+        .then((response) => {
+            showAlert("success", 'PDF', "Factura Generada Correctamente");
+        })
+        .catch(() => {
+            showAlert("error", 'Conexión Fallida', "No se pudo generar la Factura");
+        });
+    }
     return (
         <>
             <div className="tablaConTab">
@@ -55,6 +64,9 @@ const TableVentas = ({ ventas, searchTerm, fechaInicio, fechaFin, actualizarList
                                                 <div className="opciones_tabla">
                                                     <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#update" onClick={() => setVentaById(venta.id_venta)}>
                                                         🔍
+                                                    </div>
+                                                    <div className="cursor-pointer" onClick={() => generarFactura(venta.id_venta)}>
+                                                        📄
                                                     </div>
                                                 </div>
                                             </td>

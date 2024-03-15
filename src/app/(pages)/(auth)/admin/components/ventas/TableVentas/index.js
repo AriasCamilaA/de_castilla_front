@@ -22,6 +22,16 @@ const TableVentas = ({ ventas, searchTerm, fechaInicio, fechaFin, actualizarList
             }
         });
     }
+    
+    const generarFactura = (id) => {
+        ventasService.getFactura(id)
+        .then((response) => {
+            showAlert("success", 'PDF', "Factura Generada Correctamente");
+        })
+        .catch(() => {
+            showAlert("error", 'Conexión Fallida', "No se pudo generar la Factura");
+        });
+    }
 
     const handleEliminarVenta = (venta) => {
         venta.estado = 0;
@@ -93,6 +103,9 @@ const TableVentas = ({ ventas, searchTerm, fechaInicio, fechaFin, actualizarList
                                                     </div>
                                                     <div className="cursor-pointer" onClick={() => eliminarVenta(venta)}>
                                                         ❌
+                                                    </div>
+                                                    <div className="cursor-pointer" onClick={() => generarFactura(venta.id_venta)}>
+                                                        📄
                                                     </div>
                                                 </div>
                                             </td>
