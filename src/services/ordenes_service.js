@@ -57,6 +57,18 @@ const ordenesService = {
         
     },
 
+    getOrdenesByProveedorId: async (idProveedor) => {
+        try {
+            const url_ordenes = `${url}ordencompras/?id_proveedor_fk=${idProveedor}`;
+            const response = await axios.get(url_ordenes);
+            const data = response.data;
+            return data;
+        } catch (error) {
+            console.error("API ERROR: OBTENER ÓRDENES POR ID DE PROVEEDOR: " + error);
+            throw error;
+        }
+    }
+
     // _________ PDF ___________________________________________________________
     // getPDF : async () => {
     //     try {

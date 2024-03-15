@@ -1,7 +1,4 @@
-import "app/css/pedidos/botones.css";
-import "app/css/pedidos/filtros.css";
-import "app/css/pedidos/tab_tabla.css";
-import "app/css/pedidos/tablas.css";
+import CrearCalificacion from "../CrearCalificacion";
 import ordenesService from "app/services/ordenes_service";
 import { showAlert } from "app/utilities";
 import { useEffect, useState } from "react";
@@ -14,6 +11,7 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
     const [ordenesCancelada, setOrdenesCancelada] = useState([]);
     const [ordenesFinalizada, setOrdenesFinalizada] = useState([]);
     const [tabActual, setTabActual] = useState('Solicitada');
+    const [ordenCalificable, setOrdenCalificable] = useState(null);
 
     useEffect(() => {
         if (ordenes) {
@@ -23,7 +21,6 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
             setOrdenesFinalizada(filteredOrdenes.filter((orden) => orden.id_estado_oc_fk === 3));
         }
     }, [ordenes, searchTerm]);
-
 
     const cambiarTab = (tab) => {
         setTabActual(tab);
@@ -61,24 +58,27 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
     const handleCancelarOrden = (orden) => {
         orden.id_estado_oc_fk = 2;
         ordenesService.updateOrden(orden)
-        .then(() => {
-            showAlert(
-                "success",
-                "Orden Cancelada",
-                "La orden ha sido cancelada correctamente"
+            .then(() => {
+                showAlert(
+                    "success",
+                    "Orden Cancelada",
+                    "La orden ha sido cancelada correctamente"
                 );
                 actualizarListaOrdenes();
             })
             .catch((error) => {
                 showAlert(
                     "error",
-                "No se pudo cancelar la orden",
-                "Vuelva a intentarlo más tarde"
-
-            );
-            console.log(error)
-        });
+                    "No se pudo cancelar la orden",
+                    "Vuelva a intentarlo más tarde"
+                );
+                console.log(error)
+            });
     }
+
+    const handlerSelectOrden = (orden) => {
+        setOrdenCalificable(orden); // Almacenar el pedido calificable cuando se haga clic en el icono de calificación
+    };
 
     return (
         <>
@@ -132,6 +132,11 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
                                                 <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target={`#modalDetallePedido-${orden.id_oc}`}>
                                                     🔍
                                                 </div>
+                                                {orden.id_estado_oc_fk == 3 ? (
+                                                <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#calificacionModal" onClick={()=>handlerSelectOrden(orden)}>
+                                                    ⭐
+                                                </div> 
+                                                ) : ''}
                                                 <div>
                                                     <UpdateOrden orden={orden} actualizarListaOrdenes={actualizarListaOrdenes} />
                                                 </div>
@@ -143,6 +148,21 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
                         </div>
                     </div>
                 ))}
+            </div>
+            <div className="modal fade" id="calificacionModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5 text-light" id="exampleModalLabel">Calificación</h1>
+                            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id='modalCrearPedido'>
+                                <p style={{fontFamily: "arial"}}>x</p>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <CrearCalificacion ordenCalificable={ordenCalificable} proveedor={ordenCalificable ? ordenCalificable.Proveedor : null} />
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     );
