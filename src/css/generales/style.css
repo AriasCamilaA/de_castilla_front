@@ -76,6 +76,10 @@ footer {
     height: calc(100vh - 66px);
 }
 
+.container-perfil{
+    margin-top: 68px;
+}
+
 /*-------------------------Menu Principal-----------------------------------*/
 .opciones {
     display: flex;
