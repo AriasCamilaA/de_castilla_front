@@ -63,7 +63,7 @@ const NavBar = () => {
                 </button>
                 <ul className="dropdown-menu user-dropdown">
                 <li>
-                    <Link className="dropdown-item dropdownNavBar" href="#">
+                    <Link className="dropdown-item dropdownNavBar" href={`/cliente/user/${user.no_documento_usuario}`}>
                         <img src='/assets/icons/LogoUserWhite.png' className="px-2"/>
                         <p>
                             Perfil de Usuario

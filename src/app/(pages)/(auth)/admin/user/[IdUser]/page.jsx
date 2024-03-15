@@ -1,6 +1,14 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import usuariosService from "app/services/usuarios/usuarios_service"; // Asegúrate de importar el servicio
+import "app/css/generales/style.css";
+import "app/css/generales/forms.css";
+import "app/css/generales/login.css";
+import "app/css/generales/botones.css";
+import "app/css/pedidos/tab_tabla.css";
+import "app/css/pedidos/tablas.css";
+import "app/css/pedidos/filtros.css";
+import "app/css/pedidos/botones.css";
 
 const ActualizarUsuario = ({ params }) => {
   const [usuario, setUsuario] = useState(null);
@@ -8,7 +16,7 @@ const ActualizarUsuario = ({ params }) => {
   useEffect(() => {
     const fetchUsuario = async () => {
       try {
-        const usuarioData = await usuariosService.getUsuariosById(params.IdUser);
+        const usuarioData = await usuariosService.getUsuariosById(params.idUser);
         setUsuario(usuarioData);
       } catch (error) {
         console.error("Error al obtener el usuario:", error);
@@ -16,7 +24,7 @@ const ActualizarUsuario = ({ params }) => {
     };
 
     fetchUsuario();
-  }, [params.IdUser]);
+  }, [params.idUser]);
 
   const handleUpdateUsuario = async () => {
     try {
@@ -37,16 +45,39 @@ const ActualizarUsuario = ({ params }) => {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
+    <div className="fondoTranslucido">
       {usuario ? (
-        <form>
-          <input type="number" name="no_documento_usuario" value={usuario.no_documento_usuario} disabled/>
-          <p>Nombre: <input type="text" name="nombre_usuario" value={usuario.nombre_usuario} onChange={handleChange} /></p>
-          <p>Apellido: <input type="text" name="apellido_usuario" value={usuario.apellido_usuario} onChange={handleChange} /></p>
-          <input type="text" name="email" value={usuario.email} disabled/>
-          <input type="number" name="celular_usuario" value={usuario.celular_usuario} onChange={handleChange} max={10}/>
-          <button type="button" onClick={handleUpdateUsuario}>Actualizar Usuario</button>
-        </form>
+        <div className="container">
+          <form className="form">
+            <h2>Perfil Usuario</h2>
+            <div>
+              <label htmlFor="no_documento_usuario">Número de documento:</label>
+                <input type="number" name="no_documento_usuario" value={usuario.no_documento_usuario} disabled/>
+            </div>
+
+            <div>
+              <label htmlFor="nombre_usuario">Nombre:</label>
+                <input type="text" name="nombre_usuario" value={usuario.nombre_usuario} onChange={handleChange} />
+            </div>
+
+            <div>
+              <label htmlFor="apellido_usuario">Apellido:</label>
+                <input type="text" name="apellido_usuario" value={usuario.apellido_usuario} onChange={handleChange} />
+            </div>
+
+            <div>
+              <label htmlFor="email">Email:</label>
+                <input type="text" name="email" value={usuario.email} disabled/>
+            </div>
+
+            <div>
+              <label htmlFor="celular_usuario">Celular:</label>
+                <input type="number" name="celular_usuario" value={usuario.celular_usuario} onChange={handleChange} max={10}/>
+            </div>
+
+            <button type="button" className="btn" onClick={handleUpdateUsuario}>Actualizar Usuario</button>
+          </form>
+        </div>
       ) : (
         <p>Cargando información del usuario...</p>
       )}
