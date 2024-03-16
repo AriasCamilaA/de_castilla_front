@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const url = 'http://localhost:8000/castilla/api/';
+// const url = 'http://localhost:8000/castilla/api/';
+const url = 'https://de-castilla-back.onrender.com/castilla/api/';
 
 const inventarioService = {
     // _________ Inventario ___________________________________________________________
