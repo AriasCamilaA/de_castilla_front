@@ -1,31 +1,21 @@
 "use client"
-import React, { useEffect, useState } from 'react';
 import ordenesService from 'app/services/ordenes_service';
 import { showAlert } from 'app/utilities';
+import { useEffect, useState } from 'react';
 // import CreatePedido from '../components/pedidos/CreatePedido';
-import TableOrdenes from '../components/ordenes/TableOrdenes';
+import "app/css/pedidos/Pedidos.css";
+import "app/css/pedidos/botones.css";
+import "app/css/pedidos/filtros.css";
 import "app/css/pedidos/tab_tabla.css";
 import "app/css/pedidos/tablas.css";
-import "app/css/pedidos/filtros.css";
-import "app/css/pedidos/Pedidos.css"
-import "app/css/pedidos/botones.css";
-import estadosOrdenesService from 'app/services/estados_ocs_service';   
+import TableOrdenes from '../components/ordenes/TableOrdenes';
+
 
 const OrdenesPage = () => {
     const [ordenes, setOrdenes] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [fechaInicio, setFechaInicio] = useState("");
     const [fechaFin, setFechaFin] = useState("");
-
-    const generarPDF = () => {
-        pedidosService.getPDF()
-        .then((response) => {
-            showAlert("success", 'PDF', "Pedidos exportados correctamente");
-        })
-        .catch(() => {
-            showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente los pedidos");
-        });
-    }
 
     useEffect(() => {
         // Obtenemos los pedidos
@@ -48,7 +38,7 @@ const OrdenesPage = () => {
     const actualizarListaOrdenes = async () => {
         try {
           const nuevosOrdenes = await ordenesService.getOrdenes();
-          setPedidos(nuevosOrdenes);
+          setOrdenes(nuevosOrdenes);
         } catch (error) {
           console.error("Error al actualizar la lista de ordenes:", error);
         }
@@ -63,7 +53,7 @@ const OrdenesPage = () => {
                     <div className='filtros__div1'>
                         <div className='inputSearch'>
                             <img src="/assets/icons/lupa.png" />
-                            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} id="searchTerm" placeholder='Nombre o #Documento' />
+                            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} id="searchTerm" placeholder='Insumo o id' />
                         </div>
                         <div className="filtros__fecha">
                             <input type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} id="fechaInicio"/>
@@ -73,7 +63,6 @@ const OrdenesPage = () => {
                     </div>
                     <div className='flitros__opciones d-flex'>
                         <p className='btn btn-excel' >Excel</p>
-                        <p className='btn btn-pdf' onClick={generarPDF}>PDF</p>
                         <p className='btn btn-oscuro' data-bs-toggle="modal" data-bs-target="#create">
                             <strong className='me-1'>+</strong>
                             Agregar Orden
