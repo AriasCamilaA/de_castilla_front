@@ -47,7 +47,7 @@ const Catalogo = () => {
                 <div className="separador"></div>
                 <div className="flex-producto">
                     {productos.map(producto => (
-                    <div className="card m-2">
+                    <div className="card m-2" key={producto.id_producto}>
                         <div className="card-body">
                             <img className="productos" key={producto.id_producto} src={producto.imagen_producto} alt={producto.nombre_producto} />
                             <h5 className="card-title ml-4">{producto.nombre_producto}</h5>
