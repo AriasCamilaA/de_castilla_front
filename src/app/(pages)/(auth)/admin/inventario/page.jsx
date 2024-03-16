@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import inventarioService from "app/services/inventario/Inventario_service";
-import TablaInventario from "../components/inventario/TablaInventario";
 import Link from "next/link";
 import { showAlert } from "app/utilities";
+import TablaInventario from "../components/inventario/TablaInventario/Index";
 // import CrearInventario from "../components/inventario/CrearInventario";
 
 const InventarioPage = () => {
