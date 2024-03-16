@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from 'next/navigation'
 import usuariosService from "app/services/usuarios/usuarios_service";
 import { showAlert } from "app/utilities";
 import "app/css/generales/style.css";
@@ -11,30 +10,25 @@ import Link from "next/link";
 
 
 
-const ResetPasswordConfirmation = () => {
+const ResetPasswordConfirmation = ({params}) => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [user, setUser] = useState({});
-  const [email, setEmail] = useState(null);
-  const searchParams = useSearchParams()
+  const [email, setEmail] = useState(params.user);
 
-  const getEmail = () => {
-    setEmail(searchParams.get('user'))
-  }
-  
-
-  useEffect(() => {
-    getEmail()
-  }, []);
 
   useEffect(() => {
     if(email){
       try {
         usuariosService.getUsuariosByEmail(email)
         .then((response) => {
-          setUser(response[0]);
+          if(response[0].length === 0){
+            throw new Error("Usuario no encontrado");
+          }else{
+            setUser(response[0]);
+          }
         }).catch((error) => {
           showAlert("error", "Información no encontrada", `El usuario identificado con ${email} no existe`)
         })  
@@ -82,7 +76,7 @@ const ResetPasswordConfirmation = () => {
             <div className="d-flex flex-column">
               <div className="inputConLogo my-2 ">
                 <i className="form__icon">
-                  <img src="assets/icons/Key.png" alt="Logo Llave" />
+                  <img src="/assets/icons/Key.png" alt="Logo Llave" />
                 </i>
                 <input
                   className="form__input"
@@ -98,7 +92,7 @@ const ResetPasswordConfirmation = () => {
               </div>
               <div className="inputConLogo my-2 ">
                 <i className="form__icon">
-                  <img src="assets/icons/Key.png" alt="Logo Llave" />
+                  <img src="/assets/icons/Key.png" alt="Logo Llave" />
                 </i>
                 <input
                   className="form__input"

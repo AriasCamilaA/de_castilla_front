@@ -21,7 +21,7 @@ const ResetPassword = () => {
         const contenido = `
             <h1>¡Hola!</h1>
             <h2>Haz click en el enlace para restablecer tu contraseña<h2>
-            <a href="http://localhost:3000/change_password?user=${email}">Restablecer contraseña</a>
+            <a href="http://localhost:3000/change_password/${email}">Restablecer contraseña</a>
         `;
         sendMyEmail({
             to: email,

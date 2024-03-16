@@ -61,7 +61,7 @@ export default function Home() {
                 </button>
                 </div>
             </section>
-            <img src='assets/img/separador.png' alt='imagen'className="separador" />
+            <img src='assets/img/separador.png' alt='imagen' className="separador" />
             <section id="quienes_somos" className="quienes_somos container ">
                 <h1>Quíenes somos</h1>
                 <div className="row contenido">
@@ -79,7 +79,7 @@ export default function Home() {
                     </h2>
                     <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                         <div className="accordion-body">Placeholder content for this accordion, which is intended to
-                        demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion
+                        demonstrate the <code>.accordion-flush</code> class.
                         body.</div>
                     </div>
                     </div>
@@ -91,8 +91,8 @@ export default function Home() {
                     </h2>
                     <div id="flush-collapseTwo" className="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                         <div className="accordion-body">Placeholder content for this accordion, which is intended to
-                        demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion
-                        body. Let's imagine this being filled with some actual content.</div>
+                        demonstrate the <code>.accordion-flush</code> 
+                        </div>
                     </div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@ export default function Home() {
                 </div>
                 </div>
             </section>
-            <img src='assets/img/separador.png' alt='imagen'className="separador" />
+            <img src='assets/img/separador.png' alt='imagen' className="separador" />
             <section id="galeria" className="catalogo">
                 <h1 className="center-title">Catalogo</h1>
                 <div className="container-catalogo">
