@@ -28,41 +28,21 @@ const NavBar = () => {
     };
     return (
         <nav className="menuSuperior">
-            <div className="logosMenu">
-                <div>
-                <label htmlFor="menuHam">
-                    <img className="icon" src='/assets/icons/Menu Hamburguesa.png'/>
-                </label>
-                <input type="checkbox" id="menuHam" />
-                <div className="menuLateral">
-                    <div className="menuLateral__Opcion">
-                        <img src='/assets/icons/menuLateral/LogoPedidos.png' alt="icono" />
-                        <Link href="cliente/pedidos">Pedidos</Link>
-                    </div>
-                    <div className="menuLateral__Opcion">
-                        <img src='/assets/icons/menuLateral/LogoUsuarios.png' alt="icono" />
-                        <Link href="cliente/usuarios">Usuario</Link>
-                    </div>
-                </div>
-                </div>
-                {
-                    // Aca debo saber en que ruta estoy para mostrar el logo
-                    <Link href="/cliente/">
-                        <img className="icon" src='/assets/icons/LogoCasa.png'/>
-                    </Link>
-                }
-                
-            </div>
             <div className="menu-logo">
                 <img src='/assets/img/logoClaro.png'/>
             </div>
             <div className="dropdown">
                 <button className="dropdown-toggle menu-user" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img className="icon" src='/assets/icons/Logo Usuario.png'/>
-                {user && `${user.nombre_usuario} ${user.apellido_usuario}`}
+                <p className="hidden_on_mobile">
+                    {user && `${user.nombre_usuario} ${user.apellido_usuario}`}
+                </p>
                 </button>
                 <ul className="dropdown-menu user-dropdown">
-                <li>
+                <li className="hidden_on_desktop show_in_mobile text-light p-3">
+                    {user && (user.nombre_usuario)}
+                </li>
+                <li> 
                     {user && <Link className="dropdown-item dropdownNavBar" href={`/cliente/user/${user.no_documento_usuario}`}>
                         <img src='/assets/icons/LogoUserWhite.png' className="px-2"/>
                         <p>
@@ -70,7 +50,7 @@ const NavBar = () => {
                         </p>
                     </Link>}
                 </li>
-                <li>
+                <li className="px-2">
                     <Link className="dropdown-item dropdownNavBar" href="#">
                         <img src='/assets/icons/LogoOffWhite.png' className="px-2"/>
                         <p onClick={handleLogout}>

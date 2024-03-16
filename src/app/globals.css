@@ -248,3 +248,19 @@ input:focus, textarea:focus {
     background: var(--btn-pdf) !important ;
     color: var(--blanco) !important ;
 }
+
+
+
+/* ------------------Responsive------------------- */
+.hidden_on_desktop{
+    display: none;
+}
+
+@media(max-width:768px){
+    .hidden_on_mobile{
+        display: none;
+    }
+    .show_in_mobile{
+        display: block;
+    }
+}
