@@ -78,7 +78,7 @@
 
 /* Opciones del usuario */
 .user-dropdown {
-    background: var(--oscuro);
+    background: var(--oscuro) !important;
     width: -webkit-fill-available;
 }
 
