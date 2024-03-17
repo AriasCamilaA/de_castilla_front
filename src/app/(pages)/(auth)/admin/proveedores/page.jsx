@@ -46,7 +46,6 @@ const ProveedoresPage = () => {
                         <p className='btn btn-oscuro mb-0 py-1 px-2' onClick={()=>limpiarFiltros()}>x</p>
                     </div>
                     <div className='flitros__opciones d-flex'>
-                        <p className='btn btn-excel' >Excel</p>
                         <p className='btn btn-pdf'>PDF</p>
                         <CrearProveedor actualizarListaProveedores={actualizarListaProveedores}/>
                         <p className='btn btn-oscuro' data-bs-toggle="modal" data-bs-target="#createProveedor">

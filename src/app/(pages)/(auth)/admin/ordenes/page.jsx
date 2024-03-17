@@ -62,7 +62,6 @@ const OrdenesPage = () => {
                         <p className='btn btn-oscuro mb-0 py-1 px-2' onClick={()=>limpiarFiltros()}>x</p>
                     </div>
                     <div className='flitros__opciones d-flex'>
-                        <p className='btn btn-excel' >Excel</p>
                         <p className='btn btn-oscuro' data-bs-toggle="modal" data-bs-target="#create">
                             <strong className='me-1'>+</strong>
                             Agregar Orden
