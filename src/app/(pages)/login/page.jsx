@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import createAccessToken from "app/utilities/auth/createAccessToken";
 import "app/css/generales/style.css";
 import "app/css/generales/forms.css";
-import "app/css/generales/login.css";
+import "app/css/general/login.css";
 import "app/css/generales/botones.css";
 import "app/css/pedidos/tab_tabla.css";
 import "app/css/pedidos/tablas.css";
@@ -33,7 +33,7 @@ const LoginPage = () => {
 
   return (
     <div className="fondoTranslucido">
-      <section className="container">
+      <section className="container_login">
       <a className="logo" href="/landing">
                     <img src="assets/img/logo_letra_oscura.png" alt="Logo"/>
                 </a>

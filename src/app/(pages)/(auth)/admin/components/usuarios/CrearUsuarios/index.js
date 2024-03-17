@@ -3,7 +3,7 @@ import { showAlert } from 'app/utilities';
 import registerService from 'app/services/auth/register_service'; 
 import "app/css/generales/style.css";
 import "app/css/generales/forms.css";
-import "app/css/generales/login.css";
+import "app/css/general/login.css";
 import "app/css/generales/botones.css";
 import rolesService from 'app/services/usuarios/roles_service';
 

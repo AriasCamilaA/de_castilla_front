@@ -4,7 +4,7 @@ import usuariosService from "app/services/usuarios/usuarios_service";
 import { showAlert } from "app/utilities";
 import "app/css/generales/style.css";
 import "app/css/generales/forms.css";
-import "app/css/generales/login.css";
+import "app/css/general/login.css";
 import "app/css/generales/botones.css";
 import Link from "next/link";
 
@@ -70,7 +70,7 @@ const ResetPasswordConfirmation = ({params}) => {
 
   return (
     <div className="fondoTranslucido">
-      <section className="container h-50">
+      <section className="container_login container_restablecer h-50">
         <form className="form" onSubmit={handlePasswordChange}>
           <h2 className="title">Restablecer contraseña</h2>
             <div className="d-flex flex-column">

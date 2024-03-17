@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import registerService from 'app/services/auth/register_service'; 
 import "app/css/generales/style.css";
 import "app/css/generales/forms.css";
-import "app/css/generales/login.css";
+import "app/css/general/login.css";
 import "app/css/generales/botones.css";
 import { showAlert } from 'app/utilities';
 
@@ -50,7 +50,7 @@ const RegisterPage = () => {
 
     return (
         <div className='fondoTranslucido'>
-            <section className="container">
+            <section className="container_login container_Register">
                 <a className="logo" href="/">
                     <img src="assets/img/logo_letra_oscura.png" alt="Logo"/>
                 </a>
