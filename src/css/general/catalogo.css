@@ -37,11 +37,11 @@
     overflow: auto;
 }
 
-.card-product{
+.card-product {
     max-width: 300px;
-    width: 25%;
-    min-width: 200px;
-    background-color: var(--fondo2);
+    width: 25% !important;
+    min-width: 200px !important;
+    background-color: var(--fondo2) !important;
 }
 
 .catalogo_title{
@@ -60,7 +60,7 @@
     .container-categories {
         display: flex;
         height: auto;
-        width: auto;
+        width: auto !important;
         flex-wrap: wrap;
         justify-content: center;
     }
