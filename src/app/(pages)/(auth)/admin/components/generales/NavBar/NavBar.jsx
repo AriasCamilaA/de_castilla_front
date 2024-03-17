@@ -79,7 +79,7 @@ const NavBar = () => {
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoProveedores.png' alt="icono" />
-                        <Link href="/admin/ordenes_compra">Ordenes</Link>
+                        <Link href="/admin/ordenes">Ordenes</Link>
                     </div>
                     <div className="menuLateral__Opcion">
                         <img src='/assets/icons/menuLateral/LogoPedidos.png' alt="icono" />
