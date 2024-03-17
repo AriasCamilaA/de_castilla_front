@@ -1,5 +1,4 @@
-import 'app/css/generales/style.css'
-import 'app/css/generales/errores.css'
+import 'app/css/general/errores.css'
 import Link from 'next/link'
 
 const error404 = () => {

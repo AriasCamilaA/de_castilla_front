@@ -1,4 +1,4 @@
-import "./NavBar.css";
+import "app/css/general/NavBarLanding.css";
 
 const NavBar = () => {
     return (

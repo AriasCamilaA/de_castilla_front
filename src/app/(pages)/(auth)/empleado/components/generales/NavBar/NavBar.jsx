@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link";
-import "./NavBar.css";
+import "app/css/general/NavBar.css";
 import validateAccessToken from "app/utilities/auth/validateAccessToken";
 import { useState, useEffect } from "react";
 import cerrarSession from "app/utilities/auth/cerrarSession";

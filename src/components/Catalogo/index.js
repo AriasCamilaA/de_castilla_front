@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import productosService from "app/services/inventario/productos_service";
 import categoriaService from "app/services/inventario/categoria_service";
-import "./Catalogo.css"
 import "app/css/generales/botones.css"
+import "app/css/general/catalogo.css"
 
 const Catalogo = () => {
     const [productos, setProductos] = useState([]);
@@ -36,26 +36,24 @@ const Catalogo = () => {
     };
 
     return (
-        <div className="container-catalogo">
-            <div className="flex-categoria-producto">
-                <div className="flex-categoria">
-                    <button className="btn-categoria" onClick={() => handleCategoriaClick(null)}>Todos</button>
-                    {categorias.map(categoria => (
-                        <button key={categoria.id_categoria} className="btn-categoria" onClick={() => handleCategoriaClick(categoria.id_categoria)}>{categoria.nombre_categoria}</button>
-                    ))}
-                </div>
-                <div className="separador"></div>
-                <div className="flex-producto">
+        <div className="row container-catalogo_new">
+            <div className="col-2 container-categories">
+                <h3 className="mb-3 text-center title-categoria">Categorias</h3>
+                <button className="btn-categoria" onClick={() => handleCategoriaClick(null)}>Todos</button>
+                {categorias.map(categoria => (
+                    <button key={categoria.id_categoria} className="btn-categoria" onClick={() => handleCategoriaClick(categoria.id_categoria)}>{categoria.nombre_categoria}</button>
+                ))}
+            </div>
+            <div className="col-10 container-products">
                     {productos.map(producto => (
-                    <div className="card m-2" key={producto.id_producto}>
-                        <div className="card-body">
-                            <img className="productos" key={producto.id_producto} src={producto.imagen_producto} alt={producto.nombre_producto} />
+                        <div className="card m-2 card-product" key={producto.id_producto}>
+                        <div className="card-body card-body-product">
+                            <img key={producto.id_producto} src={producto.imagen_producto} alt={producto.nombre_producto} />
                             <h5 className="card-title ml-4">{producto.nombre_producto}</h5>
                             <a href="login" className="btn ml-4">Comprar</a>
                         </div>
                     </div>
                     ))}
-                </div>
             </div>
         </div>
     );

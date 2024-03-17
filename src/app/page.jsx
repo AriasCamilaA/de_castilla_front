@@ -1,7 +1,7 @@
 import Catalogo from "app/components/Catalogo";
 import NavBar from "app/components/Landing/NavBar/NavBar";
 import Footer from "app/components/Landing/Footer/Footer";
-import "app/css/generales/Landing.css";
+import "app/css/general/Landing.css";
 
 export default function Home() {
   return (
@@ -19,34 +19,19 @@ export default function Home() {
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                     <div className="carrusel">
-                        <div>
-                        <h1>Postre de mora</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus laudantium
-                            optio, odit porro aliquid quasi inventore quia quo neque officiis, quisquam incidunt
-                            consequuntur impedit distinctio libero. Debitis aut quasi rerum.</p>
-                        </div>
+                        <h1 className="titulo_producto_carrusel">Cheescake de mora</h1>
                         <img src='assets/img/p2.jpeg' className="d-block w-100" />
                     </div>
                     </div>
                     <div className="carousel-item">
                     <div className="carrusel">
-                        <div>
-                        <h1>producto 2</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus laudantium
-                            optio, odit porro aliquid quasi inventore quia quo neque officiis, quisquam incidunt
-                            consequuntur impedit distinctio libero. Debitis aut quasi rerum.</p>
-                        </div>
+                        <h1 className="titulo_producto_carrusel">Postre de Fresas</h1>
                         <img src='assets/img/p3.jpeg' className="d-block w-100" />
                     </div>
                     </div>
                     <div className="carousel-item">
                     <div className="carrusel">
-                        <div>
-                        <h1>producto 3</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus laudantium
-                            optio, odit porro aliquid quasi inventore quia quo neque officiis, quisquam incidunt
-                            consequuntur impedit distinctio libero. Debitis aut quasi rerum.</p>
-                        </div>
+                        <h1 className="titulo_producto_carrusel">Tiramisu</h1>
                         <img src='assets/img/p4.jpeg' className="d-block w-100" />
                     </div>
                     </div>
@@ -62,41 +47,9 @@ export default function Home() {
                 </div>
             </section>
             <img src='assets/img/separador.png' alt='imagen' className="separador" />
-            <section id="quienes_somos" className="quienes_somos container ">
-                <h1>Quíenes somos</h1>
-                <div className="row contenido">
-                <div className="col">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium, officiis, assumenda eos sequi
-                    error ipsam recusandae delectus et commodi amet culpa voluptatem a. Id aliquam aperiam aspernatur
-                    excepturi omnis impedit?</p>
-                </div>
-                <div className="accordion accordion-flush col" id="accordionFlushExample">
-                    <div className="accordion-item">
-                    <h2 className="accordion-header" id="flush-headingOne">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Misión
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div className="accordion-body">Placeholder content for this accordion, which is intended to
-                        demonstrate the <code>.accordion-flush</code> class.
-                        body.</div>
-                    </div>
-                    </div>
-                    <div className="accordion-item">
-                    <h2 className="accordion-header" id="flush-headingTwo">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        Visión
-                        </button>
-                    </h2>
-                    <div id="flush-collapseTwo" className="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                        <div className="accordion-body">Placeholder content for this accordion, which is intended to
-                        demonstrate the <code>.accordion-flush</code> 
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
+            <section id="quienes_somos" className="container d-flex flex-column text-center justify-content-center">
+                <h1 className="my-3">Bienvenido a la Reposteria De Castilla</h1>
+                <p className="w-75 text-center m-auto">Nos apasiona crear experiencias dulces y memorables para nuestros clientes. Somos más que una simple repostería; somos artesanos de los sabores, dedicados a traer alegría a través de cada bocado. Desde helados artesanales hasta exquisitas cheesecakes, nuestra amplia gama de productos está diseñada para satisfacer los paladares más exigentes.</p>
             </section>
             <section id="especialidades" className="especialidades container">
                 <div className="separador" />
@@ -125,15 +78,12 @@ export default function Home() {
                 </div>
             </section>
             <img src='assets/img/separador.png' alt='imagen' className="separador" />
-            <section id="galeria" className="catalogo">
-                <h1 className="center-title">Catalogo</h1>
-                <div className="container-catalogo">
-                    <div className="container">
-                        <Catalogo/>
-                    </div>
+            <section id="galeria" className="catalogo bg-fondo2">
+                <h1 className="center-title catalogo_title">Catalogo</h1>
+                <div className="container">
+                    <Catalogo/>
                 </div>
             </section>
-            <div className="separador" />
             </div>
       <Footer/>
     </main>
