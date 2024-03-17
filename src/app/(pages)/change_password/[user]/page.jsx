@@ -70,7 +70,7 @@ const ResetPasswordConfirmation = ({params}) => {
 
   return (
     <div className="fondoTranslucido">
-      <section className="container_login container_restablecer h-50">
+      <section className="container_login container_restablecer">
         <form className="form" onSubmit={handlePasswordChange}>
           <h2 className="title">Restablecer contraseña</h2>
             <div className="d-flex flex-column">
