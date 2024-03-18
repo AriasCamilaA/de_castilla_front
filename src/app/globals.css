@@ -209,6 +209,14 @@ footer {
     background-color: var(--fondo3);
 }
 
+input, textarea {
+    border: 1px solid var(--fondo2);
+    border-radius: 8px;
+    padding: 8px;
+    margin: 8px;
+    width: 100%;
+}
+
 input:focus, textarea:focus {
     border-color: var(--fondo2) !important;
     box-shadow: 0 0 5px var(--fondo2) !important;
