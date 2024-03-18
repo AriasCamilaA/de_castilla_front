@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import categoriaService from 'app/services/inventario/categoria_service';
 import { showAlert } from 'app/utilities';
 
 const ActualizarCategoria = ({actualizarListaCategoria, categoria }) => {
-  const [categoriaActualizado, setCategoriaActualizado] = useState({
-    "id_categoria": categoria.id_categoria,
-    "nombre_categoria": categoria.nombre_categoria,
-    "descripcion_categoria": categoria.descripcion_categoria,
-    "estado": categoria.estado
-  });
+  const [categoriaActualizado, setCategoriaActualizado] = useState(categoria);
+
+  useEffect(() => {
+    setCategoriaActualizado(categoria);
+}, [categoria]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCategoriaActualizado({ ...categoriaActualizado, [name]: value });
   };
  
-  const crearCategoria = () => {
-    console.log(categoriaActualizado);
+  const actualizarCategoria = () => {
     categoriaService.updateCategoria(categoriaActualizado)
       .then(() => {
         actualizarListaCategoria();
@@ -45,7 +43,7 @@ const ActualizarCategoria = ({actualizarListaCategoria, categoria }) => {
                         <input type="text" className='inputForm mb-2' name="nombre_categoria" placeholder="Nombre" value={categoriaActualizado.nombre_categoria} onChange={handleChange} />
                         <p className='color-oscuro mb-0'><strong>Descripción:</strong></p>
                         <input type="text" className='inputForm mb-2' name="descripcion_categoria" placeholder="Descripción" value={categoriaActualizado.descripcion_categoria} onChange={handleChange} />
-                        <button type="button" className="btn btn-oscuro mt-3" onClick={crearCategoria}>Actualizar categoria</button>
+                        <button type="button" className="btn btn-oscuro mt-3" onClick={actualizarCategoria}>Actualizar categoria</button>
                       </div>
                     </div>
                 </div>

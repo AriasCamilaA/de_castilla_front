@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import categoriaService from 'app/services/inventario/categoria_service';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
@@ -6,6 +6,7 @@ import { showAlert } from 'app/utilities';
 import ActualizarCategoria from '../ActualizarCategoria';
 
 const TablaCategoria = ({ categorias, filtroNombre, actualizarListaCategoria }) => {
+    const [categoria, setCategoria] = useState({});
     const categoriaFiltrados = categorias.filter((categoria) =>
         categoria.nombre_categoria.toLowerCase().includes(filtroNombre.toLowerCase()) && categoria.estado == 1
   );
@@ -21,7 +22,6 @@ const TablaCategoria = ({ categorias, filtroNombre, actualizarListaCategoria }) 
             showAlert('error', 'Error', 'No se pudo eliminar la categoria');
         });
     };
-
 
     const eliminarCategoria = (categoria) => {
         const MySwal = withReactContent(Swal);
@@ -60,10 +60,10 @@ const TablaCategoria = ({ categorias, filtroNombre, actualizarListaCategoria }) 
                     <td>{categoria.descripcion_categoria}</td>
                     <td className="tabla__opcion">
                         <div className="opciones_tabla">
-                        <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#categoriaActualizado">
+                        <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#categoriaActualizado" onClick={() => setCategoria(categoria)}>
                             🔍
                         </div>
-                        <ActualizarCategoria actualizarListaCategoria={actualizarListaCategoria} categoria={categoria}/>
+                        
                         <div className="cursor-pointer" onClick={()=>{eliminarCategoria(categoria)}}>
                             ❌
                         </div>
@@ -73,6 +73,7 @@ const TablaCategoria = ({ categorias, filtroNombre, actualizarListaCategoria }) 
                 ))}
                 </tbody>
             </table>
+            <ActualizarCategoria actualizarListaCategoria={actualizarListaCategoria} categoria={categoria}/>
         </div>
   );
 };
