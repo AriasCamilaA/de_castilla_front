@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoTrash } from "react-icons/io5";
 import ventasService from "app/services/ventas_service";
 import { formatNumberToCop, showAlert } from "app/utilities";
-import "app/css/ventas/createPedidoVenta.css";
+import "app/css/general/carritoCreate.css";
 import productosService from "app/services/inventario/productos_service";
 import detallesVentas from "app/services/detalles_ventas_service";
 import Image from "next/image";
@@ -204,7 +204,7 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
 
   return (
     <>
-      <div className="d-flex">
+      <div className="d-flex modalCarritoCreate">
         <div data-bs-dismiss="modal" aria-label="Close" id="CloseModal"></div>
         <div className="catalogo">
           {productos.map((producto) => (

@@ -75,7 +75,7 @@
     }
     .container-products {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: stretch;
         height: auto;
         overflow: auto;

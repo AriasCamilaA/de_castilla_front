@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoTrash } from "react-icons/io5";
 import pedidosService from "app/services/pedidos/pedidos_service";
 import { formatNumberToCop, formatNumberToCopWithDecimal, showAlert } from "app/utilities";
-import "app/css/pedidos/createPedidoVenta.css";
+import "app/css/general/carritoCreate.css";
 import "app/css/pedidos/botones.css";
 import productosService from "app/services/inventario/productos_service";
 import detallesPedidosService from "app/services/pedidos/detalles_pedidos_service";
@@ -243,7 +243,7 @@ const CreatePedido = ({ actualizarListaPedidos, handleCerrarModalCrearPedido }) 
                 </div>
                 <div className="modal-body">
                     <div className="container-fluid">
-                      <div className="d-flex">
+                      <div className="d-flex modalCarritoCreate">
                         <div data-bs-dismiss="modal" aria-label="Close" id="CloseModal"></div>
                         <div className="catalogo">
                           {productos.map((producto) => (
