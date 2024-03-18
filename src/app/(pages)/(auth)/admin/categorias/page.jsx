@@ -17,7 +17,7 @@ const CategoriaPage = () => {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const categoriaData = await categoriaService.getCategoria();
+                const categoriaData = await categoriaService.getcategorias();
                 setInsumos(categoriaData);
             } catch (error) {
                 showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente las categorias");
