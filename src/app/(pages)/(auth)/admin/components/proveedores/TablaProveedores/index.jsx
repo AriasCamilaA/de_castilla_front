@@ -7,6 +7,7 @@
     import { showAlert } from 'app/utilities';
 
     const TablaProveedores = ({ proveedores, filtroNombre, actualizarListaProveedores }) => {
+        const [proveedor, setProveedor] = useState({});
         const [calificaciones, setCalificaciones] = useState([]);
         const [selectedProveedorId, setSelectedProveedorId] = useState(null);
 
@@ -108,10 +109,9 @@
                                 </td>
                                 <td className="tabla__opcion">
                                     <div className="opciones_tabla">
-                                        <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#actualizarProveedor">
+                                        <div className="cursor-pointer" data-bs-toggle="modal" data-bs-target="#actualizarProveedor" onClick={() => setProveedor(proveedor)}>
                                             🔍
                                         </div>
-                                        <ActualizarProveedor actualizarListaProveedores={actualizarListaProveedores} proveedor={proveedor}/>
                                         <div className="cursor-pointer" onClick={() => eliminarProveedor(proveedor)}>
                                             ❌
                                         </div>
@@ -124,6 +124,7 @@
                         ))}
                     </tbody>
                 </table>
+                <ActualizarProveedor actualizarListaProveedores={actualizarListaProveedores} proveedor={proveedor}/>
                 {selectedProveedorId && (
                     <OrdenesProveedorModal proveedorId={selectedProveedorId} onClose={handleCloseModal} />
                 )}
