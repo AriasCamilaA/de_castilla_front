@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import proveedoresService from 'app/services/proveedores_service'; // Asegúrate de proporcionar la ruta correcta
 import { showAlert } from 'app/utilities';
 
-const ActualizarProveedor = ({actualizarListaProveedores, proveedor }) => {
-  const [proveedorActualizado, setProveedorActualizado] = useState(proveedor);
+const ActualizarProveedor = ({ actualizarListaProveedores, proveedor }) => {
+  const [proveedorActualizado, setProveedorActualizado] = useState({});
 
   useEffect(() => {
     setProveedorActualizado(proveedor);
@@ -20,9 +20,9 @@ const ActualizarProveedor = ({actualizarListaProveedores, proveedor }) => {
       .then(() => {
         document.getElementById('cerrarModalCrearProveedor').click();
         actualizarListaProveedores();
-        showAlert('success', 'Proveedor Creado', 'El proveedor ha sido actualizado exitosamente');
+        showAlert('success', 'Proveedor Actualizado', 'El proveedor ha sido actualizado exitosamente');
       }).catch((error) => {
-        showAlert('error', 'Error', 'No se pudo actualizado el proveedor');
+        showAlert('error', 'Error', 'No se pudo actualizar el proveedor');
       });
   };
 
@@ -41,15 +41,15 @@ const ActualizarProveedor = ({actualizarListaProveedores, proveedor }) => {
                     <div className="container-fluid">
                       <div className="d-flex flex-column">
                         <p className='color-oscuro mb-0'><strong>Nombre:</strong></p>
-                        <input type="text" className='inputForm mb-2' name="nombre_proveedor" placeholder="Nombre" value={proveedorActualizado.nombre_proveedor} onChange={handleChange} />
+                        <input type="text" className='inputForm mb-2' name="nombre_proveedor" placeholder="Nombre" value={proveedorActualizado.nombre_proveedor || ''} onChange={handleChange} />
                         <p className='color-oscuro mb-0'><strong>Empresa:</strong></p>
-                        <input type="text" className='inputForm mb-2' name="empresa_proveedor" placeholder="Empresa" value={proveedorActualizado.empresa_proveedor} onChange={handleChange} />
+                        <input type="text" className='inputForm mb-2' name="empresa_proveedor" placeholder="Empresa" value={proveedorActualizado.empresa_proveedor || ''} onChange={handleChange} />
                         <p className='color-oscuro mb-0'><strong>NIT:</strong></p>
-                        <input type="text" className='inputForm mb-2' name="nit_proveedor" placeholder="NIT" value={proveedorActualizado.nit_proveedor} onChange={handleChange} />
+                        <input type="text" className='inputForm mb-2' name="nit_proveedor" placeholder="NIT" value={proveedorActualizado.nit_proveedor || ''} onChange={handleChange} />
                         <p className='color-oscuro mb-0'><strong>Celular:</strong></p>
-                        <input type="text" className='inputForm mb-2' name="celular_proveedor" placeholder="Celular" value={proveedorActualizado.celular_proveedor} onChange={handleChange} />
+                        <input type="text" className='inputForm mb-2' name="celular_proveedor" placeholder="Celular" value={proveedorActualizado.celular_proveedor || ''} onChange={handleChange} />
                         <p className='color-oscuro mb-0'><strong>Correo electrónico:</strong></p>
-                        <input type="email" className='inputForm mb-2' name="correo_proveedor" placeholder="Correo electrónico" value={proveedorActualizado.correo_proveedor} onChange={handleChange} />
+                        <input type="email" className='inputForm mb-2' name="correo_proveedor" placeholder="Correo electrónico" value={proveedorActualizado.correo_proveedor || ''} onChange={handleChange} />
                         <button type="button" className="btn btn-oscuro mt-3" onClick={crearPedido}>Actualizar Proveedor</button>
                       </div>
                     </div>
