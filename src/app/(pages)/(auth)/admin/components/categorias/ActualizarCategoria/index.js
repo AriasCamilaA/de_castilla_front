@@ -19,9 +19,9 @@ const ActualizarCategoria = ({actualizarListaCategoria, categoria }) => {
     console.log(categoriaActualizado);
     categoriaService.updateCategoria(categoriaActualizado)
       .then(() => {
-        document.getElementById('cerrarModalCrearCategoria').click();
         actualizarListaCategoria();
         showAlert('success', 'Categoria Creada', 'La categoria ha sido actualizada exitosamente');
+        document.getElementById('actualizarCategoria').click();
       }).catch((error) => {
         showAlert('error', 'Error', 'No se pudo actualizar la categoria');
       });
@@ -34,7 +34,7 @@ const ActualizarCategoria = ({actualizarListaCategoria, categoria }) => {
             <div className="modal-content">
                 <div className="modal-header d-flex align-items-start">
                     <h5 className="modal-title" id="modalTitleId">Actualizar Categoria: {categoria.nombre_categoria}</h5>
-                    <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id="cerrarModalCrearCategoria">
+                    <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id="actualizarCategoria">
                         <p style={{fontFamily: "arial"}}>x</p>
                     </button>
                 </div>

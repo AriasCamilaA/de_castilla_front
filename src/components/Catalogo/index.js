@@ -40,7 +40,7 @@ const Catalogo = () => {
             <div className="col-2 container-categories">
                 <h3 className="mb-3 text-center title-categoria">Categorias</h3>
                 <button className="btn-categoria" onClick={() => handleCategoriaClick(null)}>Todos</button>
-                {categorias.map(categoria => (
+                {categorias.filter(categoria => categoria.estado == 1).map(categoria => (
                     <button key={categoria.id_categoria} className="btn-categoria" onClick={() => handleCategoriaClick(categoria.id_categoria)}>{categoria.nombre_categoria}</button>
                 ))}
             </div>
