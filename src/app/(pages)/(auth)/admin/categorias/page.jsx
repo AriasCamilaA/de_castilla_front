@@ -32,7 +32,7 @@ const CategoriaPage = () => {
     };
 
     const actualizarListaCategoria = () => {
-        categoriaService.getCategoria().then((data) => {
+        categoriaService.getcategorias().then((data) => {
             setInsumos(data);
         }); 
     };
