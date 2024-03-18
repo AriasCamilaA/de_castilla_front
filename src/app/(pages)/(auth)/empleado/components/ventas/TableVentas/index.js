@@ -57,7 +57,7 @@ const TableVentas = ({ ventas, searchTerm, fechaInicio, fechaFin, actualizarList
                                         <tr key={venta.id_venta}>
                                             <th>{venta.id_venta}</th>
                                             <td>{formatearFecha(venta.fecha_venta)}</td>
-                                            <td>{venta.hora_venta}</td>
+                                            <td>{(venta.hora_venta).substring(0, 8)}</td>
                                             <td>{venta.usuario.nombre_usuario} {venta.usuario.apellido_usuario}</td>
                                             <td>{formatNumberToCopWithDecimal(venta.total_venta)}</td>
                                             <td className="tabla__opcion">
