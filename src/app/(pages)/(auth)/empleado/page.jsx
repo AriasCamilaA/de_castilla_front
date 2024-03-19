@@ -18,12 +18,12 @@ const MenuPrincipalPage = () => {
                     </Link>
                     <h2>Inventario</h2>
                 </div>
-                <div className="btn_opciones">
+                {/* <div className="btn_opciones">
                     <Link href="empleado/proveedores">
                         <Image src="/assets/icons/Proveedores.png" alt='opción menú' width={140} height={50} />
                     </Link>
                     <h2>Proveedores</h2>
-                </div>
+                </div> */}
                 <div className="btn_opciones">
                     <Link href="empleado/pedidos">
                         <Image src="/assets/icons/Pedidos.png" alt='opción menú' width={140} height={50} />
