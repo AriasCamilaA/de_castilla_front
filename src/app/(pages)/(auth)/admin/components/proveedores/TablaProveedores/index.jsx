@@ -138,7 +138,7 @@
         return (
             <div style={{ fontSize: '30px' }} className='d-flex justify-content-center'>
                 {stars.map((star, index) => (
-                    <span key={index} style={{ color: star <= value ? (star === 5 ? 'PaleGreen' : (star >= 3 ? 'gold' : 'salmon')) : 'grey' }}>&#9733;</span>
+                    <span key={index} style={{ color: (value === 5) ? 'PaleGreen' : (star <= value ? (value < 3 ? 'pink' : 'gold') : 'grey') }}>&#9733;</span>
                 ))}
             </div>
         );

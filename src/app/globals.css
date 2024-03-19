@@ -258,4 +258,9 @@ input:focus, textarea:focus {
     .show_in_mobile{
         display: block;
     }
+    .contenido {
+        padding-top: 2em;
+        display: flex;
+        justify-content: flex-start;
+    }
 }
