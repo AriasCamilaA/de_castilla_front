@@ -9,6 +9,7 @@ import "app/css/pedidos/Pedidos.css"
 import "app/css/pedidos/botones.css";
 import TablaInsumos from '../components/insumos/TablaInsumos';
 import CrearInsumo from '../components/insumos/CrearInsumo';
+import { LuRefreshCcw } from "react-icons/lu";
 
 const InsumosPage = () => {
     const [insumos, setInsumos] = useState([]);
@@ -52,6 +53,9 @@ const InsumosPage = () => {
             <div className="contenido">
                 <h1>Insumos</h1>
                 <div className="filtros">
+                <div className='btn' onClick={actualizarListaInsumos}>
+                            <LuRefreshCcw />
+                        </div>
                     <div className='filtros__div1'>
                         <div className='inputSearch'>
                             <img src="/assets/icons/lupa.png" />

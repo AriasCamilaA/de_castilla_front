@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import TableUsuarios from "../components/usuarios/TableUsuarios";
 import usuariosService from "app/services/usuarios/usuarios_service";
 import CrearUsuarios from "../components/usuarios/CrearUsuarios";
+import { LuRefreshCcw } from "react-icons/lu";
 
 const UsuariosPage = () => {
     const [usuarios, setUsuarios] = useState(null);	
@@ -32,6 +33,9 @@ const UsuariosPage = () => {
         <div className="contenido">
             <h1>Usuarios</h1>
             <div className="filtros">
+            <div className='btn' onClick={actualizarListaUsuarios}>
+                            <LuRefreshCcw />
+                        </div>
                     <div className='filtros__div1'>
                         <div className='inputSearch'>
                             <img src="/assets/icons/lupa.png" />

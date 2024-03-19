@@ -9,6 +9,7 @@ import "app/css/pedidos/Pedidos.css"
 import "app/css/pedidos/botones.css";
 import TablaCategoria from '../components/categorias/TablaCategoria';
 import CrearCategoria from '../components/categorias/CrearCategoria'
+import { LuRefreshCcw } from "react-icons/lu";
 
 const CategoriaPage = () => {
     const [categorias, setInsumos] = useState([]);
@@ -42,6 +43,9 @@ const CategoriaPage = () => {
             <div className="contenido">
                 <h1>Categoria</h1>
                 <div className="filtros">
+                <div className='btn' onClick={actualizarListaCategoria}>
+                            <LuRefreshCcw />
+                        </div>
                     <div className='filtros__div1'>
                         <div className='inputSearch'>
                             <img src="/assets/icons/lupa.png" />

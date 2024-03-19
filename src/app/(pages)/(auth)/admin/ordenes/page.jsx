@@ -10,6 +10,7 @@ import "app/css/pedidos/tab_tabla.css";
 import "app/css/pedidos/tablas.css";
 import TableOrdenes from '../components/ordenes/TableOrdenes';
 import CreateOrdenCompra from '../components/ordenes/CreateOrden';
+import { LuRefreshCcw } from "react-icons/lu";
 
 const OrdenesPage = () => {
     const [ordenes, setOrdenes] = useState([]);
@@ -50,6 +51,9 @@ const OrdenesPage = () => {
             <div className="contenido">
                 <h1>Ordenes de compra</h1>
                 <div className="filtros">
+                <div className='btn' onClick={actualizarListaOrdenes}>
+                            <LuRefreshCcw />
+                        </div>
                     <div className='filtros__div1'>
                         <div className='inputSearch'>
                             <img src="/assets/icons/lupa.png" />

@@ -4,6 +4,7 @@ import inventarioService from "app/services/inventario/Inventario_service";
 import Link from "next/link";
 import { showAlert } from "app/utilities";
 import TablaInventario from "../components/inventario/TablaInventario/Index";
+import { LuRefreshCcw } from "react-icons/lu";
 // import CrearInventario from "../components/inventario/CrearInventario";
 
 const InventarioPage = () => {
@@ -45,6 +46,9 @@ const InventarioPage = () => {
         <div className="contenido">
             <h1>Inventario</h1>
             <div className="filtros">
+            <div className='btn' onClick={actualizarListaInventario}>
+                            <LuRefreshCcw />
+                        </div>
                 <div className='filtros__div1'>
                     <div className='inputSearch'>
                         <img src="/assets/icons/lupa.png" alt="Icono de búsqueda" />

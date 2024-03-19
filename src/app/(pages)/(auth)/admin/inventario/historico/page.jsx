@@ -7,6 +7,7 @@ import "app/css/pedidos/botones.css";
 import historicoService from "app/services/inventario/historico_service";
 import { showAlert } from "app/utilities";
 
+
 const TablaHistorico = () => {
     const [historico, setHistorico] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');

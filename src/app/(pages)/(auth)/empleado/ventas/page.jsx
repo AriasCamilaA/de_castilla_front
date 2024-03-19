@@ -8,6 +8,7 @@ import "app/css/ventas/tab_tabla.css";
 import "app/css/ventas/tablas.css";
 import "app/css/ventas/filtros.css";
 import "app/css/ventas/botones.css";
+import { LuRefreshCcw } from "react-icons/lu";
 
 const VentasPage = () => {
     const [ventas, setVentas] = useState([]);
@@ -60,6 +61,9 @@ const VentasPage = () => {
             <div className="contenido">
                 <h1>Ventas</h1>
                 <div className="filtros">
+                <div className='btn' onClick={actualizarListaVentas}>
+                            <LuRefreshCcw />
+                        </div>
                     <div className='filtros__div1'>
                         <div className='inputSearch'>
                             <img src="/assets/icons/lupa.png" />

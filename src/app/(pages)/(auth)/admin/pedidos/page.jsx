@@ -10,6 +10,7 @@ import "app/css/pedidos/filtros.css";
 import "app/css/pedidos/Pedidos.css"
 import "app/css/pedidos/botones.css";
 import estadosPedidosService from 'app/services/pedidos/estados_pedidos_servise';
+import { LuRefreshCcw } from "react-icons/lu";
 
 const PedidosPage = () => {
     const [pedidos, setPedidos] = useState([]);
@@ -137,6 +138,9 @@ const PedidosPage = () => {
                 </div>
                 <div className="filtros">
                     <div className='filtros__div1'>
+                        <div className='btn' onClick={actualizarListaPedidos}>
+                            <LuRefreshCcw />
+                        </div>
                         <div className='inputSearch'>
                             <img src="/assets/icons/lupa.png" />
                             <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} id="searchTerm" placeholder='Nombre o #Documento' />

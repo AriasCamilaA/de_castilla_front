@@ -9,6 +9,7 @@ import "app/css/pedidos/Pedidos.css"
 import "app/css/pedidos/botones.css";
 import TablaProveedores from '../components/proveedores/TablaProveedores';
 import CrearProveedor from '../components/proveedores/CrearProveedor';
+import { LuRefreshCcw } from "react-icons/lu";
 
 const ProveedoresPage = () => {
     const [proveedores, setProveedores] = useState([]);
@@ -38,6 +39,9 @@ const ProveedoresPage = () => {
             <div className="contenido">
                 <h1>Proveedores</h1>
                 <div className="filtros">
+                <div className='btn' onClick={actualizarListaProveedores}>
+                            <LuRefreshCcw />
+                        </div>
                     <div className='filtros__div1'>
                         <div className='inputSearch'>
                             <img src="/assets/icons/lupa.png" />

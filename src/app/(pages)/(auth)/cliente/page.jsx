@@ -11,6 +11,7 @@ import "app/css/pedidos/Pedidos.css"
 import "app/css/pedidos/botones.css";
 import estadosPedidosService from 'app/services/pedidos/estados_pedidos_servise';
 import validateAccessToken from 'app/utilities/auth/validateAccessToken';
+import { LuRefreshCcw } from "react-icons/lu";
 
 const PedidosPage = () => {
     const [pedidos, setPedidos] = useState([]);
@@ -143,6 +144,9 @@ const PedidosPage = () => {
                     })}
                 </div>
                 <div className="filtros">
+                <div className='btn' onClick={actualizarListaPedidos}>
+                            <LuRefreshCcw />
+                        </div>
                     <div className='flitros__opciones d-flex'>
                         {/* <p className='btn btn-excel' >Excel</p> */}
                         <p className='btn btn-oscuro' data-bs-toggle="modal" data-bs-target="#create">
