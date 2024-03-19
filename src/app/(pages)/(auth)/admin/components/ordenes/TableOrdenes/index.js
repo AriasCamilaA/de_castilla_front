@@ -118,12 +118,14 @@ const TablaOrdenes = ({ ordenes, searchTerm, actualizarListaOrdenes }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {mostrarOrdenes(estado).map(orden => (
+                                    {mostrarOrdenes(estado)
+                                    .sort((a, b) => b.id_oc - a.id_oc) // Ordenar de mayor a menor ID
+                                    .map(orden => (
                                         <tr key={orden.id_oc}>
                                             <td>{orden.id_oc}</td>
                                             <td>{orden.fecha_oc}</td>
                                             <td>{orden.hora_oc}</td>
-                                            <td>{orden.Proveedor.nombre_proveedor}</td>
+                                            <td>{orden.Proveedor?.nombre_proveedor}</td>
                                             <td className="d-flex justify-content-center tabla__opcion">{orden.id_estado_oc_fk == 1 ? (
                                                 <div className="cursor-pointer" onClick={() => cancelarOrden(orden)}>
                                                     ❌

@@ -16,7 +16,6 @@ const OrdenesPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [fechaInicio, setFechaInicio] = useState("");
     const [fechaFin, setFechaFin] = useState("");
-    const [showCreateModal, setShowCreateModal] = useState(false); // Estado para controlar la visibilidad del modal de creación
 
     useEffect(() => {
         // Obtenemos los pedidos
@@ -45,9 +44,6 @@ const OrdenesPage = () => {
         }
     };
 
-    const handleAgregarOrden = () => {
-        setShowCreateModal(true); // Mostrar el modal de creación al hacer clic en "Agregar Orden"
-    };
 
     return (
         <>
@@ -66,7 +62,7 @@ const OrdenesPage = () => {
                         <p className='btn btn-oscuro mb-0 py-1 px-2' onClick={()=>limpiarFiltros()}>x</p>
                     </div>
                     <div className='flitros__opciones d-flex'>
-                        <p className='btn btn-oscuro' onClick={handleAgregarOrden}>
+                        <p className='btn btn-oscuro' data-bs-toggle="modal" data-bs-target="#createOrdenCompra">
                             <strong className='me-1'>+</strong>
                             Agregar Orden
                         </p> 
@@ -82,10 +78,7 @@ const OrdenesPage = () => {
             </div>
             {/* Modal de creación de orden */}
             <CreateOrdenCompra
-                show={showCreateModal} // Pasar el estado para controlar la visibilidad del modal
-                onHide={() => setShowCreateModal(false)} // Función para ocultar el modal
                 actualizarListaOrdenes={actualizarListaOrdenes} // Pasar la función para actualizar la lista de órdenes
-                showAlert={showAlert} 
             />
         </>
     );

@@ -52,7 +52,7 @@ const UpdateOrden = ({ orden, actualizarListaOrdenes }) => {
                                         <span className="fw-light mb-2 d-flex justify-content-center align-items-center ">(<AiOutlineInfoCircle /> Si desea cambiar estos datos diríjase a su perfil)</span>
                                         <div className="input-group mb-3">
                                             <span className="input-group-text"><AiOutlineUser /></span>
-                                            <input type="text" className="form-control" placeholder="Nombre" aria-label="Username" value={orden && orden.Proveedor.nombre_proveedor} disabled />
+                                            <input type="text" className="form-control" placeholder="Nombre" aria-label="Username" value={orden && orden.Proveedor?.nombre_proveedor} disabled />
                                             <span className="input-group-text"><AiOutlineMail /></span>
                                             <input type="text" className="form-control" placeholder="Correo" aria-label="Server" value={orden && orden.Proveedor.correo_proveedor} disabled />
                                             <span className="input-group-text"><AiOutlinePhone /></span>

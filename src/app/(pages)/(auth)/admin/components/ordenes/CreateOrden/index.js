@@ -4,6 +4,7 @@ import proveedoresService from 'app/services/proveedores_service';
 import insumosService from 'app/services/inventario/insumos_service';
 import detallesOrdenesService from 'app/services/detalles_ocs_service';
 import "app/css/general/ordenes.css"
+import { showAlert } from 'app/utilities';
 
 const obtenerFechaActual = () => {
   const fecha = new Date();
@@ -21,13 +22,20 @@ const obtenerHoraActual = () => {
   return `${hora < 10 ? '0' + hora : hora}:${minuto < 10 ? '0' + minuto : minuto}:${segundo < 10 ? '0' + segundo : segundo}`;
 };
 
-const CreateOrdenCompra = ({ show, onHide, actualizarListaOrdenes, showAlert }) => {
+const CreateOrdenCompra = ({ actualizarListaOrdenes }) => {
   const [proveedores, setProveedores] = useState([]);
   const [idProveedor, setIdProveedor] = useState('');
   const [insumos, setInsumos] = useState([]);
   const [cantidadInsumos, setCantidadInsumos] = useState({});
   const [detallesOrdenCompra, setDetallesOrdenCompra] = useState([]);
   const [orderId, setOrderId] = useState(); // Estado para almacenar el ID de la orden creada
+
+  // Función para limpiar los inputs
+  const limpiarInputs = () => {
+    setIdProveedor('');
+    setCantidadInsumos({});
+    setDetallesOrdenCompra([]);
+  };
 
   useEffect(() => {
     obtenerProveedores();
@@ -55,29 +63,27 @@ const CreateOrdenCompra = ({ show, onHide, actualizarListaOrdenes, showAlert }) 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const nuevaOrden = await ordenesService.createOrden({
-        id_proveedor_fk: idProveedor,
-        id_estado_oc_fk: 1, // Estado "Solicitada"
-        fecha_oc: obtenerFechaActual(),
-        hora_oc: obtenerHoraActual(),
-        estado: true,
-      });
+      if (idProveedor) {
+        const nuevaOrden = await ordenesService.createOrden({
+          id_proveedor_fk: idProveedor,
+          id_estado_oc_fk: 1, // Estado "Solicitada"
+          fecha_oc: obtenerFechaActual(),
+          hora_oc: obtenerHoraActual(),
+          estado: true,
+        });
+        setOrderId(nuevaOrden.id_oc); // Almacenamos el ID de la orden creada
+        // Ahora que tenemos el ID de la orden, creamos los detalles de la orden
+        const detallesConOrderId = detallesOrdenCompra.map(detalle => ({
+          ...detalle,
+          id_oc_fk: nuevaOrden.id_oc // Utilizamos el ID de la orden creada
+        }));
 
-      setOrderId(nuevaOrden.id_oc); // Almacenamos el ID de la orden creada
-
-      // Ahora que tenemos el ID de la orden, creamos los detalles de la orden
-      const detallesConOrderId = detallesOrdenCompra.map(detalle => ({
-        ...detalle,
-        id_oc_fk: nuevaOrden.id_oc // Utilizamos el ID de la orden creada
-      }));
-
-      console.log('Detalles de la orden que se enviarán a la API:', detallesConOrderId);
-
-      await Promise.all(detallesConOrderId.map(detalle => detallesOrdenesService.createDetalleOrdenes(detalle)));
-
-      await actualizarListaOrdenes();
-      onHide();
-      showAlert("success", "Orden Creada", "La orden de compra ha sido creada exitosamente.");
+        await Promise.all(detallesConOrderId.map(detalle => detallesOrdenesService.createDetalleOrdenes(detalle)));
+        document.getElementById('cerrarModalCreateORden').click();
+        await actualizarListaOrdenes();
+        showAlert("success", "Orden Creada", "La orden de compra ha sido creada exitosamente.");
+        limpiarInputs(); // Limpiar los inputs después de enviar con éxito
+      }
     } catch (error) {
       console.error('Error al crear la orden de compra:', error);
       showAlert("error", "Error al Crear Orden", "Ha ocurrido un error al crear la orden de compra. Por favor, inténtelo de nuevo más tarde.");
@@ -113,15 +119,14 @@ const CreateOrdenCompra = ({ show, onHide, actualizarListaOrdenes, showAlert }) 
   };
 
   return (
-    <div className={`modal fade ${show ? 'show' : ''}`} style={{ display: show ? 'block' : 'none' }}>
+    <div className="modal fade" id="createOrdenCompra" tabIndex={-1} role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+
       <div className="modal-dialog modal-dialog-centered modal-lg">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Crear Orden de Compra</h5>
-            <button type="button" className="btn-close" aria-label="Close" onClick={onHide}>
-            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id='cerrarModalCreatePedido'>
-              <p style={{fontFamily: "arial"}}>x</p>
-            </button>
+            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id='cerrarModalCreateORden'>
+              <p style={{ fontFamily: "arial" }}>x</p>
             </button>
           </div>
           <div className="modal-body">
