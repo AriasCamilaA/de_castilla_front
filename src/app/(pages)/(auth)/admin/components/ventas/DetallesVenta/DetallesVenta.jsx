@@ -3,7 +3,8 @@ import detallesVentasService from 'app/services/detalles_ventas_service';
 import { showAlert, formatNumberToCop } from 'app/utilities';
 
 const DetallesVenta = ({ id_venta }) => {
-    const [detallesVenta, setDetallesVenta] = useState([]);
+    const [detallesVenta, setDetallesVenta] = useState(null);
+
     useEffect(() => {
         detallesVentasService
             .getDetallesVentasById(id_venta)
@@ -17,8 +18,12 @@ const DetallesVenta = ({ id_venta }) => {
                     "No se pudieron cargar correctamente los detalles de la venta"
                 );
             });
+    }, [id_venta]);
+
+    if (detallesVenta === null) {
+        return <div>Cargando detalles de la venta...</div>;
     }
-    , [id_venta]);
+
     return (
         <div>
             <h4 className="color-oscuro fw-bold m-0 me-2 mt-2">Detalle:</h4>
@@ -33,7 +38,7 @@ const DetallesVenta = ({ id_venta }) => {
                 </thead>
                 <tbody>
                     {detallesVenta.map((detalle) => (
-                        <tr key={detalle.id_venta}>
+                        <tr key={detalle.id_detalle_venta}>
                             <td>{detalle.producto.nombre_producto}</td>
                             <td>{detalle.cantidad_producto}</td>
                             <td>{detalle.producto.precio_producto}</td>
@@ -43,8 +48,7 @@ const DetallesVenta = ({ id_venta }) => {
                 </tbody>
             </table>
         </div>
-
-    )
-}
+    );
+};
 
 export default DetallesVenta;

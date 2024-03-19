@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import insumosService from 'app/services/inventario/insumos_service'; // Asegúrate de proporcionar la ruta correcta
+import insumosService from 'app/services/inventario/insumos_service';
 import { showAlert } from 'app/utilities';
 
 const ActualizarInsumo = ({ actualizarListaInsumos, insumo }) => {
-    const [insumoActualizado, setInsumoActualizado] = useState(insumo);
+    const [insumoActualizado, setInsumoActualizado] = useState({});
 
     useEffect(() => {
         setInsumoActualizado(insumo);
@@ -41,7 +41,7 @@ const ActualizarInsumo = ({ actualizarListaInsumos, insumo }) => {
                             <div className="container-fluid">
                                 <div className="d-flex flex-column">
                                     <p className='color-oscuro mb-0'><strong>Nombre:</strong></p>
-                                    <input type="text" className='inputForm mb-2' name="nombre_insumo" placeholder="Nombre" value={insumoActualizado.nombre_insumo} onChange={handleChange} />
+                                    <input type="text" className='inputForm mb-2' name="nombre_insumo" placeholder="Nombre" value={insumoActualizado.nombre_insumo || ''} onChange={handleChange} />
                                     <button type="button" className="btn btn-oscuro mt-3" onClick={actualizarInsumo}>Actualizar insumo</button>
                                 </div>
                             </div>

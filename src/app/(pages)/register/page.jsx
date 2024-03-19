@@ -15,19 +15,62 @@ const RegisterPage = () => {
         celular_usuario: '',
         email: '',
         password: '',
+        confirmPassword: ''
     };
 
     const [formData, setFormData] = useState(initialState);
+    const [nameError, setNameError] = useState('');
+    const [lastNameError, setLastNameError] = useState('');
+    const [documentError, setDocumentError] = useState('');
+    const [cellphoneError, setCellphoneError] = useState('');
 
     const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        if (name === 'nombre_usuario' && /\d/.test(value)) {
+            setNameError('El nombre no puede contener números.');
+        } else if (name === 'apellido_usuario' && /\d/.test(value)) {
+            setLastNameError('El apellido no puede contener números.');
+        } else {
+            setNameError('');
+            setLastNameError('');
+        }
+
+        if (name === 'no_documento_usuario' && value.length > 12) {
+            setDocumentError('El número de documento no puede tener más de 12 caracteres.');
+        } else {
+            setDocumentError('');
+        }
+
+        if (name === 'celular_usuario' && value.length > 10) {
+            setCellphoneError('El número de celular no puede tener más de 10 caracteres.');
+        } else {
+            setCellphoneError('');
+        }
+
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            [name]: value
         });
+    };
+
+    const validatePassword = (password) => {
+        if (password.length < 8 || !/\d/.test(password)) {
+            showAlert('error','','La contraseña debe tener al menos 8 caracteres y contener al menos un número.');
+            return false;
+        }
+        return true;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!validatePassword(formData.password)) {
+            return;
+        }
+        if (formData.password !== formData.confirmPassword) {
+            showAlert('error','','Las contraseñas no coinciden.');
+            return;
+        }
         try {
             const response = await registerService.newClient(formData);
             showAlert("success", "Usuario creado correctamente", "Redireccionando a la página de inicio de sesión");
@@ -46,7 +89,6 @@ const RegisterPage = () => {
             }
         }
     };
-    
 
     return (
         <div className='fondoTranslucido'>
@@ -57,19 +99,33 @@ const RegisterPage = () => {
                 <form onSubmit={handleSubmit} className="form register">
                     <h2 className="title">Registrar usuario</h2>
                     <div>
-                        <input className="form__input" type="text" placeholder="Nombre" name="nombre_usuario" value={formData.nombre_usuario} onChange={handleChange} required />
-                        <input className="form__input" type="text" placeholder="Apellido" name="apellido_usuario" value={formData.apellido_usuario} onChange={handleChange} required />
+                        <div>
+                            <input className="form__input" type="text" placeholder="Nombre" name="nombre_usuario" value={formData.nombre_usuario} onChange={handleChange} required />
+                            {nameError && <p className="error-message">{nameError}</p>}
+                        </div>
+                        <div>
+                            <input className="form__input" type="text" placeholder="Apellido" name="apellido_usuario" value={formData.apellido_usuario} onChange={handleChange} required />
+                            {lastNameError && <p className="error-message">{lastNameError}</p>}
+                        </div>
                     </div>
                     <div>
                         <input className="form__input" type="number" placeholder="Número de documento" name="no_documento_usuario" value={formData.no_documento_usuario} onChange={handleChange} required />
+                        {documentError && <p className="error-message">{documentError}</p>}
+                    </div>
+                    <div>
                         <input className="form__input" type="number" placeholder="Número de celular" name="celular_usuario" value={formData.celular_usuario} onChange={handleChange} required />
+                        {cellphoneError && <p className="error-message">{cellphoneError}</p>}
                     </div>
                     <div>
                         <input className="form__input" type="email" placeholder="Correo electrónico" name="email" value={formData.email} onChange={handleChange} required />
                     </div>
                     <div>
-                        <input className="form__input" type="password" placeholder="Contraseña" name="password" value={formData.password} onChange={handleChange} required />
-                        {/* Confirmación de contraseña */}
+                        <div>
+                            <input className="form__input" type="password" placeholder="Contraseña" name="password" value={formData.password} onChange={handleChange} required />
+                        </div>
+                        <div>
+                            <input className="form__input" type="password" placeholder="Confirmar Contraseña" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+                        </div>
                     </div>
                     <div className="form__options">
                         <input className="btn btn_largo" type="submit" value="Registrarse" />

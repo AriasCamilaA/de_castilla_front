@@ -14,7 +14,7 @@
 .container_login{
     display: flex;
     width: 80%;
-    height: 70%;
+    /* height: 70%; */
     background: var(--oscuro);
     align-items: center;
     justify-content: space-evenly;
@@ -92,7 +92,7 @@
     background: transparent;
     display: inline-flex;
     height: 32px;
-    width: -webkit-fill-available;
+    /* width: -webkit-fill-available; */
     justify-content: center;
     align-items: center;
     padding-left: 8px;

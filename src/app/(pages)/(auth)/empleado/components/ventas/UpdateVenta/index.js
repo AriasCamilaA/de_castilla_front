@@ -1,16 +1,23 @@
-import { useEffect, useState } from "react";
-import { AiOutlineCalendar, AiOutlineInfoCircle, AiOutlineMail, AiOutlinePhone, AiOutlineUser } from "react-icons/ai";
+import { useEffect, useState, useRef } from "react";
+import { AiOutlineCalendar, AiOutlineDollar, AiOutlineInfoCircle, AiOutlineUser } from "react-icons/ai";
 import ventasService from "app/services/ventas_service";
 import { formatNumberToCopWithDecimal, formatearFechaParaInputDate, showAlert } from "app/utilities";
 import DetallesVenta from "../DetallesVenta/DetallesVenta";
 
 const UpdateVenta = ({ ventaById }) => {
     const [venta, setVenta] = useState(null);
+    const currentVentaId = useRef(null);
 
     useEffect(() => {
+        // Guardar el ID de la venta actual
+        currentVentaId.current = ventaById;
+
         ventasService.getVentasById(ventaById)
             .then((response) => {
-                setVenta(response);
+                // Verificar si el ID de la venta actual es igual al ID de la venta actual
+                if (currentVentaId.current === ventaById) {
+                    setVenta(response);
+                }
             })
             .catch(() => {
                 showAlert("error", 'Conexión Fallida', "No se pudieron cargar correctamente las ventas");
@@ -32,31 +39,19 @@ const UpdateVenta = ({ ventaById }) => {
                             <div className="container-fluid">
                                 {venta && (
                                     <div className="d-flex flex-column">
-                                        <h4 className="color-oscuro fw-bold m-0 me-2"> Datos de Usuario:</h4>
-                                        <span className="fw-light mb-2 d-flex justify-content-center align-items-center ">(<AiOutlineInfoCircle /> Si desea cambiar estos datos diríjase a su perfil)</span>
-                                        <div className="input-group mb-3">
-                                            <span className="input-group-text"><AiOutlineUser /></span>
-                                            <input type="text" className="form-control" placeholder="Nombre" aria-label="Username" value={venta.usuario && (`${venta.usuario.nombre_usuario} ${venta.usuario.apellido_usuario}`)} disabled />
-                                            <span className="input-group-text"><AiOutlineMail /></span>
-                                            <input type="text" className="form-control" placeholder="Correo" aria-label="Server" value={venta.usuario && (venta.usuario.email)} disabled />
-                                            <span className="input-group-text"><AiOutlinePhone /></span>
-                                            <input type="text" className="form-control" placeholder="Teléfono" aria-label="Server" value={venta.usuario && (venta.usuario.celular_usuario)} disabled />
-                                        </div>
-
-                                        <h4 className="color-oscuro fw-bold m-0 me-2">Datos de Venta:</h4>
-                                        <span className="fw-light mb-2 d-flex justify-content-center align-items-start ">(<AiOutlineInfoCircle /> Visualizar venta y ver la persona que la registro)</span>
-
+                                        <h4 className="color-oscuro fw-bold m-0 me-2 mb-3">Datos de Venta:</h4>
                                         <div className="input-group mb-3">
                                             <span className="input-group-text"><AiOutlineCalendar /></span>
-                                            <input type="date" className="form-control" placeholder="Fecha" aria-label="Username" value={(venta.fecha_venta)} disabled />
-                                            <span className="input-group-text"><AiOutlineInfoCircle /></span>
+                                            <input type="date" className="form-control" placeholder="Fecha" aria-label="Username" value={(venta && venta.fecha_venta) || ''} disabled />
+                                            <span className="input-group-text"><AiOutlineUser /></span>
+                                            <input type="text" className="form-control" placeholder="Nombre" aria-label="Server" value={(venta && (`${venta.usuario?.nombre_usuario} ${venta.usuario?.apellido_usuario}`)) || ''} disabled />
                                         </div>
 
                                         <div className="input-group mb-3">
                                             <span className="input-group-text"><AiOutlineUser /></span>
-                                            <input type="text" className="form-control" placeholder="Nombre vendedor" aria-label="Username" value={venta.usuario && (`${venta.usuario.rol.nombre_rol}`)} disabled />
-                                            <span className="input-group-text"><AiOutlineMail /></span>
-                                            <input type="text" className="form-control" placeholder="Total venta" aria-label="Server" value={formatNumberToCopWithDecimal(venta.total_venta)} disabled />
+                                            <input type="text" className="form-control" placeholder="Nombre vendedor" aria-label="Username" value={(venta && venta.usuario && venta.usuario?.rol.nombre_rol) || ''} disabled />
+                                            <span className="input-group-text"><AiOutlineDollar /></span>
+                                            <input type="text" className="form-control" placeholder="Total venta" aria-label="Server" value={(venta && formatNumberToCopWithDecimal(venta.total_venta)) || ''} disabled />
                                         </div>
                                         {ventaById && (<DetallesVenta id_venta = {ventaById} />)}
                                     </div> 
