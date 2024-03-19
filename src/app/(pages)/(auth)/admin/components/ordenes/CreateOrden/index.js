@@ -3,6 +3,7 @@ import ordenesService from "app/services/ordenes_service";
 import proveedoresService from 'app/services/proveedores_service';
 import insumosService from 'app/services/inventario/insumos_service';
 import detallesOrdenesService from 'app/services/detalles_ocs_service';
+import "app/css/general/ordenes.css"
 
 const obtenerFechaActual = () => {
   const fecha = new Date();
@@ -113,16 +114,20 @@ const CreateOrdenCompra = ({ show, onHide, actualizarListaOrdenes, showAlert }) 
 
   return (
     <div className={`modal fade ${show ? 'show' : ''}`} style={{ display: show ? 'block' : 'none' }}>
-      <div className="modal-dialog modal-dialog-centered">
+      <div className="modal-dialog modal-dialog-centered modal-lg">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Crear Orden de Compra</h5>
-            <button type="button" className="btn-close" aria-label="Close" onClick={onHide}></button>
+            <button type="button" className="btn-close" aria-label="Close" onClick={onHide}>
+            <button type="button" className="btn-close text-light p-0" data-bs-dismiss="modal" aria-label="Close" id='cerrarModalCreatePedido'>
+              <p style={{fontFamily: "arial"}}>x</p>
+            </button>
+            </button>
           </div>
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label htmlFor="proveedor">Proveedor</label>
+                <label htmlFor="proveedor" className='color-oscuro'>Proveedor</label>
                 <select
                   className="form-control"
                   id="proveedor"
@@ -137,19 +142,26 @@ const CreateOrdenCompra = ({ show, onHide, actualizarListaOrdenes, showAlert }) 
                   ))}
                 </select>
               </div>
-              {insumos.map((insumo) => (
-                <div className="form-group" key={insumo.id_insumo}>
-                  <label htmlFor={`insumo_${insumo.id_insumo}`}>{insumo.nombre_insumo}</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    id={`insumo_${insumo.id_insumo}`}
-                    value={cantidadInsumos[insumo.id_insumo] || ''}
-                    onChange={(e) => handleInsumoChange(e, insumo.id_insumo)}
-                  />
-                </div>
-              ))}
-              <button type="submit" className="btn btn-primary">Crear Orden</button>
+              <hr className='separador' />
+              <h5 className='color-oscuro mt-2'>Insumos:</h5>
+              <div className="row insumos_container">
+                {insumos.map((insumo) => (
+                  <div className="col-md-3" key={insumo.id_insumo}>
+                    <div className="card card-info my-1">
+                      <div className="card-body">
+                        <p className="card-title">{insumo.nombre_insumo}</p>
+                        <input
+                          type="number"
+                          className="form-control"
+                          value={cantidadInsumos[insumo.id_insumo] || ''}
+                          onChange={(e) => handleInsumoChange(e, insumo.id_insumo)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <button type="submit" className="btn p-1 btn-oscuro btn_largo">Crear Orden</button>
             </form>
           </div>
         </div>
