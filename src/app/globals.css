@@ -65,6 +65,10 @@ input:focus {
     border: 1px solid var(--claro);
 }
 
+.error-message {
+    color: var(--medio);
+}
+
 footer {
     background-color: var(--oscuro);
     color: var(--blanco);
