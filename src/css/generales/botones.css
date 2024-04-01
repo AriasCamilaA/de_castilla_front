@@ -9,13 +9,14 @@
 }
 
 .btn {
-    border: 1px solid var(--claro);
-    color: var(--claro);
+    border: 1px solid var(--claro) !important;
+    color: var(--claro) !important;
 }
 
 .btn:hover {
-    background: var(--claro) ;
-    color: var(--blanco);
+    background: var(--claro) !important;
+    background-color: var(--claro) !important;
+    color: var(--blanco) !important;
     cursor: pointer;
 }
 .btn_claro {
