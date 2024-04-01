@@ -14,34 +14,10 @@ const ResetPasswordConfirmation = ({ params }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
-  const [user, setUser] = useState({});
-  const [email, setEmail] = useState(params.user);
-
-  useEffect(() => {
-    if (email) {
-      try {
-        usuariosService.getUsuariosByEmail(email).then((response) => {
-          if (response[0].length === 0) {
-            throw new Error("Usuario no encontrado");
-          } else {
-            setUser(response[0]);
-          }
-        }).catch((error) => {
-          showAlert("error", "Información no encontrada", `El usuario identificado con ${email} no existe`);
-        });
-      } catch (error) {
-        showAlert("error", "Error al cargar el usuario", "No existe");
-      }
-    }
-  }, [email]);
+  const [token, setToken] = useState(params.user);
 
   const handlePasswordChange = async (e) => {
     e.preventDefault(); // Evitar la recarga de la página al enviar el formulario
-
-    if (!user) {
-      setError("El usuario no existe.");
-      return;
-    }
 
     // Validar longitud mínima de contraseña
     if (password.length < 8) {
@@ -61,32 +37,17 @@ const ResetPasswordConfirmation = ({ params }) => {
       return;
     }
 
-    try {
-      usuariosService
-        .updateUsuarios({ ...user, password: password })
+    try{
+      usuariosService.resetPassword(token, password)
         .then((response) => {
-          showAlert("success", "", "Contraseña restablecida con éxito.");
-          setPassword("");
-          setConfirmPassword("");
+          showAlert("success", "Contraseña restablecida", "La contraseña se ha restablecido correctamente.");
           window.location.href = "/login";
         })
         .catch((error) => {
-          console.error(
-            "Error al restablecer la contraseña:",
-            error
-          );
-          setError(
-            "Error al restablecer la contraseña. Por favor, inténtalo de nuevo más tarde."
-          );
+          showAlert("error", "No se pudo restablecer la contraseña", error.response.data.error);
         });
     } catch (error) {
-      console.error(
-        "Error al restablecer la contraseña:",
-        error
-      );
-      setError(
-        "Error al restablecer la contraseña. Por favor, inténtalo de nuevo más tarde."
-      );
+      showAlert("error", "Error", "No se pudo restablecer la contraseña.");
     }
   };
 

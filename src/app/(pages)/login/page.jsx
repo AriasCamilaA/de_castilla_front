@@ -2,12 +2,12 @@
 import React, { useState } from "react";
 import createAccessToken from "app/utilities/auth/createAccessToken";
 import "app/css/generales/style.css";
-import "app/css/generales/forms.css";
 import "app/css/general/login.css";
-import "app/css/generales/botones.css";
-import "app/css/pedidos/tab_tabla.css";
 import "app/css/pedidos/tablas.css";
-import "app/css/pedidos/filtros.css";
+// import "app/css/generales/forms.css";
+// import "app/css/generales/botones.css";
+// import "app/css/pedidos/tab_tabla.css";
+// import "app/css/pedidos/filtros.css";
 import "app/css/pedidos/botones.css";
 import { showAlert } from "app/utilities";
 import ResetPassword from "app/components/ResetPassword";

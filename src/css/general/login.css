@@ -8,9 +8,10 @@
     height: 100vh;
     align-items: center;
     justify-content: center;
-    position: fixed;
+    z-index: -1;
 }
 
+  
 .container_login{
     display: flex;
     width: 80%;
@@ -129,6 +130,13 @@ a:hover{
 }
 
 @media(max-width:768px) {
+
+    .fondoTranslucido {
+        position: inherit;
+        z-index: 1;
+        overflow: hidden;
+    }
+
     .container_login{
         display: flex;
         gap: 10px;

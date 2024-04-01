@@ -61,6 +61,34 @@ const usuariosService = {
         
     },
 
+    generateResetPasswordToken : async (email) => {
+        try {
+            const url_usuarios = url + "usuarios/generate-reset-token/";
+            const response = await axios.post(url_usuarios, {email: email});
+            const data = response.data;
+            // console.log(data)
+            return data;
+        } catch (error) {
+            console.error("API ERROR:Restablecer contraseña: "+error);
+            throw error;
+        }
+        
+    },
+
+    resetPassword : async (token, password) => {
+        try {
+            const url_usuarios = url + "usuarios/reset-password/";
+            const response = await axios.post(url_usuarios, {token: token, new_password: password, confirm_password: password});
+            const data = response.data;
+            // console.log(data)
+            return data;
+        } catch (error) {
+            console.error("API ERROR:Restablecer contraseña: "+error);
+            throw error;
+        }
+        
+    }
+
 }
 
 export default usuariosService;
