@@ -14,20 +14,23 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
   const [productosAgregados, setProductosAgregados] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [usuario, setUsuario] = useState(null);
+  const [idCliente, setIdCliente] = useState("");
+  const [nombreCliente, setNombreCliente] = useState("");
 
   useEffect(() => {
     validateAccessToken()
-    .then((response) => {
-      if (response) {
-        setUsuario(response);
-      } else {
-        showAlert(
-          "error",
-          "Usuario no encontrado",
-          "No se encontró el usuario para cargar."
-        );
-      }
-    })
+      .then((response) => {
+        if (response) {
+          setUsuario(response);
+        } else {
+          showAlert(
+            "error",
+            "Usuario no encontrado",
+            "No se encontró el usuario para cargar."
+          );
+        }
+      });
+
     productosService
       .getProductos()
       .then((response) => {
@@ -66,34 +69,6 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
     }
   };
 
-  const handleAgregarCantidad = (e, productoId) => {
-    e.preventDefault();
-
-    setProductosAgregados((prevProductos) => ({
-      ...prevProductos,
-      [productoId]: {
-        ...prevProductos[productoId],
-        cantidad: prevProductos[productoId].cantidad + 1,
-      },
-    }));
-  };
-
-  const isCarritoVacio = Object.keys(productosAgregados).length === 0;
-
-  const handleQuitarCantidad = (e, productoId) => {
-    e.preventDefault();
-
-    setProductosAgregados((prevProductos) => {
-      const newProductos = { ...prevProductos };
-      if (newProductos[productoId].cantidad > 1) {
-        newProductos[productoId].cantidad -= 1;
-      } else {
-        delete newProductos[productoId];
-      }
-      return newProductos;
-    });
-  };
-
   const calcularTotal = () => {
     let total = 0;
     for (let key in productosAgregados) {
@@ -107,28 +82,16 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
     return total;
   };
 
-  const abrirModal = () => {
-    setModalVisible(true);
-  };
-
-  function obtenerHoraActual() {
+  const obtenerHoraActual = () => {
     const ahora = new Date();
     const horas = ahora.getHours().toString().padStart(2, '0'); // Obtener las horas y asegurarse de que tenga dos dígitos
     const minutos = ahora.getMinutes().toString().padStart(2, '0'); // Obtener los minutos y asegurarse de que tenga dos dígitos
     const segundos = ahora.getSeconds().toString().padStart(2, '0'); // Obtener los segundos y asegurarse de que tenga dos dígitos
     return `${horas}:${minutos}:${segundos}`;
-  }
+  };
 
   const handleCrearVenta = async () => {
     try {
-      // Verificar si alguna cantidad es cero
-      const cantidadesCero = Object.values(productosAgregados).some(producto => producto.cantidad === 0);
-
-      if (cantidadesCero) {
-        showAlert("error", "Error al crear la venta", "No se puede crear una venta con una cantidad de producto igual a cero.");
-        return;
-      }
-
       const fechaActual = new Date();
       const año = fechaActual.getFullYear();
       const mes = ('0' + (fechaActual.getMonth() + 1)).slice(-2);
@@ -163,6 +126,8 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
         no_documento_usuario_fk: usuario.no_documento_usuario,
         total_venta: total_venta,
         hora_venta: hora_venta,
+        id_cliente: idCliente.trim() !== "" ? idCliente : undefined,
+        nombre_cliente: nombreCliente.trim() !== "" ? nombreCliente : undefined,
       });
   
       const detallesVentasPromises = detallesVentasData.map(detalle => detallesVentas.createDetalleVenta({
@@ -181,6 +146,8 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
       );
   
       setProductosAgregados({});
+      setIdCliente("")
+      setNombreCliente("")
       setModalVisible(false); // Cerrar modal
     } catch (error) {
       console.error("Error al crear el venta:", error);
@@ -239,7 +206,7 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
         <div className="carrito">
           <div className="d-flex justify-content-between w-100">
             <h2 className="titulo">Carrito</h2>
-            <button className="btn btn-trash px-1" onClick={() => setProductosAgregados({})} disabled={isCarritoVacio}>
+            <button className="btn btn-trash px-1" onClick={() => setProductosAgregados({})} disabled={Object.keys(productosAgregados).length === 0}>
               <IoTrash />
             </button>
           </div>
@@ -284,11 +251,24 @@ const CreateVenta = ({ actualizarListaVentas, handleCerrarModalCrearVenta }) => 
             })}
           </div>
           <div className="carrito__footer">
+            <input
+              type="number"
+              placeholder="Id Cliente"
+              value={idCliente}
+              onChange={(e) => setIdCliente(e.target.value)}
+            />
+            <input
+              placeholder="Nombre Cliente"
+              value={nombreCliente}
+              onChange={(e) => setNombreCliente(e.target.value)}
+            />
+          </div>
+          <div className="carrito__footer">
             <h2>Total</h2>
             <p id="total-precio">${calcularTotal().toLocaleString()}</p>
           </div>
           <div className="d-flex flex-wrap w-100 justify-content-center gap-1">
-            <button className="btn btn-excel w-100" id="crear-pedido" onClick={handleCrearVenta} disabled={isCarritoVacio}>
+            <button className="btn btn-excel w-100" id="crear-pedido" onClick={handleCrearVenta} disabled={Object.keys(productosAgregados).length === 0}>
               Crear Venta
             </button>
           </div>
